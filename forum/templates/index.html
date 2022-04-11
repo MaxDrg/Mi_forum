@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block content %}
+
+{% load static %}
+
+<!-- .main -->
+<div class="main">
+
+  <!-- .soon -->
+  <div class="soon">
+    <div class="soon__inner">
+      <div class="soon__imgbox">
+        <img src="{% static '/forum/images/soon.png' %}" alt="В разработке">
+      </div>
+      <div class="soon__content">
+        <h1 class="h2">Раздел в разработке</h1>
+        <p>
+          Скоро мы поделимся списком доверенных селлеров а так же выбором качественных аккаунтов на продажу
+        </p>
+      </div>
+    </div>
+  </div><!-- /.soon -->
+
+</div><!-- /.main -->
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %}
+
+{% load static %}
+
+<div class="container container__md">
+
+  <!-- .about -->
+  <div class="about">
+    <div class="about__imgbox">
+      <img src="{% static '/forum/images/about.jpg' %}" alt="О нас">
+    </div>
+    <div class="about__content">
+      <h1 class="h2 font__Pixel">О нас</h1>
+      <p>
+        Компания-разработчик мобильных приложений M3. Полностью удаленный штат в 25+ сотрудников обеспечивает
+        ежемесячную публикацию десяток приложений для собственного продвижения.
+      </p>
+      <p>
+        Этот сайт был создан с целью объединения соло-разработчиков и маленьких команд для обмена опытом и информацией,
+        чтобы облегчить друг другу работу.
+      </p>
+    </div>
+  </div>
+  <!-- /.about -->
+
+</div>
+
+{% endblock %}

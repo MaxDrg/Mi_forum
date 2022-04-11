@@ -1,0 +1,92 @@
+{% extends 'base.html' %} {% block content %}
+
+{% load static %}
+
+<div class="container container__sm">
+
+  <!-- .newsPost -->
+  <div class="newsPost">
+
+    <!-- .backLink -->
+    <a href="forum.html" class="backLink">
+      <img src="{% static '/forum/images/back.svg' %}" alt="Назад">
+    </a><!-- /.backLink -->
+
+    <!-- .newsAbs -->
+    <div class="newsAbs">
+      <a href="#" class="newsAbs__item"><img src="{% static '/forum/images/edit.svg' %}" alt="Редактировать"></a>
+      <a href="#" class="newsAbs__item"><img src="{% static '/forum/images/share.svg' %}" alt="Поделиться"></a>
+    </div><!-- /.newsAbs -->
+
+    <!-- .newsPost__inner -->
+    <div class="newsPost__inner">
+      <div class="newsPost__imgbox">
+        <img src="./img/news.jpg" alt="Новость">
+      </div>
+      <h1 class="newsPost__title h2">Apple сняла с продажи iPhone 12 Pro и XR</h1>
+      <div class="newsPost__info"><a href="#">#apple</a> / 04.09.20</div>
+      <p>
+        iPhone 12 Pro, 12 Pro Max и XR пропали с сайта онлайн-магазина Apple. Их сняли с продажи после презентации новых
+        моделей смартфона. Сейчас на сайте представлены только iPhone 13 и 13 Pro, 12 и 12 mini, SE и 11.
+        iPhone 12 Pro и 12 Pro Max были представлены в октябре 2020 года. Они отличаются друг от друга диагональю экрана
+        — 6,1 дюйма и 6,7 дюйма соответственно. По сравнению с iPhone 12 у этих моделей больше оперативной памяти и
+        тройной модуль камеры на заднем корпусе. iPhone XR с одной камерой был представлен в сентябре 2018 года. Он
+        позиционируется как более дешевая модель.
+        Apple официально не сообщала о снятии с продажи или производства моделей iPhone 12 Pro, 12 Pro Max и XR.
+      </p>
+    </div><!-- /.newsPost__inner -->
+
+    <!-- .comments -->
+    <div class="comments">
+      <div class="comments__title">Комментарии 4</div>
+
+      <div class="commentsItem">
+        <div class="commentsItem__panel">
+          <span class="commentsItem__ava"><img src="./img/ava-2.png" alt="#"></span>
+          <a href="#">hellamps</a>
+          <span>07.01.2022 в 16:36</span>
+        </div>
+        <div class="commentsItem__content">
+          да что вы говорите, не используются! у каждого первого докер, который построен на этих неймспейсах.
+        </div>
+        <a href="#">Ответить</a>
+      </div>
+      <div class="commentsItem commentsItem__tree">
+        <div class="commentsItem__panel">
+          <span class="commentsItem__ava"><img src="./img/ava-2.png" alt="#"></span>
+          <a href="#">hellamps</a>
+          <span>07.01.2022 в 16:36</span>
+        </div>
+        <div class="commentsItem__content">
+          да что вы говорите, не используются! у каждого первого докер, который построен на этих неймспейсах.
+        </div>
+        <a href="#">Ответить</a>
+      </div>
+      <div class="commentsItem commentsItem__tree">
+        <div class="commentsItem__panel">
+          <span class="commentsItem__ava"><img src="./img/ava-2.png" alt="#"></span>
+          <a href="#">hellamps</a>
+          <span>07.01.2022 в 16:36</span>
+        </div>
+        <div class="commentsItem__content">
+          да что вы говорите, не используются! у каждого первого докер, который построен на этих неймспейсах.
+        </div>
+        <a href="#">Ответить</a>
+      </div>
+      <div class="comments__title">Оставить комментарий:</div>
+      <div class="comments__guest">
+        <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
+        <a href="#" class="button">Войти с Телеграм</a>
+      </div>
+      <form>
+        <textarea class="textarea" rows="3"></textarea>
+        <button type="button" class="button">Отправить комментарий</button>
+      </form>
+    </div>
+    <!-- /.comments -->
+
+  </div><!-- /.newsPost -->
+
+</div>
+
+{% endblock %}

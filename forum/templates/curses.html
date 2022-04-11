@@ -1,0 +1,356 @@
+{% extends 'base.html' %} {% block content %}
+
+{% load static %}
+
+<!-- .courseTop -->
+<div class="courseTop container">
+  <div class="courseTop__content">
+    <h1 class="h1 font__Pixel courseTop__title">Курс <span>«Меньше слов, больше денег!»</span> от сообщества М3</h1>
+    <a href="https://t.me/dnnma" target="_blank" class="button button__orange">Записаться через Telegram</a>
+  </div>
+  <div class="courseTop__imgbox">
+    <img src="{% static '/forum/images/course/courseTop.png' %}" alt="Курс">
+  </div>
+</div><!-- /.courseTop -->
+
+<!-- .courseBulits -->
+<div class="courseBulits">
+  <div class="container container__xl">
+    <div class="courseBulits__inner">
+      <!-- .courseBulit -->
+      <div class="courseBulit">
+        <div class="courseBulit__inner">
+          <img src="{% static '/forum/images/course/course-1.svg' %}" alt="Онлайн" class="courseBulit__icon">
+        </div>
+        <div class="courseBulit__name font__Pixel">Онлайн</div>
+        <div class="courseBulit__desc">
+          <p>
+            Все записи и презентации будут сохранены, сможете посмотреть и пересмотреть их в любое для вас время
+          </p>
+        </div>
+      </div><!-- /.courseBulit -->
+      <!-- .courseBulit -->
+      <div class="courseBulit">
+        <div class="courseBulit__inner">
+          <img src="{% static '/forum/images/course/course-2.svg' %}" alt="Удаленно!" class="courseBulit__icon">
+        </div>
+        <div class="courseBulit__name font__Pixel">Удаленно!</div>
+        <div class="courseBulit__desc">
+          <p>
+            Курс будет полезен для тех, кто хочет выстроить удаленную работу, независимо от своего местоположения и
+            местоложения своих сотрудников с возможностями релокейта и переездов
+          </p>
+        </div>
+      </div><!-- /.courseBulit -->
+      <!-- .courseBulit -->
+      <div class="courseBulit">
+        <div class="courseBulit__inner">
+          <img src="{% static '/forum/images/course/course-3.svg' %}" alt="5 блоков" class="courseBulit__icon">
+        </div>
+        <div class="courseBulit__name font__Pixel">5 блоков</div>
+        <div class="courseBulit__desc">
+          <p>
+            Обучение поделено на блоки для того, чтобы вы могли сэкономить на получении новой информации
+          </p>
+          <p>
+            Курс полезен для всех, кто работает в мобайле или хочет открыть для себя эту нишу. Вы найдете для себя много
+            интересного и нового
+          </p>
+        </div>
+      </div><!-- /.courseBulit -->
+      <!-- .courseBulit -->
+      <div class="courseBulit">
+        <div class="courseBulit__inner">
+          <img src="{% static '/forum/images/course/course-4.svg' %}" alt="6 дней интенсива" class="courseBulit__icon">
+        </div>
+        <div class="courseBulit__name font__Pixel">6 дней интенсива</div>
+        <div class="courseBulit__desc">
+          <p>
+            С каждым днем все больше информации, которую обязательно придется конспектировать!
+          </p>
+        </div>
+      </div><!-- /.courseBulit -->
+    </div>
+  </div>
+</div><!-- /.courseBulits -->
+
+<!-- .courseWho -->
+<div class="courseWho container container__xl">
+  <h2 class="courseWho__title h2 font__Pixel">Кому подойдет этот курс?</h2>
+  <div class="courseWho__items">
+    <div class="courseWho__item">
+      <div class="courseWho__item__title font__Pixel">Предпринимателям, которые интересуются новыми нишами</div>
+      <div class="courseWho__item__desc">
+        <p>
+          Курс подходит для тех, кто слышал о мобайле, видел мобайл и хочет попробовать себя в мобайле! Отличный ввод в
+          новую нишу
+        </p>
+      </div>
+    </div>
+    <div class="courseWho__item">
+      <div class="courseWho__item__title font__Pixel">Тем, кто работает <br>в мобайле</div>
+      <div class="courseWho__item__desc">
+        <p>
+          Курс подходит для всех, кто работает в нише мобильных приложений. Уверен, здесь вы черпонете для себя новую и
+          интересную информацию
+        </p>
+      </div>
+    </div>
+    <div class="courseWho__item">
+      <div class="courseWho__item__title font__Pixel">Соло-разработчикам и <br>командам</div>
+      <div class="courseWho__item__desc">
+        <p>
+          Которые хотят действительно масштабироваться, а не просто чесать языком
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .courseWho -->
+
+<!-- .courseProgram -->
+<div class="courseProgram">
+  <div class="container container__xl">
+    <h2 class="h2 font__Pixel courseProgram__title">Программа курса</h2>
+
+    <!-- .courseProgram__item -->
+    <div class="courseProgram__item yellow">
+      <div class="courseProgram__item__header">
+        <img src="{% static '/forum/images/course/course-2.svg' %}" alt="1">
+        <span class="font__Pixel">Блок 1. Разбор ниш в мобайле, поиск идей под бренды/тренды, анализ рынка.</span>
+      </div>
+      <div class="courseProgram__item__content">
+        — Направления в работе с приложениями <br>
+        — Работа с брендами/трендами и их отличия <br>
+        — Порог входа в нишу, как при входе не наступить на грабли и не тратить лишние деньги <br>
+        — Поиск брендов на практике <br>
+        — Варианты листалок под органику <br>
+        <div class="collapse courseProgram__item__collapse" id="courseProgram_1">
+          — Разбор механик поиска идей <br>
+          — Лояльность брендов к заливке <br>
+          — Определение с нишами <br>
+          — Разбор механик работы серых приложений (гембла, беттинг, дейтинг) <br>
+          — Механики клоаки ссылок (вебвью, хромтаб) <br>
+          — Клоака приложений серверными и решениями в коде, разбор на примерах <br>
+          — Примеры попадания в тренд на своих приложениях <br>
+          — Работа с сервисами для поиска идей на примерах <br>
+          — Проверка идей на трендовость в разных странах <br>
+          — Работа с лояльными и агрессивными брендами <br>
+          — Разбор банов – к чему гугл относится хорошо, а к чему не очень <br>
+          — Как минимизировать баны в брендах
+        </div>
+        <img class="courseProgram__status" src="{% static '/forum/images/plus.svg' %}" alt="Статус">
+        <a class="btn courseProgram__item__more" data-bs-toggle="collapse" href="#courseProgram_1" role="button"
+          aria-expanded="false">
+          <span class="courseProgram__item__more__open">Развернуть ↓</span>
+          <span class="courseProgram__item__more__close">Свернуть ↑</span>
+        </a>
+      </div>
+    </div><!-- /.courseProgram__item -->
+
+    <!-- .courseProgram__item -->
+    <div class="courseProgram__item green">
+      <div class="courseProgram__item__header">
+        <img src="{% static '/forum/images/course/course-1.svg' %}" alt="2">
+        <span class="font__Pixel">Блок 2. Работа с АСО и мотивированным <br>трафиком.</span>
+      </div>
+      <div class="courseProgram__item__content">
+        — Почему АСО – это важнейший элемент органического трафика <br>
+        — Разбор механик работы АСО <br>
+        — Как работать с графикой на объеме <br>
+        — Прямое вхождение брендового ключа через АСО <br>
+        <div class="collapse courseProgram__item__collapse" id="courseProgram_2">
+          Текст<br>
+          Текст<br>
+          Текст<br>
+        </div>
+        <img class="courseProgram__status" src="{% static '/forum/images/plus.svg' %}" alt="Статус">
+        <a class="btn courseProgram__item__more" data-bs-toggle="collapse" href="#courseProgram_2" role="button"
+          aria-expanded="false">
+          <span class="courseProgram__item__more__open">Развернуть ↓</span>
+          <span class="courseProgram__item__more__close">Свернуть ↑</span>
+        </a>
+      </div>
+    </div><!-- /.courseProgram__item -->
+
+    <!-- .courseProgram__item -->
+    <div class="courseProgram__item purple">
+      <div class="courseProgram__item__header">
+        <img src="{% static '/forum/images/course/course-3.svg' %}" alt="3">
+        <span class="font__Pixel">Блок 3. Фарм аккаунтов разработчика и адмобов, работа с фризами, верификацией и
+          заливкой приложений</span>
+      </div>
+      <div class="courseProgram__item__content">
+        — Варианты регистрации аккаунтов разработчика на объеме <br>
+        — Варианты регистрации адмобов <br>
+        — Как сделать адмоб трастовым <br>
+        — Настройка адмоба под органический трафик с соблюдением правил <br>
+        <div class="collapse courseProgram__item__collapse" id="courseProgram_3">
+          Текст<br>
+          Текст<br>
+          Текст<br>
+        </div>
+        <img class="courseProgram__status" src="{% static '/forum/images/plus.svg' %}" alt="Статус">
+        <a class="btn courseProgram__item__more" data-bs-toggle="collapse" href="#courseProgram_3" role="button"
+          aria-expanded="false">
+          <span class="courseProgram__item__more__open">Развернуть ↓</span>
+          <span class="courseProgram__item__more__close">Свернуть ↑</span>
+        </a>
+      </div>
+    </div><!-- /.courseProgram__item -->
+
+    <!-- .courseProgram__item -->
+    <div class="courseProgram__item red">
+      <div class="courseProgram__item__header">
+        <img src="{% static '/forum/images/course/course-4.svg' %}" alt="4">
+        <span class="font__Pixel">Блок 4. Разработчики, технические задания и работа с командой</span>
+      </div>
+      <div class="courseProgram__item__content">
+        — Варианты регистрации аккаунтов разработчика на объеме <br>
+        — Варианты регистрации адмобов <br>
+        — Как сделать адмоб трастовым <br>
+        — Настройка адмоба под органический трафик с соблюдением правил <br>
+        <div class="collapse courseProgram__item__collapse" id="courseProgram_4">
+          Текст<br>
+          Текст<br>
+          Текст<br>
+        </div>
+        <img class="courseProgram__status" src="{% static '/forum/images/plus.svg' %}" alt="Статус">
+        <a class="btn courseProgram__item__more" data-bs-toggle="collapse" href="#courseProgram_4" role="button"
+          aria-expanded="false">
+          <span class="courseProgram__item__more__open">Развернуть ↓</span>
+          <span class="courseProgram__item__more__close">Свернуть ↑</span>
+        </a>
+      </div>
+    </div><!-- /.courseProgram__item -->
+
+    <!-- .courseProgram__item -->
+    <div class="courseProgram__item orange">
+      <div class="courseProgram__item__header">
+        <img src="{% static '/forum/images/course/course-5.svg' %}" alt="5">
+        <span class="font__Pixel">Блок 5. Дополнительный бонусный каст с важной информацией (доступен не всем)</span>
+      </div>
+      <div class="courseProgram__item__content">
+        — Варианты регистрации аккаунтов разработчика на объеме <br>
+        — Варианты регистрации адмобов <br>
+        — Как сделать адмоб трастовым <br>
+        — Настройка адмоба под органический трафик с соблюдением правил <br>
+        <div class="collapse courseProgram__item__collapse" id="courseProgram_5">
+          Текст<br>
+          Текст<br>
+          Текст<br>
+        </div>
+        <img class="courseProgram__status" src="{% static '/forum/images/plus.svg' %}" alt="Статус">
+        <a class="btn courseProgram__item__more" data-bs-toggle="collapse" href="#courseProgram_5" role="button"
+          aria-expanded="false">
+          <span class="courseProgram__item__more__open">Развернуть ↓</span>
+          <span class="courseProgram__item__more__close">Свернуть ↑</span>
+        </a>
+      </div>
+    </div><!-- /.courseProgram__item -->
+  </div>
+</div><!-- /.courseProgram -->
+
+<!-- .coursePrice -->
+<div class="coursePrice">
+  <div class="container container__xl">
+    <h2 class="h2 font__Pixel coursePrice__title">Стоимость курса</h2>
+    <h3 class="h2 coursePrice__titlesm">Прайс отдельно</h3>
+    <!-- .coursePrice__row1 -->
+    <div class="coursePrice__row1">
+
+      <!-- .coursePrice__item -->
+      <div class="coursePrice__item">
+        <div class="coursePrice__item__inner yellow">
+          <p class="coursePrice__item__name">1 блок</p>
+          <div class="coursePrice__item__price font__Pixel">490<span>$</span></div>
+        </div>
+      </div>
+      <!-- /.coursePrice__item -->
+      <!-- .coursePrice__item -->
+      <div class="coursePrice__item">
+        <div class="coursePrice__item__inner purple">
+          <p class="coursePrice__item__name">2 блок</p>
+          <div class="coursePrice__item__price font__Pixel">290<span>$</span></div>
+        </div>
+      </div>
+      <!-- /.coursePrice__item -->
+      <!-- .coursePrice__item -->
+      <div class="coursePrice__item">
+        <div class="coursePrice__item__inner red">
+          <p class="coursePrice__item__name">3 блок</p>
+          <div class="coursePrice__item__price font__Pixel">390<span>$</span></div>
+        </div>
+      </div>
+      <!-- /.coursePrice__item -->
+      <!-- .coursePrice__item -->
+      <div class="coursePrice__item">
+        <div class="coursePrice__item__inner orange">
+          <p class="coursePrice__item__name">4 блок</p>
+          <div class="coursePrice__item__price font__Pixel">180<span>$</span></div>
+        </div>
+      </div>
+      <!-- /.coursePrice__item -->
+      <!-- .coursePrice__item -->
+      <div class="coursePrice__item">
+        <div class="coursePrice__item__inner green">
+          <p class="coursePrice__item__name">5 блок</p>
+          <div class="coursePrice__item__text">
+            Идет в комплекте только с полным обучением
+          </div>
+        </div>
+      </div>
+      <!-- /.coursePrice__item -->
+    </div><!-- /.coursePrice__row1 -->
+    <h3 class="h2 coursePrice__titlesm">Прайс тарифами</h3>
+    <!-- .coursePrice__row2 -->
+    <div class="coursePrice__row2">
+      <!-- .coursePrice__item -->
+      <div class="coursePrice__item">
+        <div class="coursePrice__item__inner yellow">
+          <p class="coursePrice__item__name">Тариф All</p>
+          <div class="coursePrice__item__price font__Pixel">1050<span>$</span></div>
+          <div class="coursePrice__item__text">
+            получаете доступ к материалу на три месяца, дополнительный материал для обучения и развития.
+          </div>
+        </div>
+      </div>
+      <!-- /.coursePrice__item -->
+      <!-- .coursePrice__item -->
+      <div class="coursePrice__item">
+        <div class="coursePrice__item__inner purple">
+          <p class="coursePrice__item__name">Тариф All Inclusive + Community</p>
+          <div class="coursePrice__item__price font__Pixel">1450<span>$</span></div>
+          <div class="coursePrice__item__text">
+            доступ в общий чат с учениками и моим личным присутствием, я лично участвую в обучении и ответах на вопросы,
+            бесплатный доступ на форум М3 (в разработке, будет анонсирован через месяц), дополнительный материал для
+            изучения, + дополнительный бонусный каст с важной информацией по всем блокам.
+          </div>
+        </div>
+      </div>
+      <!-- /.coursePrice__item -->
+    </div><!-- /.coursePrice__row2 -->
+  </div>
+</div>
+<!-- /.coursePrice -->
+
+<!-- .ukraine -->
+<div class="ukraine">
+  <div class="ukraine__inner font__Pixel container container__lg">
+    Основная часть денег пойдет на благотворительность и на помощь семьям с маленькими детьми, которым пришлось покинуть
+    Украину в связи с последними событиями.
+  </div>
+</div><!-- .ukraine -->
+
+
+<!-- .courseFooter -->
+<div class="courseFooter">
+  <div class="container courseFooter__inner">
+    <img class="courseFooter__img" src="{% static '/forum/images/course/courseFooter.png' %}" alt="Курс">
+    <a href="https://t.me/dnnma" target="_blank" class="button button__orange courseFooter__button">Записаться через
+      Telegram</a>
+    <img src="{% static '/forum/images/logo2.svg' %}" alt="Лого">
+  </div>
+</div><!-- /.courseFooter -->
+
+{% endblock %}

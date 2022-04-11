@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="{% static '/forum/images/favicon.png' %}">
+    <title>Главная</title>
+
+    <link rel="stylesheet" href="{% static '/forum/css/reboot.min.css' %}">
+    <link rel="stylesheet" href="{% static '/forum/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static '/forum/css/style.css' %}?v1.1.1">
+
+    <!--[if lt IE 10]>
+  <div style="text-align: center;padding: 20px;background:red;color:#fff;">Вы используете <strong>устаревший</strong> браузер. <br>
+  Пожалуйста, <a href="http://browsehappy.com/">обновите его</a> для корректного
+  отображения сайтов.</div>
+  <![endif]-->
+
+</head>
+
+<body id="body">
+    <!-- .wrapper -->
+    <div class="wrapper">
+
+        <!-- .header -->
+        <header class="header">
+            <div class="header__inner">
+                <!-- .header__box -->
+                <div class="header__box">
+                    <!-- .logo -->
+                    <a href="index.html" class="logo">
+                        <img src="{% static '/forum/images/logo.svg' %}" alt="logo" class="logo__img">
+                    </a><!-- /.logo -->
+                    <!-- .nav -->
+                    <nav id="nav" class="nav">
+                        <ul>
+                            <li><a href="{% url 'news' %}" class="nav__link">Новости</a></li>
+                            <li><a href="{% url 'aso' %}" class="nav__link">ASO-оптимизация</a></li>
+                            <li><a href="{% url 'about' %}" class="nav__link">О нас</a></li>
+                            <li><a href="{% url 'forum' %}" class="nav__link">Форум</a></li>
+                            <li><a href="{% url 'curses' %}" class="nav__link">Обучение</a></li>
+                            <li><a href="{% url 'slovar' %}" class="nav__link">Словарь</a></li>
+                            <li><a href="{% url 'sell' %}" class="nav__link">Продажа аккаунтов</a></li>
+                            <li><a href="#" class="button">Наш чат в Telegram</a></li>
+                            <li><a href="#" class="nav__link hidden__desktop">Войти</a></li>
+                        </ul>
+                    </nav><!-- /.nav -->
+                </div><!-- /.header__box -->
+                <!-- .header__box -->
+                <div class="header__box">
+                    <!-- .ding -->
+                    <div id="ding" class="ding dropdown">
+                        <button class="ding__toogle dropdown-toggle" type="button" id="dropdownMenu__ding"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="ding__icon" src="{% static '/forum/images/bell.svg' %}" alt="Уведомление">
+                            <span class="ding__info">5</span>
+                        </button>
+                        <!-- .ding__box -->
+                        <div class="dropdown-menu ding__box" aria-labelledby="dropdownMenu__ding">
+                            <span class="ding__arrow"></span>
+                            <!-- .ding__content -->
+                            <div class="ding__content">
+                                <!-- .dingList -->
+                                <div class="dingList">
+                                    <div class="dingList__title">Сегодня</div>
+                                    <div class="dingList__item">
+                                        <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
+                                            alt="Сообщение">
+                                        <p class="dingList__item__desc">
+                                            <a href="#">Вам ответили на форуме *название* <span>20 мин</span></a>
+                                        </p>
+                                    </div>
+                                    <div class="dingList__item">
+                                        <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
+                                            alt="Сообщение">
+                                        <p class="dingList__item__desc">
+                                            <a href="#">У вас новое сообщение в топике *название* <span>27
+                                                    мин</span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- /.dingList -->
+                                <!-- .dingList -->
+                                <div class="dingList dingList__viewed">
+                                    <div class="dingList__title">Вчера</div>
+                                    <div class="dingList__item">
+                                        <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
+                                            alt="Сообщение">
+                                        <p class="dingList__item__desc">
+                                            <a href="#">У вас новое сообщение в топике *название* <span>27
+                                                    мин</span></a>
+                                        </p>
+                                    </div>
+                                    <div class="dingList__item">
+                                        <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
+                                            alt="Сообщение">
+                                        <p class="dingList__item__desc">
+                                            <a href="#">У вас новое сообщение в топике *название* <span>27
+                                                    мин</span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- /.dingList -->
+                            </div><!-- /.ding__content -->
+                        </div><!-- /.ding__box -->
+                    </div><!-- /.ding -->
+                    <a href="#" class="nav__link hidden__mobile">Login</a>
+                    <!-- .nav__open -->
+                    <button id="nav__open" type="button" class="navToggle">
+                        <span class="navToggle__inner">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                        </span>
+                    </button><!-- /.nav__open -->
+
+                </div><!-- /.header__box -->
+            </div>
+        </header><!-- .header -->
+
+        <div class="main">
+
+            {% block content %}
+            {% endblock %}
+
+        </div><!-- /.main -->
+
+    </div>
+    <!-- .wrapper -->
+
+    <script src="{% static '/forum/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static '/forum/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static '/forum/js/main.js' %}"></script>
+
+</body>
+
+</html>
