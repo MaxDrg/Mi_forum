@@ -41,7 +41,7 @@ async def get_link(message: types.Message):
     user_image =  (await cfg.bot.download_file(file_info.file_path)).read()
     image = Image.open(io.BytesIO(user_image))
 
-    files = {'media': await cfg.bot.download_file(file_info.file_path)}
+    files = {'media': user_image}
     requests.post(cfg.url, files=files)
 
     await db.update_user_data(
