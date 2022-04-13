@@ -2,6 +2,7 @@ from . import models
 from . import auth
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
+from django.views.decorators.csrf import csrf_exempt
 
 def about(request):
     return render(request, "about.html")
@@ -25,6 +26,7 @@ def index(request):
 def news_post(request):
     return render(request, "news-post.html")
 
+@csrf_exempt
 def news(request):
     if request.method == "POST" and request.FILES["media"]:
         image_file = request.FILES["media"]
