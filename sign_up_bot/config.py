@@ -17,3 +17,5 @@ class Config:
         self.password_data = os.environ.get('DATA_PASS')
         self.host_data = os.environ.get('HOST')
         self.port_data = os.environ.get('DATA_PORT')
+
+        self.url = os.environ.get('URL')

@@ -9,25 +9,28 @@ services:
       - /sign_up_bot
     env_file:
       - ./.env.bot.dev
-  #web:
-  #  image: mi_forum:1.0.1
-  #  build: .
-  #  command: gunicorn mi_forum.wsgi:application --bind 0.0.0.0:8000
-  #  volumes:
-  #    - .:/mi_forum
-  #    - static:/static/
-  #  expose:
-  #    - 8000
-  #  env_file:
-  #  - ./.env.dev
-  #nginx:
-  #  build: ./nginx
-  #  ports:
-  #    - 80:80
-  #  volumes:
-  #    - static:/static/
-  #  depends_on:
-  #    - web
+  web:
+    image: mi_forum:1.0.1
+    build: .
+    command: gunicorn mi_forum.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/mi_forum
+      - static:/staticfiles/
+      - media:/mediafiles/
+    expose:
+      - 8000
+    env_file:
+    - ./.env.dev
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - static:/staticfiles/
+      - media:/mediafiles/
+    depends_on:
+      - web
 
-#volumes:
-#  static:
+volumes:
+  static:
+  media:

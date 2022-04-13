@@ -19,4 +19,3 @@ PyNaCl==1.5.0
 pytz==2022.1
 six==1.16.0
 yarl==1.7.2
-Pillow==9.1.0

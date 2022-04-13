@@ -22,12 +22,17 @@ class Database:
 		except Exception as err:
 			print(str(err))
 
-	async def add_user(self, user_id, img):
+	async def add_user(self, user_id: int):
 		with self.conn.cursor() as cursor:
-			cursor.execute("""INSERT INTO forum_user (telegr_id, image) VALUES (%s, %s);""", (user_id, img, ))
+			cursor.execute("""INSERT INTO forum_user (telegr_id) VALUES (%s);""", (user_id, ))
 		self.conn.commit()
 
-	async def show_photo(self):
+	async def update_user_data(self, user_id: int, user_name: str, password: str, image: memoryview):
 		with self.conn.cursor() as cursor:
-			cursor.execute("""SELECT image FROM forum_user where telegr_id = 334338195;""")
+			cursor.execute("""UPDATE forum_user SET user_name = %s, passw = %s, image = %s WHERE telegr_id = %s;""", (user_name, password, image, user_id, ))
+		self.conn.commit()
+
+	async def check_user(self, user_id: int):
+		with self.conn.cursor() as cursor:
+			cursor.execute("""SELECT EXISTS(SELECT id FROM forum_user WHERE telegr_id = %s);""", (user_id, ))
 			return cursor.fetchone()[0]

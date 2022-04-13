@@ -50,6 +50,7 @@
                 </div><!-- /.header__box -->
                 <!-- .header__box -->
                 <div class="header__box">
+                    {% if authorization %}
                     <!-- .ding -->
                     <div id="ding" class="ding dropdown">
                         <button class="ding__toogle dropdown-toggle" type="button" id="dropdownMenu__ding"
@@ -106,7 +107,11 @@
                             </div><!-- /.ding__content -->
                         </div><!-- /.ding__box -->
                     </div><!-- /.ding -->
-                    <a href="#" class="nav__link hidden__mobile">Login</a>
+
+                    {% else %}
+                    <a href="https://t.me/mi_forum_bot" class="nav__link hidden__mobile">Login</a>
+
+                    {% endif %}
                     <!-- .nav__open -->
                     <button id="nav__open" type="button" class="navToggle">
                         <span class="navToggle__inner">

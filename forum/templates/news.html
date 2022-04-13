@@ -8,7 +8,7 @@
     <div class="newsItem">
       <div class="newsItem__inner">
         <div class="newsItem__imgbox">
-          <a href="news-post.html"><img src="./img/news.jpg" alt="Новости"></a>
+          <a href="news-post.html"><img src="mi_forum/mediafiles/photo_2022-03-25_16-26-34.jpg" alt="Новости"></a>
         </div>
         <div class="newsItem__content">
           <div class="newsItem__title">
@@ -192,6 +192,29 @@
         </div>
       </div>
     </div><!-- .newsItem -->
+
+    {% for dat in data %}
+      <!-- .newsItem -->
+    <div class="newsItem">
+      <div class="newsItem__inner">
+        <div class="newsItem__imgbox">
+          <a href="news-post.html"><img src="{{ dat.image.url }}" alt="Новости"></a>
+        </div>
+        <div class="newsItem__content">
+          <div class="newsItem__title">
+            <a href="news-post.html">Apple сняла с продажи iPhone 12 Pro и XR</a>
+          </div>
+          <p class="newsItem__desc">
+            iPhone 12 Pro, 12 Pro Max и XR пропали с сайта онлайн-магазина Apple. Их сняли с продажи после презентации
+            новых моделей смартфона.
+          </p>
+          <div class="newsItem__info">
+            <a href="#">#apple</a> / 04.09.20
+          </div>
+        </div>
+      </div>
+    </div><!-- .newsItem -->
+    {% endfor %}
 
 
   </div><!-- /.news -->
