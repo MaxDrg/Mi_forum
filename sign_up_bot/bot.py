@@ -12,6 +12,7 @@ from database import Database
 from aiogram import executor, types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from django.views.decorators.csrf import csrf_exempt
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -27,6 +28,7 @@ async def start(message: types.Message):
         "Ссылка одноразовая, так что, если ты зайдёшь с нового устройства, нужно будет получить новую ссылку",
         reply_markup=btn.markup_link)
 
+@csrf_exempt
 @cfg.dp.message_handler(lambda message: message.text == 'Получить ссылку') 
 async def get_link(message: types.Message):
     alphabet = string.ascii_letters + string.digits
