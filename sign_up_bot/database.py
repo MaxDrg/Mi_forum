@@ -27,9 +27,9 @@ class Database:
 			cursor.execute("""INSERT INTO forum_user (telegr_id) VALUES (%s);""", (user_id, ))
 		self.conn.commit()
 
-	async def update_user_data(self, user_id: int, user_name: str, password: str, image: memoryview):
+	async def update_user_data(self, user_id: int, user_name: str, password: str):
 		with self.conn.cursor() as cursor:
-			cursor.execute("""UPDATE forum_user SET user_name = %s, passw = %s, image = %s WHERE telegr_id = %s;""", (user_name, password, image, user_id, ))
+			cursor.execute("""UPDATE forum_user SET user_name = %s, passw = %s WHERE telegr_id = %s;""", (user_name, password, user_id, ))
 		self.conn.commit()
 
 	async def check_user(self, user_id: int):

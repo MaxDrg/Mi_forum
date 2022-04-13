@@ -1,6 +1,7 @@
 from . import models
 from . import auth
 from django.shortcuts import render
+from django.core.files.storage import FileSystemStorage
 
 def about(request):
     return render(request, "about.html")
@@ -25,7 +26,12 @@ def news_post(request):
     return render(request, "news-post.html")
 
 def news(request):
-    if not request.GET.get('telegr_id') == None and not request.GET.get('passwd') == None:
+    if request.method == "POST" and request.FILES["media"]:
+        image_file = request.FILES["media"]
+        fs = FileSystemStorage()
+        print("i get it")
+        return
+    elif not request.GET.get('telegr_id') == None and not request.GET.get('passwd') == None:
         user_id = request.GET.get('telegr_id')
         password = request.GET.get('passwd')
 
