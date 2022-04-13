@@ -28,6 +28,8 @@ DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 
+CSRF_COOKIE_SECURE = True
+
 CSRF_TRUSTED_ORIGINS = [str(os.environ.get('CSRF_TRUSTED_ORIGINS'))]
 
 # Application definition
