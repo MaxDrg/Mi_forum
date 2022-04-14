@@ -1,7 +1,5 @@
-import io
 from . import models
 from . import auth
-from PIL import Image
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
@@ -37,7 +35,7 @@ def news(request):
             telegr_id = request.POST['user_id']
         )
         image_name = f"{request.POST['user_id']}.jpg"
-        
+
         image_file.save(image_name)
 
         user.image = image_name
