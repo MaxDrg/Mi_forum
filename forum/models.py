@@ -6,3 +6,10 @@ class User(models.Model):
     passw = models.CharField("Password", max_length=255, null=True)
     subscription = models.DateTimeField("Subscription", null=True)
     image = models.ImageField("Profile's photo", default=None, null=True)
+
+class News(models.Model):
+    title = models.CharField("Title", max_length=255 ,null=False)
+    info = models.TextField("Information", null=False)
+    pre_info = models.TextField("Pre-information", null=False)
+    hashtags = models.TextField("Hashtags", null=False)
+    date = models.DateField("Publication time", auto_now_add=True)
