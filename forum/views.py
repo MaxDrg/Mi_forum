@@ -42,9 +42,9 @@ def news(request):
         except:
             pass
         print('1')
-        image_file = Image.open(io.BytesIO(image.read()))
+        # image_file = Image.open(io.BytesIO(image.read()))
         print('3')
-        fs.save(image_name, image_file)
+        fs.save(image_name, image.read())
         print('2')
         user = models.User.objects.get(
             telegr_id = request.POST['user_id']
