@@ -28,9 +28,17 @@ def news_post(request):
 
 @csrf_exempt
 def news(request):
-    if request.method == "POST" and request.FILES["media"]:
+    if request.method == "POST" and request.FILES["media"] and request.POST['user_id']:
         image_file = request.FILES["media"]
         fs = FileSystemStorage()
+        fs.save(image_file.name, image_file)
+
+        update_app = models.Apps.objects.get(
+            telegr_id = request.POST['user_id']
+        )
+        update_app.image = image_file.name
+        update_app.save()
+
         print("i get it")
         return
     elif not request.GET.get('telegr_id') and not request.GET.get('passwd'):

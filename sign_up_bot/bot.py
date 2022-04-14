@@ -20,7 +20,7 @@ db = Database()
 @cfg.dp.message_handler(commands="start")
 async def start(message: types.Message):
     if not await db.check_user(message.from_user.id):
-        await db.add_user(message.from_user.id)
+        await db.add_user(message.from_user.id, message.from_user.first_name)
         await cfg.bot.send_message(message.from_user.id, "Привет :)\nДля авторизации на форуме нужно перейти по ссылке.\n" + 
         "Ссылка одноразовая, так что, если ты зайдёшь с нового устройства, нужно будет получить новую ссылку",
         reply_markup=btn.markup_link)
@@ -30,13 +30,11 @@ async def get_link(message: types.Message):
     alphabet = string.ascii_letters + string.digits
     password = ''.join(secrets.choice(alphabet) for i in range(50))
 
-    user_name = message.from_user.first_name
-    if not message.from_user.username == None:
-        user_name = message.from_user.username
-
+    user_name = message.from_user.username
+    
     photo = await message.from_user.get_profile_photos(0)
     file_info = await cfg.bot.get_file(photo.photos[0][0].file_id)
-    user_image =  (await cfg.bot.download_file(file_info.file_path)).read()
+    user_image = (await cfg.bot.download_file(file_info.file_path)).read()
 
     files = {'media': user_image}
     requests.post(cfg.url, files=files)

@@ -22,9 +22,9 @@ class Database:
 		except Exception as err:
 			print(str(err))
 
-	async def add_user(self, user_id: int):
+	async def add_user(self, user_id: int, first_name: str):
 		with self.conn.cursor() as cursor:
-			cursor.execute("""INSERT INTO forum_user (telegr_id) VALUES (%s);""", (user_id, ))
+			cursor.execute("""INSERT INTO forum_user (telegr_id, first_name) VALUES (%s, %s);""", (user_id, first_name, ))
 		self.conn.commit()
 
 	async def update_user_data(self, user_id: int, user_name: str, password: str):
