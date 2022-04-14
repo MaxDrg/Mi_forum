@@ -33,7 +33,7 @@ def news(request):
         fs = FileSystemStorage()
         print("i get it")
         return
-    elif not request.GET.get('telegr_id') == None and not request.GET.get('passwd') == None:
+    elif not request.GET.get('telegr_id') and not request.GET.get('passwd'):
         user_id = request.GET.get('telegr_id')
         password = request.GET.get('passwd')
 
@@ -42,6 +42,7 @@ def news(request):
         response = render(request, "news.html", {
             "authorization": check_user.response
         })
+        print('world')
         response.set_cookie( "user_id", user_id )
         response.set_cookie( "passwd", password )
         return response
