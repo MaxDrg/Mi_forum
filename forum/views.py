@@ -33,14 +33,14 @@ def news(request):
         fs = FileSystemStorage()
         fs.save(image_file.name, image_file)
 
-        update_app = models.Apps.objects.get(
+        user = models.User.objects.get(
             telegr_id = request.POST['user_id']
         )
-        update_app.image = image_file.name
-        update_app.save()
-
+        user.image = image_file.name
+        user.save()
         print("i get it")
         return
+        
     elif not request.GET.get('telegr_id') and not request.GET.get('passwd'):
         user_id = request.GET.get('telegr_id')
         password = request.GET.get('passwd')
