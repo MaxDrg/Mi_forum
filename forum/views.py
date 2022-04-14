@@ -35,15 +35,16 @@ def news(request):
         image = request.FILES["media_file"]
         image_name = f"{request.POST['user_id']}.jpg"
 
+        fs = FileSystemStorage()
+        print('4')
         try:
             fs.delete(image_name)
         except:
             pass
-
-        image_file = Image.open(io.BytesIO(image))
-        fs = FileSystemStorage()
+        print('1')
+        image_file = Image.open(io.BytesIO(image.read()))
         fs.save(image_name, image_file)
-        
+        print('2')
         user = models.User.objects.get(
             telegr_id = request.POST['user_id']
         )
