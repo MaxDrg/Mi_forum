@@ -32,8 +32,10 @@ def news_post(request):
 @csrf_exempt
 def news(request):
     if request.method == "POST" and request.FILES["media_file"] and request.POST['user_id']:
-        image = request.FILES["media_file"]
+        user_photo = request.FILES["media_file"]
         image_name = f"{request.POST['user_id']}.jpg"
+
+        image = user_photo.read()
             
         image_file = Image.open(io.BytesIO(image))
         fs = FileSystemStorage()
