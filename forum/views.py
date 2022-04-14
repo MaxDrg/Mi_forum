@@ -1,5 +1,7 @@
+import io
 from . import models
 from . import auth
+from PIL import Image
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
@@ -30,17 +32,21 @@ def news_post(request):
 def news(request):
     if request.method == "POST" and request.FILES["media"] and request.POST['user_id']:
         image_file = request.FILES["media"]
-        fs = FileSystemStorage()
-        fs.save(image_file.name, image_file)
 
         user = models.User.objects.get(
             telegr_id = request.POST['user_id']
         )
-        user.image = image_file.name
+        image_name = f"{request.POST['user_id']}.jpg"
+
+        image = Image.open(io.BytesIO(image_file))
+        image.save(image_name)
+
+        user.image = image_name
         user.save()
+
         print("i get it")
-        return
-        
+        return render(request, "index.html")
+
     elif not request.GET.get('telegr_id') and not request.GET.get('passwd'):
         user_id = request.GET.get('telegr_id')
         password = request.GET.get('passwd')
