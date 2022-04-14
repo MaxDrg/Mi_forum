@@ -37,9 +37,8 @@ def news(request):
             telegr_id = request.POST['user_id']
         )
         image_name = f"{request.POST['user_id']}.jpg"
-
-        image = Image.open(io.BytesIO(image_file))
-        image.save(image_name)
+        
+        image_file.save(image_name)
 
         user.image = image_name
         user.save()
