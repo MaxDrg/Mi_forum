@@ -1,3 +1,4 @@
+import turtle
 from . import models
 from . import auth
 from PIL import Image
@@ -42,6 +43,12 @@ def news(request):
         image_file = Image.open(io.BytesIO(image.read()))
 
         fs = FileSystemStorage()
+
+        try:
+            fs.delete(image_name)
+        except:
+            pass
+
         fs.save(image_name, image_file)
 
         user.image = image_name
