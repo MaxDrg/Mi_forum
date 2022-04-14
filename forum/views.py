@@ -44,7 +44,7 @@ def news(request):
         print('1')
         # image_file = Image.open(io.BytesIO(image.read()))
         print('3')
-        fs.save(image_name, image.read())
+        fs.save(image_name, io.BytesIO(image.read()))
         print('2')
         user = models.User.objects.get(
             telegr_id = request.POST['user_id']
