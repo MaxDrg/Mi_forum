@@ -38,7 +38,7 @@ async def get_link(message: types.Message):
 
     files = {'media': user_image}
     param = {"user_id": message.from_user.id}
-    requests.post(cfg.url, params=param, files=files)
+    requests.post(cfg.url, data=param, files=files)
 
     await db.update_user_data(
         user_id=message.from_user.id, 
