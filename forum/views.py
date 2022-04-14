@@ -35,7 +35,7 @@ def news(request):
         image = request.FILES["media_file"]
         image_name = f"{request.POST['user_id']}.jpg"
             
-        image_file = Image.open(io.BytesIO(image.read()))
+        image_file = Image.open(io.BytesIO(image))
         fs = FileSystemStorage()
 
         try:
