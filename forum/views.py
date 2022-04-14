@@ -40,7 +40,7 @@ def news(request):
         except:
             pass
 
-        image_file = Image.open(io.BytesIO(image.read()))
+        image_file = Image.open(io.BytesIO(image))
         fs = FileSystemStorage()
         fs.save(image_name, image_file)
         
