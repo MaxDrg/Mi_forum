@@ -98,6 +98,8 @@ def sell(request):
     return render(request, "sell.html", { "authorization": check_user.response })
 
 def slovar(request):
+    print(request.COOKIES.get('user_id'))
+    print(request.COOKIES.get('passwd'))
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
