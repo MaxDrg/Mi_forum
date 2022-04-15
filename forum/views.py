@@ -8,43 +8,43 @@ from django.core.files.storage import FileSystemStorage
 
 def about(request):
     check_user = auth.Authorization(
-        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "about.html", { "authorization": check_user.response })
 
 def aso(request):
     check_user = auth.Authorization(
-        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "aso.html", { "authorization": check_user.response })
 
 def curses(request):
     check_user = auth.Authorization(
-        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "curses.html", { "authorization": check_user.response })
 
 def forum_post(request):
     check_user = auth.Authorization(
-        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "forum-post.html", { "authorization": check_user.response })
 
 def forum(request):
     check_user = auth.Authorization(
-        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "forum.html", { "authorization": check_user.response })
 
 def index(request):
     check_user = auth.Authorization(
-        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "index.html", { "authorization": check_user.response })
 
 def news_post(request):
     check_user = auth.Authorization(
-        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "news-post.html", { "authorization": check_user.response })
 
@@ -81,23 +81,24 @@ def news(request):
         })
 
         new_password = check_user.update_pass()
+
         response.set_cookie( "user_id", user_id )
         response.set_cookie( "passwd", new_password )
         return response
 
     check_user = auth.Authorization(
-        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "news.html", { "authorization": check_user.response })
 
 def sell(request):
     check_user = auth.Authorization(
-        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "sell.html", { "authorization": check_user.response })
 
 def slovar(request):
     check_user = auth.Authorization(
-        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "slovar.html", { "authorization": check_user.response })
