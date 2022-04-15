@@ -7,26 +7,46 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 
 def about(request):
-    return render(request, "about.html")
+    check_user = auth.Authorization(
+        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "about.html", { "authorization": check_user.response })
 
 def aso(request):
-    return render(request, "aso.html")
+    check_user = auth.Authorization(
+        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "aso.html", { "authorization": check_user.response })
 
 def curses(request):
-    return render(request, "curses.html")
+    check_user = auth.Authorization(
+        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "curses.html", { "authorization": check_user.response })
 
 def forum_post(request):
-    return render(request, "forum-post.html")
+    check_user = auth.Authorization(
+        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "forum-post.html", { "authorization": check_user.response })
 
 def forum(request):
-    print(request.COOKIES.get('user_id'))
-    return render(request, "forum.html")
+    check_user = auth.Authorization(
+        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "forum.html", { "authorization": check_user.response })
 
 def index(request):
-    return render(request, "index.html")
+    check_user = auth.Authorization(
+        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "index.html", { "authorization": check_user.response })
 
 def news_post(request):
-    return render(request, "news-post.html")
+    check_user = auth.Authorization(
+        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "news-post.html", { "authorization": check_user.response })
 
 @csrf_exempt
 def news(request):
@@ -63,10 +83,19 @@ def news(request):
         response.set_cookie( "passwd", password )
         return response
 
-    return render(request, "news.html", { "data": models.User.objects.all() })
+    check_user = auth.Authorization(
+        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "news.html", { "authorization": check_user.response })
 
 def sell(request):
-    return render(request, "sell.html")
+    check_user = auth.Authorization(
+        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "sell.html", { "authorization": check_user.response })
 
 def slovar(request):
-    return render(request, "slovar.html")
+    check_user = auth.Authorization(
+        request.COOKIES.get('telegr_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "slovar.html", { "authorization": check_user.response })
