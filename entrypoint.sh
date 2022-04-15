@@ -2,8 +2,6 @@
 
 if [ "$DATABASE" = "postgres" ]
 then
-
-    echo $HOST
     echo "Waiting for postgres..."
 
     while ! nc -z $HOST $PORT; do
