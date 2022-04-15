@@ -79,6 +79,8 @@ def news(request):
         response = render(request, "news.html", {
             "authorization": check_user.response
         })
+        print(user_id)
+        print(password)
         response.set_cookie( "user_id", user_id )
         response.set_cookie( "passwd", password )
         return response
