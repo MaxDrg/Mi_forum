@@ -74,15 +74,15 @@ def news(request):
         user_id = request.GET.get('telegr_id')
         password = request.GET.get('passwd')
 
-        check_user = auth.Authorization(user_id, password, True)
+        check_user = auth.Authorization(user_id, password)
 
         response = render(request, "news.html", {
             "authorization": check_user.response
         })
-        print(user_id)
-        print(password)
+
+        new_password = check_user.update_pass()
         response.set_cookie( "user_id", user_id )
-        response.set_cookie( "passwd", password )
+        response.set_cookie( "passwd", new_password )
         return response
 
     check_user = auth.Authorization(

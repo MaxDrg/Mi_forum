@@ -4,22 +4,27 @@ import hashlib
 import string
 
 class Authorization:
-    def __init__(self, user_id: str, passw: str, from_bot: bool = False) -> None:
+    def __init__(self, user_id: str, passw: str) -> None:
         self.__user_id = user_id
         self.__passw = passw
-        self.__from_bot = from_bot
+        self.__current_user = None
 
         response = False
         db = models.User
 
         if db.objects.filter(telegr_id=self.__user_id).count():
-            current_user = db.objects.get(telegr_id=self.__user_id)
-            if hashlib.sha256(self.__passw.encode('utf-8')).hexdigest() == current_user.passw:
-                if self.__from_bot:
-                    alphabet = string.ascii_letters + string.digits
-                    new_passw = ''.join(secrets.choice(alphabet) for i in range(50))
-                    current_user.passw = new_passw
-                    current_user.save()
+            self.__current_user = db.objects.get(telegr_id=self.__user_id)
+            if hashlib.sha256(self.__passw.encode('utf-8')).hexdigest() == self.__current_user.passw:
                 response = True
             
         self.response = response
+
+    def update_pass(self):
+        if self.response:
+            alphabet = string.ascii_letters + string.digits
+            new_passw = ''.join(secrets.choice(alphabet) for i in range(50))
+            self.__current_user.passw = new_passw
+            self.__current_user.save()
+            return new_passw
+        return None
+        
