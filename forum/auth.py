@@ -23,7 +23,7 @@ class Authorization:
         if self.response:
             alphabet = string.ascii_letters + string.digits
             new_passw = ''.join(secrets.choice(alphabet) for i in range(50))
-            self.__current_user.passw = new_passw
+            self.__current_user.passw = hashlib.sha256(new_passw.encode('utf-8')).hexdigest()
             self.__current_user.save()
             print(new_passw)
             return new_passw
