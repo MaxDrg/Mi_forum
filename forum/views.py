@@ -77,7 +77,8 @@ def news(request):
         check_user = auth.Authorization(user_id, password)
 
         response = render(request, "news.html", {
-            "authorization": check_user.response
+            "authorization": check_user.response,
+            "data": models.New.objects.all()
         })
 
         new_password = check_user.update_pass()
@@ -89,7 +90,9 @@ def news(request):
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
-    return render(request, "news.html", { "authorization": check_user.response })
+    return render(request, "news.html", { 
+        "authorization": check_user.response,
+        "data": models.New.objects.all() })
 
 def sell(request):
     check_user = auth.Authorization(
