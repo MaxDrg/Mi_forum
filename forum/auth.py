@@ -19,7 +19,6 @@ class Authorization:
                     alphabet = string.ascii_letters + string.digits
                     new_passw = ''.join(secrets.choice(alphabet) for i in range(50))
                     current_user.passw = new_passw
-                    current_user.image = None
                     current_user.save()
                 response = True
             

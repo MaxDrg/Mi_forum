@@ -1,11 +1,10 @@
-import turtle
-from . import models
-from . import auth
-from PIL import Image
 import io
+from . import auth
+from . import models
 from django.shortcuts import render
-from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import FileSystemStorage
 
 def about(request):
     return render(request, "about.html")
@@ -36,25 +35,20 @@ def news(request):
         image_name = f"{request.POST['user_id']}.jpg"
 
         fs = FileSystemStorage()
-        print('4')
+
         try:
             fs.delete(image_name)
-        except:
+        except Exception:
             pass
-        print('1')
-        # image_file = Image.open(io.BytesIO(image.read()))
-        print('3')
-        fs.save(image_name, io.BytesIO(image.read()))
-        print('2')
+        file = fs.save(image_name, io.BytesIO(image.read()))
+
         user = models.User.objects.get(
             telegr_id = request.POST['user_id']
         )
-        print(user)
-        user.image = image_name
+        user.image = fs.get_valid_name(file)
         user.save()
 
-        print("i get it")
-        return render(request, "index.html")
+        return HttpResponse("OK")
 
     elif not request.GET.get('telegr_id') and not request.GET.get('passwd'):
         user_id = request.GET.get('telegr_id')
@@ -65,11 +59,10 @@ def news(request):
         response = render(request, "news.html", {
             "authorization": check_user.response
         })
-        print('world')
         response.set_cookie( "user_id", user_id )
         response.set_cookie( "passwd", password )
         return response
-    print('hello')
+
     return render(request, "news.html", { "data": models.User.objects.all() })
 
 def sell(request):
