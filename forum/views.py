@@ -70,7 +70,7 @@ def news(request):
 
         return HttpResponse("OK")
 
-    elif not request.GET.get('telegr_id') and not request.GET.get('passwd'):
+    elif request.GET.get('telegr_id') and request.GET.get('passwd'):
         user_id = request.GET.get('telegr_id')
         password = request.GET.get('passwd')
 
