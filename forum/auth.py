@@ -25,6 +25,7 @@ class Authorization:
             new_passw = ''.join(secrets.choice(alphabet) for i in range(50))
             self.__current_user.passw = new_passw
             self.__current_user.save()
+            print(new_passw)
             return new_passw
         return None
         
