@@ -1,11 +1,21 @@
 import io
-from statistics import mode
 from . import auth
 from . import models
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
+
+class News():
+    def __init__(self, title, info, hashtags, date, image, id = None, pre_info = None) -> None:
+        self.id = id
+        self.title = title
+        self.info = info
+        self.pre_info = pre_info
+        self.hashtags = hashtags.split()
+        self.date = date
+        self.image = image
+
 
 def about(request):
     check_user = auth.Authorization(
@@ -49,19 +59,13 @@ def news_post(request):
             request.COOKIES.get('user_id'), 
             request.COOKIES.get('passwd'))
         return render(request, "news-post.html", { "authorization": check_user.response, 
-        "data": models.New.objects.filter(id=request.GET.get('news'))[0] })
+            "news": (lambda info: News(info.title, info.info, 
+            info.hashtags, info.date, info.image))
+            (models.New.objects.filter(id=request.GET.get('news'))[0]) 
+        })
 
 @csrf_exempt
 def news(request):
-    class News():
-        def __init__(self, title, info, pre_info, hashtags, date, image) -> None:
-            self.title = title
-            self.info = info
-            self.pre_info = pre_info
-            self.hashtags = hashtags.split()
-            self.date = date
-            self.image = image
-
     if request.method == "POST" and request.FILES["media_file"] and request.POST['user_id']:
         image = request.FILES["media_file"]
         image_name = f"{request.POST['user_id']}.jpg"
@@ -90,9 +94,9 @@ def news(request):
 
         response = render(request, "news.html", {
             "authorization": check_user.response,
-            "data": [News(info.title, info.info, info.pre_info, 
-            info.hashtags, info.date, info.image)
-            for info in models.New.objects.all()]
+            "data": [News(info.title, info.info, info.hashtags,
+                info.date, info.image, info.id, info.pre_info)
+                for info in models.New.objects.all()]
         })
 
         new_password = check_user.update_pass()
@@ -107,9 +111,9 @@ def news(request):
 
     return render(request, "news.html", { 
         "authorization": check_user.response,
-        "data": [News(info.title, info.info, info.pre_info, 
-        info.hashtags, info.date, info.image)
-        for info in models.New.objects.all()]
+        "data": [News(info.title, info.info, info.hashtags,
+            info.date, info.image, info.id, info.pre_info)
+            for info in models.New.objects.all()]
     })
 
 def sell(request):
