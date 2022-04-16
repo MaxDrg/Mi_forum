@@ -9,17 +9,17 @@
     <div class="newsItem">
       <div class="newsItem__inner">
         <div class="newsItem__imgbox">
-          <a href="news-post.html"><img src="{{ news.image.url }}" alt="Новости"></a>
+          <a href="{% url 'news-post' %}?news={{ news.id }}"><img src="{{ news.image.url }}" alt="Новости"></a>
         </div>
         <div class="newsItem__content">
           <div class="newsItem__title">
-            <a href="news-post.html">{{ news.title }}</a>
+            <a href="{% url 'news-post' %}?news={{ news.id }}">{{ news.title }}</a>
           </div>
           <p class="newsItem__desc">
             {{ news.pre_info }}
           </p>
           <div class="newsItem__info">
-            {% for hashtag in news.hashtags %}<a href="#{{ hashtag }}">#{{ hashtag }}</a> {% endfor %}/ {{ news.date }}
+            {% for hashtag in news.hashtags %}<a href="{{ hashtag }}">#{{ hashtag }}</a> {% endfor %}/ {{ news.date }}
           </div>
         </div>
       </div>

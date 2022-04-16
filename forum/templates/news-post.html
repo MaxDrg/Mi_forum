@@ -8,31 +8,26 @@
   <div class="newsPost">
 
     <!-- .backLink -->
-    <a href="forum.html" class="backLink">
+    <a href="{% url 'news' %}" class="backLink">
       <img src="{% static '/forum/images/back.svg' %}" alt="Назад">
     </a><!-- /.backLink -->
 
     <!-- .newsAbs -->
     <div class="newsAbs">
-      <a href="#" class="newsAbs__item"><img src="{% static '/forum/images/edit.svg' %}" alt="Редактировать"></a>
       <a href="#" class="newsAbs__item"><img src="{% static '/forum/images/share.svg' %}" alt="Поделиться"></a>
     </div><!-- /.newsAbs -->
 
     <!-- .newsPost__inner -->
     <div class="newsPost__inner">
       <div class="newsPost__imgbox">
-        <img src="./img/news.jpg" alt="Новость">
+        <img src="{{ news.image.url }}" alt="Новость">
       </div>
-      <h1 class="newsPost__title h2">Apple сняла с продажи iPhone 12 Pro и XR</h1>
-      <div class="newsPost__info"><a href="#">#apple</a> / 04.09.20</div>
+      <h1 class="newsPost__title h2">{{ news.title }}</h1>
+      <div class="newsPost__info">
+        {% for hashtag in news.hashtags %}<a href="{{ hashtag }}">#{{ hashtag }}</a> {% endfor %}/ {{ news.date }}
+      </div>
       <p>
-        iPhone 12 Pro, 12 Pro Max и XR пропали с сайта онлайн-магазина Apple. Их сняли с продажи после презентации новых
-        моделей смартфона. Сейчас на сайте представлены только iPhone 13 и 13 Pro, 12 и 12 mini, SE и 11.
-        iPhone 12 Pro и 12 Pro Max были представлены в октябре 2020 года. Они отличаются друг от друга диагональю экрана
-        — 6,1 дюйма и 6,7 дюйма соответственно. По сравнению с iPhone 12 у этих моделей больше оперативной памяти и
-        тройной модуль камеры на заднем корпусе. iPhone XR с одной камерой был представлен в сентябре 2018 года. Он
-        позиционируется как более дешевая модель.
-        Apple официально не сообщала о снятии с продажи или производства моделей iPhone 12 Pro, 12 Pro Max и XR.
+        {{ news.info }}
       </p>
     </div><!-- /.newsPost__inner -->
 

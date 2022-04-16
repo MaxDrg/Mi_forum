@@ -1,7 +1,7 @@
 import io
+from statistics import mode
 from . import auth
 from . import models
-from posixpath import split
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -44,10 +44,12 @@ def index(request):
     return render(request, "index.html", { "authorization": check_user.response })
 
 def news_post(request):
-    check_user = auth.Authorization(
-        request.COOKIES.get('user_id'), 
-        request.COOKIES.get('passwd'))
-    return render(request, "news-post.html", { "authorization": check_user.response })
+    if request.GET.get('news'):
+        check_user = auth.Authorization(
+            request.COOKIES.get('user_id'), 
+            request.COOKIES.get('passwd'))
+        return render(request, "news-post.html", { "authorization": check_user.response, 
+        "data": models.New.objects.filter(id=request.GET.get('news'))[0] })
 
 @csrf_exempt
 def news(request):
