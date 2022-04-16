@@ -50,7 +50,7 @@ def news_post(request):
     return render(request, "news-post.html", { "authorization": check_user.response })
 
 @csrf_exempt
-def news_data(request):
+def news(request):
     if request.method == "POST" and request.FILES["media_file"] and request.POST['user_id']:
         image = request.FILES["media_file"]
         image_name = f"{request.POST['user_id']}.jpg"
