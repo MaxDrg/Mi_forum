@@ -76,7 +76,7 @@ def news(request):
         password = request.GET.get('passwd')
 
         check_user = auth.Authorization(user_id, password)
-        
+
         class News():
             def __init__(self, title, info, pre_info, hashtags, date, image) -> None:
                 self.title = title
@@ -89,7 +89,10 @@ def news(request):
         data = []
         for info in models.New.objects.all():
             data.append(News(info.title, info.info, info.pre_info, info.hashtags, info.date, info.image))
- 
+        
+        for info in data:
+            print(info.hashtags)
+            
         response = render(request, "news.html", {
             "authorization": check_user.response,
             "data": data
