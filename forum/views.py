@@ -76,13 +76,13 @@ def news(request):
         password = request.GET.get('passwd')
 
         check_user = auth.Authorization(user_id, password)
-
+        
         class News():
             def __init__(self, title, info, pre_info, hashtags, date, image) -> None:
                 self.title = title
                 self.info = info
                 self.pre_info = pre_info
-                self.hashtags = hashtags.split()
+                self.hashtags = hashtags.split(' ')
                 self.date = date
                 self.image = image
 
