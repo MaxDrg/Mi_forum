@@ -89,7 +89,7 @@ def news(request):
         response = render(request, "news.html", {
             "authorization": check_user.response,
             "data": [News(info.title, info.info, info.pre_info, 
-            info.hashtags, info.date, info.image) 
+            info.hashtags, info.date, info.image)
             for info in models.New.objects.all()]
         })
 
@@ -102,9 +102,13 @@ def news(request):
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
+
     return render(request, "news.html", { 
         "authorization": check_user.response,
-        "data": models.New.objects.all() })
+        "data": [News(info.title, info.info, info.pre_info, 
+        info.hashtags, info.date, info.image)
+        for info in models.New.objects.all()]
+    })
 
 def sell(request):
     check_user = auth.Authorization(
