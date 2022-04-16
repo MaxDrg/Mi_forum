@@ -28,3 +28,6 @@ class Comment(models.Model):
     reply_to = models.BigIntegerField("ID of Message reply")
     time = models.DateTimeField("Time of sending", auto_now_add=True)
     new = models.ForeignKey(New, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.message_text
