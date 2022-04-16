@@ -9,6 +9,9 @@ class User(models.Model):
     subscription = models.DateTimeField("Subscription", null=True)
     image = models.ImageField("Profile's photo", default=None, null=True)
 
+    def __str__(self):
+        return f"ID: {self.telegr_id} Name: {self.first_name}"
+
 class New(models.Model):
     title = models.CharField("Title", max_length=255 ,null=False)
     info = models.TextField("Information", null=False)
@@ -16,6 +19,9 @@ class New(models.Model):
     hashtags = models.TextField("Hashtags", null=False)
     date = models.DateField("Publication time", auto_now_add=True)
     image = models.ImageField("Image of news", default=None, null=True)
+
+    def __str__(self):
+        return self.title
 
 class Comment(models.Model):
     message_text = models.TextField("Text of message", null=False)
