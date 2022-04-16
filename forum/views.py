@@ -1,5 +1,6 @@
 import io
 from . import auth
+from . import news
 from . import models
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -76,9 +77,13 @@ def news(request):
 
         check_user = auth.Authorization(user_id, password)
 
+        data = []
+        for info in models.New.objects.all():
+            data.append(news.News(info.title, info.info, info.pre_info, info.hashtags, info.date, info.image))
+ 
         response = render(request, "news.html", {
             "authorization": check_user.response,
-            "data": models.New.objects.all()
+            "data": data
         })
 
         new_password = check_user.update_pass()
