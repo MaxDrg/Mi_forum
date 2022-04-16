@@ -19,7 +19,7 @@
             {{ news.pre_info }}
           </p>
           <div class="newsItem__info">
-            {% for hashtag in news.hashtags %}<a href="#">{{ hashtag }}</a>{% endfor %} / {{ news.date }}
+            {% for hashtag in news.hashtags %}<a href="#{{ hashtag }}">#{{ hashtag }}</a> {% endfor %}/ {{ news.date }}
           </div>
         </div>
       </div>

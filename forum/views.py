@@ -51,6 +51,15 @@ def news_post(request):
 
 @csrf_exempt
 def news(request):
+    class News():
+        def __init__(self, title, info, pre_info, hashtags, date, image) -> None:
+            self.title = title
+            self.info = info
+            self.pre_info = pre_info
+            self.hashtags = hashtags.split()
+            self.date = date
+            self.image = image
+
     if request.method == "POST" and request.FILES["media_file"] and request.POST['user_id']:
         image = request.FILES["media_file"]
         image_name = f"{request.POST['user_id']}.jpg"
@@ -77,25 +86,11 @@ def news(request):
 
         check_user = auth.Authorization(user_id, password)
 
-        class News():
-            def __init__(self, title, info, pre_info, hashtags, date, image) -> None:
-                self.title = title
-                self.info = info
-                self.pre_info = pre_info
-                self.hashtags = hashtags.split(' ')
-                self.date = date
-                self.image = image
-
-        data = []
-        for info in models.New.objects.all():
-            data.append(News(info.title, info.info, info.pre_info, info.hashtags, info.date, info.image))
-        
-        for info in data:
-            print(info.hashtags)
-            
         response = render(request, "news.html", {
             "authorization": check_user.response,
-            "data": data
+            "data": [News(info.title, info.info, info.pre_info, 
+            info.hashtags, info.date, info.image) 
+            for info in models.New.objects.all()]
         })
 
         new_password = check_user.update_pass()
