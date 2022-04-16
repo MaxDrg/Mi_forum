@@ -82,7 +82,7 @@ def news(request):
                 self.title = title
                 self.info = info
                 self.pre_info = pre_info
-                self.hashtags = split(hashtags)
+                self.hashtags = hashtags.split()
                 self.date = date
                 self.image = image
 
