@@ -1,7 +1,7 @@
 import io
 from . import auth
-from . import news
 from . import models
+from posixpath import split
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -50,7 +50,7 @@ def news_post(request):
     return render(request, "news-post.html", { "authorization": check_user.response })
 
 @csrf_exempt
-def news(request):
+def news_data(request):
     if request.method == "POST" and request.FILES["media_file"] and request.POST['user_id']:
         image = request.FILES["media_file"]
         image_name = f"{request.POST['user_id']}.jpg"
@@ -77,9 +77,18 @@ def news(request):
 
         check_user = auth.Authorization(user_id, password)
 
+        class News():
+            def __init__(self, title, info, pre_info, hashtags, date, image) -> None:
+                self.title = title
+                self.info = info
+                self.pre_info = pre_info
+                self.hashtags = split(hashtags)
+                self.date = date
+                self.image = image
+
         data = []
         for info in models.New.objects.all():
-            data.append(news.News(info.title, info.info, info.pre_info, info.hashtags, info.date, info.image))
+            data.append(News(info.title, info.info, info.pre_info, info.hashtags, info.date, info.image))
  
         response = render(request, "news.html", {
             "authorization": check_user.response,
