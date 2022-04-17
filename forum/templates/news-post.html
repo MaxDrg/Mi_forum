@@ -100,7 +100,7 @@
           return;
         }
         let form = document.getElementById(form_id);
-        form.action = "{% url 'news_post' %}";
+        form.action = "{% url 'news-post' %}";
         document.body.append(form);
         form.submit();
         }
