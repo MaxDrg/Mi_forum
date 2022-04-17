@@ -80,10 +80,10 @@
       <form method="POST" id="form_default">
         {% csrf_token %}
         <input type="text" name="news_id" style="display:none;" value='{{ news.id }}'/>
-        <input type="text" name="reply_to" style="display:none;" value='{{ None }}'/>
-        <input type="text" name="answer_to" style="display:none;" value='{{ None }}'/>
+        <input type="text" name="reply_to" style="display:none;" value=''/>
+        <input type="text" name="answer_to" style="display:none;" value=''/>
         <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
-        <button onclick="checkInput('default')" class="button">Отправить комментарий</button>
+        <button class="button">Отправить комментарий</button>
       </form>
       {% else %}
       <div class="comments__guest">
