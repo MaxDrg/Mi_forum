@@ -61,7 +61,7 @@ def news_post(request):
             self.date = time.date()
             self.time = time.time()
             self.user = user
-            self.replies = models.Comment.objects.filter(id=message_id)
+            self.replies = models.Comment.objects.filter(reply_to=message_id)
 
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
