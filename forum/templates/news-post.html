@@ -37,23 +37,42 @@
 
       {% for comment in comments %}
 
-        <div class="commentsItem">
-          <div class="commentsItem__panel">
-            <span class="commentsItem__ava"><img src="{{ comment.user.image.url }}" alt="#"></span>
-            {% if comment.user.user_name %}
-              <a href="https://t.me/{{ comment.user.user_name }}">{{ comment.user.first_name }}</a>
-            {% else %}
-              <a href="">{{ comment.user.first_name }}</a>
-            {% endif %}
-            <span>{{ comment.date }} в {{ comment.time }}</span>
-          </div>
-          <div class="commentsItem__content">
-            {{ comment.message_text }}
-          </div>
-          <a href="#">Ответить</a>
+      <div class="commentsItem">
+        <div class="commentsItem__panel">
+          <span class="commentsItem__ava"><img src="{{ comment.user.image.url }}" alt="#"></span>
+          {% if comment.user.user_name %}
+          <a href="https://t.me/{{ comment.user.user_name }}">{{ comment.user.first_name }}</a>
+          {% else %}
+          <a href="">{{ comment.user.first_name }}</a>
+          {% endif %}
+          <span>{{ comment.date }} в {{ comment.time }}</span>
         </div>
+        <div class="commentsItem__content">
+          {{ comment.message_text }}
+        </div>
+        <a href="#">Ответить</a>
+        <button class="replybutton" data-commentbox="panel1">Reply</button><br /><br />
+      </div>
 
-        <!--{% for reply in comment.replies %}
+      <div class="replybox" id="panel1" style="display:none">
+        {% if authorization %}
+        <form method="POST" id="form_default">
+          {% csrf_token %}
+          <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
+          <input type="text" name="reply_to" style="display:none;" value='' />
+          <input type="text" name="answer_to" style="display:none;" value='' />
+          <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
+          <button onclick="checkInput('default')" type="button" class="button">Отправить комментарий</button>
+        </form>
+        {% else %}
+        <div class="comments__guest">
+          <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
+          <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
+        </div>
+        {% endif %}
+      </div>
+
+      <!--{% for reply in comment.replies %}
 
           <div class="commentsItem commentsItem__tree">
             <div class="commentsItem__panel">
@@ -79,9 +98,9 @@
       {% if authorization %}
       <form method="POST" id="form_default">
         {% csrf_token %}
-        <input type="text" name="news_id" style="display:none;" value='{{ news.id }}'/>
-        <input type="text" name="reply_to" style="display:none;" value=''/>
-        <input type="text" name="answer_to" style="display:none;" value=''/>
+        <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
+        <input type="text" name="reply_to" style="display:none;" value='' />
+        <input type="text" name="answer_to" style="display:none;" value='' />
         <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
         <button onclick="checkInput('default')" type="button" class="button">Отправить комментарий</button>
       </form>
@@ -106,6 +125,16 @@
           form.submit();
         }
       }
+
+      $(function () {
+
+        $('.replybutton').on('click', function () {
+          $('.replybox').hide();
+          var commentboxId = $(this).attr('data-commentbox');
+          $('#' + commentboxId).toggle();
+        });
+
+      });
     </script>
 
   </div><!-- /.newsPost -->
