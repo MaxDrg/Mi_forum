@@ -97,14 +97,14 @@
       function checkInput(form_id) {
         let text = document.getElementById('textarea_' + form_id);
         if (text.value === "") {
-          alert('Пустой комментарий !')
+          alert('Пустой комментарий !');
           return;
         }
         let form = document.getElementById('form_' + form_id);
         form.action = "{% url 'news-post' %}";
         document.body.append(form);
         form.submit();
-        }
+      }
     </script>
 
   </div><!-- /.newsPost -->
