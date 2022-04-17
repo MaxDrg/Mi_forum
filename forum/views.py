@@ -55,11 +55,11 @@ def index(request):
 
 def news_post(request):
     class Comment:
-        def __init__(self, message_id, message_text: str, time: datetime, user_id) -> None:
+        def __init__(self, message_id, message_text: str, time: datetime, user) -> None:
             self.message_text = message_text
             self.date = time.date()
             self.time = time.time()
-            self.user = models.User.objects.filter(id=user_id)[0]
+            self.user = user
             self.replies = models.Comment.objects.filter(id=message_id)
 
     check_user = auth.Authorization(
@@ -94,7 +94,7 @@ def news_post(request):
                         new = models.New.objects.get(id=request.POST['news_id']),
                         user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
                     ).save()
-                    
+
             return render(request, "news-post.html", { "authorization": check_user.response, 
                 "news": (lambda info: News(info.id, info.title, info.info, 
                 info.pre_info, info.hashtags, info.date, info.image))
