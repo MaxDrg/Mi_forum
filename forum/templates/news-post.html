@@ -83,7 +83,7 @@
         <input type="text" name="reply_to" style="display:none;" value=''/>
         <input type="text" name="answer_to" style="display:none;" value=''/>
         <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
-        <button class="button">Отправить комментарий</button>
+        <button onclick="checkInput('default')" type="button" class="button">Отправить комментарий</button>
       </form>
       {% else %}
       <div class="comments__guest">
