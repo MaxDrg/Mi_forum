@@ -56,6 +56,7 @@ def index(request):
 def news_post(request):
     class Comment:
         def __init__(self, message_id, message_text: str, time: datetime, user) -> None:
+            self.id = message_id
             self.message_text = message_text
             self.date = time.date()
             self.time = time.time()

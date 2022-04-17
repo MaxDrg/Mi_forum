@@ -50,26 +50,26 @@
         <div class="commentsItem__content">
           {{ comment.message_text }}
         </div>
-        <a href="#">Ответить</a>
-        <button class="replybutton" data-commentbox="panel1">Reply</button><br /><br />
-      </div>
 
-      <div class="replybox" id="panel1" style="display:none">
-        {% if authorization %}
-        <form method="POST" id="form_default">
-          {% csrf_token %}
-          <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
-          <input type="text" name="reply_to" style="display:none;" value='' />
-          <input type="text" name="answer_to" style="display:none;" value='' />
-          <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
-          <button onclick="checkInput('default')" type="button" class="button">Отправить комментарий</button>
-        </form>
-        {% else %}
-        <div class="comments__guest">
-          <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
-          <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
+        <a onclick="">Ответить</a>
+
+        <div id="block_{{ comment.user.id }}">
+          {% if authorization %}
+          <form method="POST" id="form_{{ comment.user.id }}">
+            {% csrf_token %}
+            <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
+            <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
+            <input type="text" name="answer_to" style="display:none;" value='{{ comment.id }}' />
+            <textarea id="textarea_{{ comment.user.id }}" name="message_text" class="textarea" rows="3"></textarea>
+            <button onclick="checkInput('default')" type="button" class="button">Отправить комментарий</button>
+          </form>
+          {% else %}
+          <div class="comments__guest">
+            <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
+            <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
+          </div>
+          {% endif %}
         </div>
-        {% endif %}
       </div>
 
       <!--{% for reply in comment.replies %}
@@ -126,15 +126,10 @@
         }
       }
 
-      $(function () {
-
-        $('.replybutton').on('click', function () {
-          $('.replybox').hide();
-          var commentboxId = $(this).attr('data-commentbox');
-          $('#' + commentboxId).toggle();
-        });
-
-      });
+      function showArea(block_id) {
+        let text = document.getElementById('block_' + block_id);
+        text.style.display = 'block';
+      };
     </script>
 
   </div><!-- /.newsPost -->
