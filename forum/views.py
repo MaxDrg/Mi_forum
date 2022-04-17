@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 
 class News():
-    def __init__(self, id, title, info, hashtags: str, date, image, pre_info = None) -> None:
+    def __init__(self, id, title, hashtags: str, date, image, info = None, pre_info = None) -> None:
         self.id = id
         self.title = title
         self.info = info
@@ -68,7 +68,7 @@ def news_post(request):
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     if request.method == "POST":
-        if request.POST['news_id'] and not request.POST['message_text']:
+        if request.POST['news_id'] and request.POST['message_text']:
             if check_user.response:
                 models.Comment(
                     message_text = request.POST['message_text'],
@@ -84,8 +84,8 @@ def news_post(request):
             })
     elif request.GET.get('news'):
         return render(request, "news-post.html", { "authorization": check_user.response, 
-            "news": (lambda info: News(info.id, info.title, info.info, 
-            info.pre_info, info.hashtags, info.date, info.image))
+            "news": (lambda info: News(info.id, info.title, 
+            info.hashtags, info.date, info.image, info = info.info))
             (models.New.objects.filter(id=request.GET.get('news'))[0]),
             "comments": [Comment(comment.id, comment.message_text, comment.time, comment.user) 
             for comment in models.Comment.objects.filter(new=request.GET.get('news'))]
@@ -121,8 +121,8 @@ def news(request):
 
         response = render(request, "news.html", {
             "authorization": check_user.response,
-            "data": [News(info.id, info.title, info.info,
-            info.hashtags, info.date, info.image, info.pre_info)
+            "data": [News(info.id, info.title, info.hashtags, 
+            info.date, info.image, pre_info = info.pre_info)
             for info in models.New.objects.all()]
         })
 
@@ -138,8 +138,8 @@ def news(request):
 
     return render(request, "news.html", { 
         "authorization": check_user.response,
-        "data": [News(info.id, info.title, info.info,
-        info.hashtags, info.date, info.image, info.pre_info)
+        "data": [News(info.id, info.title, info.hashtags, 
+        info.date, info.image, pre_info = info.pre_info)
         for info in models.New.objects.all()]
     })
 
