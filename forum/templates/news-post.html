@@ -77,11 +77,11 @@
 
       <div class="comments__title">Оставить комментарий:</div>
       {% if authorization %}
-      <form method="POST" id="default_form">
+      <form method="POST" id="form_default">
         {% csrf_token %}
         <input type="text" name="news_id" style="display:none;" value='{{ news.id }}'/>
         <input type="text" name="reply_to" style="display:none;" value='{{ None }}'/>
-        <textarea id="default_textarea" name="message_text" class="textarea" rows="3"></textarea>
+        <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
         <button onclick="checkInput('default')" class="button">Отправить комментарий</button>
       </form>
       {% else %}
