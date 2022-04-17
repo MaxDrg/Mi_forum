@@ -77,11 +77,11 @@
 
       <div class="comments__title">Оставить комментарий:</div>
       {% if authorization %}
-      <form method="POST" id="default">
+      <form method="POST" id="default_form">
         {% csrf_token %}
         <input type="text" name="news_id" style="display:none;" value='{{ news.id }}'/>
         <input type="text" name="reply_to" style="display:none;" value='{{ None }}'/>
-        <textarea id="default" name="message_text" class="textarea" rows="3"></textarea>
+        <textarea id="default_textarea" name="message_text" class="textarea" rows="3"></textarea>
         <button onclick="checkInput('default')" class="button">Отправить комментарий</button>
       </form>
       {% else %}
@@ -95,11 +95,11 @@
 
     <script>
       function checkInput(form_id) {
-        let text = document.getElementById(form_id);
+        let text = document.getElementById('textarea_$(form_id)');
         if (text.value === "") {
           return;
         }
-        let form = document.getElementById(form_id);
+        let form = document.getElementById('form_$(form_id)');
         form.action = "{% url 'news-post' %}";
         document.body.append(form);
         form.submit();
