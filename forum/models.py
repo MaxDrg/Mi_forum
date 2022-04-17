@@ -30,7 +30,7 @@ class Comment(models.Model):
     answer_to = models.BigIntegerField("ID of message answer", null=True)
     time = models.DateTimeField("Time of sending", auto_now_add=True)
     new = models.ForeignKey(New, on_delete = models.CASCADE)
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
 
     def __str__(self):
         return self.message_text
