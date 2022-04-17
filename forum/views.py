@@ -107,7 +107,7 @@ def news_post(request):
             info.hashtags, info.date, info.image, info = info.info))
             (models.New.objects.filter(id=request.GET.get('news'))[0]),
             "comments": [Comment(comment.id, comment.message_text, comment.time, comment.user) 
-            for comment in models.Comment.objects.filter(new=request.GET.get('news'))]
+            for comment in models.Comment.objects.filter(new=request.GET.get('news'), reply_to=None)]
         })
 
 @csrf_exempt
