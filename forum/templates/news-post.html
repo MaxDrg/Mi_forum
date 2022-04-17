@@ -53,7 +53,7 @@
 
         <a onclick="">Ответить</a>
 
-        <div id="block_{{ comment.user.id }}">
+        <div style="display: none;" id="block_{{ comment.user.id }}">
           {% if authorization %}
           <form method="POST" id="form_{{ comment.user.id }}">
             {% csrf_token %}
@@ -61,7 +61,7 @@
             <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
             <input type="text" name="answer_to" style="display:none;" value='{{ comment.id }}' />
             <textarea id="textarea_{{ comment.user.id }}" name="message_text" class="textarea" rows="3"></textarea>
-            <button onclick="checkInput('default')" type="button" class="button">Отправить комментарий</button>
+            <button onclick="checkInput({{ comment.user.id }})" type="button" class="button">Отправить комментарий</button>
           </form>
           {% else %}
           <div class="comments__guest">
