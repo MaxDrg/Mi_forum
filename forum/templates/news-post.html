@@ -95,9 +95,9 @@
 
     <script>
       function checkInput(form_id) {
-        alert('hello')
         let text = document.getElementById('textarea_' + form_id);
         if (text.value === "") {
+          alert('Пустой комментарий !')
           return;
         }
         let form = document.getElementById('form_' + form_id);
