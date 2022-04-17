@@ -81,6 +81,7 @@
         {% csrf_token %}
         <input type="text" name="news_id" style="display:none;" value='{{ news.id }}'/>
         <input type="text" name="reply_to" style="display:none;" value='{{ None }}'/>
+        <input type="text" name="answer_to" style="display:none;" value='{{ None }}'/>
         <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
         <button onclick="checkInput('default')" class="button">Отправить комментарий</button>
       </form>
@@ -98,12 +99,12 @@
         let text = document.getElementById('textarea_' + form_id);
         if (text.value === "") {
           alert('Пустой комментарий !');
-          return;
+        } else {
+          let form = document.getElementById('form_' + form_id);
+          form.action = "{% url 'news-post' %}";
+          document.body.append(form);
+          form.submit();
         }
-        let form = document.getElementById('form_' + form_id);
-        form.action = "{% url 'news-post' %}";
-        document.body.append(form);
-        form.submit();
       }
     </script>
 
