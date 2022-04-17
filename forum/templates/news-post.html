@@ -51,17 +51,17 @@
           {{ comment.message_text }}
         </div>
 
-        <a onclick="showArea({{ comment.user.id }})">Ответить</a>
+        <a onclick="showArea({{ comment.id }})">Ответить</a>
 
-        <div style="display: none;" id="block_{{ comment.user.id }}">
+        <div style="display: none;" id="block_{{ comment.id }}">
           {% if authorization %}
-          <form method="POST" id="form_{{ comment.user.id }}">
+          <form method="POST" id="form_{{ comment.id }}">
             {% csrf_token %}
             <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
             <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
             <input type="text" name="answer_to" style="display:none;" value='{{ comment.id }}' />
-            <textarea id="textarea_{{ comment.user.id }}" name="message_text" class="textarea" rows="3"></textarea>
-            <button onclick="checkInput({{ comment.user.id }})" type="button" class="button">Отправить комментарий</button>
+            <textarea id="textarea_{{ comment.id }}" name="message_text" class="textarea" rows="3"></textarea>
+            <button onclick="checkInput({{ comment.id }})" type="button" class="button">Отправить комментарий</button>
           </form>
           {% else %}
           <div class="comments__guest">
