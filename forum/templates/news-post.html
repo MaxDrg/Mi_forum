@@ -77,21 +77,34 @@
 
       <div class="comments__title">Оставить комментарий:</div>
       {% if authorization %}
-      <form method="POST">
+      <form method="POST" id="default">
         {% csrf_token %}
         <input type="text" name="news_id" style="display:none;" value='{{ news.id }}'/>
         <input type="text" name="reply_to" style="display:none;" value='{{ None }}'/>
-        <textarea name="message_text" class="textarea" rows="3"></textarea>
-        <button type="submit" class="button">Отправить комментарий</button>
+        <textarea id="default" name="message_text" class="textarea" rows="3"></textarea>
+        <button onclick="checkInput('default')" class="button">Отправить комментарий</button>
       </form>
       {% else %}
       <div class="comments__guest">
         <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
-        <a href="#" class="button">Войти с Телеграм</a>
+        <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
       </div>
       {% endif %}
     </div>
     <!-- /.comments -->
+
+    <script>
+      function checkInput(form_id) {
+        let text = document.getElementById(form_id);
+        if (text.value === "") {
+          return;
+        }
+        let form = document.getElementById(form_id);
+        form.action = "{% url 'news_post' %}";
+        document.body.append(form);
+        form.submit();
+        }
+    </script>
 
   </div><!-- /.newsPost -->
 

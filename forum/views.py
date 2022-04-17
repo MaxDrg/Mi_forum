@@ -1,9 +1,7 @@
-from datetime import datetime
 import io
-from operator import mod
-from webbrowser import get
 from . import auth
 from . import models
+from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -67,16 +65,36 @@ def news_post(request):
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
+
     if request.method == "POST":
         if request.POST['news_id'] and request.POST['message_text']:
             if check_user.response:
-                models.Comment(
-                    message_text = request.POST['message_text'],
-                    reply_to = request.POST['reply_to'],
-                    time = datetime.now(),
-                    new = models.New.objects.get(id=request.POST['news_id']),
-                    user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
-                ).save()
+                if request.POST['reply_to']:
+                    if request.POST['answer_to']:
+                        models.Comment(
+                            message_text = request.POST['message_text'],
+                            reply_to = request.POST['reply_to'],
+                            answer_to = request.POST['answer_to'],
+                            time = datetime.now(),
+                            new = models.New.objects.get(id=request.POST['news_id']),
+                            user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
+                        ).save()
+                    else:
+                        models.Comment(
+                            message_text = request.POST['message_text'],
+                            reply_to = request.POST['reply_to'],
+                            time = datetime.now(),
+                            new = models.New.objects.get(id=request.POST['news_id']),
+                            user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
+                        ).save()
+                else:
+                    models.Comment(
+                        message_text = request.POST['message_text'],
+                        time = datetime.now(),
+                        new = models.New.objects.get(id=request.POST['news_id']),
+                        user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
+                    ).save()
+                    
             return render(request, "news-post.html", { "authorization": check_user.response, 
                 "news": (lambda info: News(info.id, info.title, info.info, 
                 info.pre_info, info.hashtags, info.date, info.image))
