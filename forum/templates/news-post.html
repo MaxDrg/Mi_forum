@@ -51,7 +51,7 @@
           {{ comment.message_text }}
         </div>
 
-        <a onclick="showArea({{ comment.id }})">Ответить</a>
+        <a href="" onclick="showArea({{ comment.id }})">Ответить</a>
 
         <div style="display: none;" id="block_{{ comment.id }}">
           {% if authorization %}
