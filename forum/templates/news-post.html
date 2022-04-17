@@ -80,7 +80,7 @@
       <form method="POST">
         {% csrf_token %}
         <input type="text" name="news_id" style="display:none;" value='{{ news.id }}'/>
-        <input type="text" name="reply_to" style="display:none;" value='none'/>
+        <input type="text" name="reply_to" style="display:none;" value=''/>
         <textarea name="message_text" class="textarea" rows="3"></textarea>
         <button type="submit" class="button">Отправить комментарий</button>
       </form>
