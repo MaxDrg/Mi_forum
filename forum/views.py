@@ -1,4 +1,7 @@
+from datetime import datetime
 import io
+from operator import mod
+from webbrowser import get
 from . import auth
 from . import models
 from django.shortcuts import render
@@ -7,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 
 class News():
-    def __init__(self, title, info, hashtags, date, image, id = None, pre_info = None) -> None:
+    def __init__(self, id, title, info, hashtags: str, date, image, pre_info = None) -> None:
         self.id = id
         self.title = title
         self.info = info
@@ -15,7 +18,6 @@ class News():
         self.hashtags = hashtags.split()
         self.date = date
         self.image = image
-
 
 def about(request):
     check_user = auth.Authorization(
@@ -54,14 +56,39 @@ def index(request):
     return render(request, "index.html", { "authorization": check_user.response })
 
 def news_post(request):
-    if request.GET.get('news'):
-        check_user = auth.Authorization(
-            request.COOKIES.get('user_id'), 
-            request.COOKIES.get('passwd'))
+    class Comment:
+        def __init__(self, message_id, message_text: str, time: datetime, user_id) -> None:
+            self.message_text = message_text
+            self.date = time.date()
+            self.time = time.time()
+            self.user = models.User.objects.filter(id=user_id)[0]
+            self.replies = models.Comment.objects.filter(id=message_id)
+
+    check_user = auth.Authorization(
+        request.COOKIES.get('user_id'), 
+        request.COOKIES.get('passwd'))
+    if request.method == "POST":
+        if request.POST['news_id'] and not request.POST['message_text']:
+            if check_user.response:
+                models.Comment(
+                    message_text = request.POST['message_text'],
+                    reply_to = request.POST['reply_to'],
+                    time = datetime.now(),
+                    new = models.New.objects.get(id=request.POST['news_id']),
+                    user = models.New.objects.get(telegr_id=request.COOKIES.get('user_id'))
+                ).save()
+            return render(request, "news-post.html", { "authorization": check_user.response, 
+                "news": (lambda info: News(info.id, info.title, info.info, 
+                info.pre_info, info.hashtags, info.date, info.image))
+                (models.New.objects.filter(id=request.POST['news_id'])[0]) 
+            })
+    elif request.GET.get('news'):
         return render(request, "news-post.html", { "authorization": check_user.response, 
-            "news": (lambda info: News(info.title, info.info, 
-            info.hashtags, info.date, info.image))
-            (models.New.objects.filter(id=request.GET.get('news'))[0]) 
+            "news": (lambda info: News(info.id, info.title, info.info, 
+            info.pre_info, info.hashtags, info.date, info.image))
+            (models.New.objects.filter(id=request.GET.get('news'))[0]),
+            "comments": [Comment(comment.id, comment.message_text, comment.time, comment.user) 
+            for comment in models.Comment.objects.filter(new=request.GET.get('news'))]
         })
 
 @csrf_exempt
@@ -94,9 +121,9 @@ def news(request):
 
         response = render(request, "news.html", {
             "authorization": check_user.response,
-            "data": [News(info.title, info.info, info.hashtags,
-                info.date, info.image, info.id, info.pre_info)
-                for info in models.New.objects.all()]
+            "data": [News(info.id, info.title, info.info,
+            info.hashtags, info.date, info.image, info.pre_info)
+            for info in models.New.objects.all()]
         })
 
         new_password = check_user.update_pass()
@@ -111,9 +138,9 @@ def news(request):
 
     return render(request, "news.html", { 
         "authorization": check_user.response,
-        "data": [News(info.title, info.info, info.hashtags,
-            info.date, info.image, info.id, info.pre_info)
-            for info in models.New.objects.all()]
+        "data": [News(info.id, info.title, info.info,
+        info.hashtags, info.date, info.image, info.pre_info)
+        for info in models.New.objects.all()]
     })
 
 def sell(request):

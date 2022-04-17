@@ -35,48 +35,61 @@
     <div class="comments">
       <div class="comments__title">Комментарии 4</div>
 
-      <div class="commentsItem">
-        <div class="commentsItem__panel">
-          <span class="commentsItem__ava"><img src="./img/ava-2.png" alt="#"></span>
-          <a href="#">hellamps</a>
-          <span>07.01.2022 в 16:36</span>
+      {% for comment in comments %}
+
+        <div class="commentsItem">
+          <div class="commentsItem__panel">
+            <span class="commentsItem__ava"><img src="{{ comment.user.image.url }}" alt="#"></span>
+            {% if comment.user.user_name %}
+              <a href="https://t.me/{{ comment.user.user_name }}">{{ comment.user.first_name }}</a>
+            {% else %}
+              <a href="">{{ comment.user.first_name }}</a>
+            {% endif %}
+            <span>{{ comment.date }} в {{ comment.time }}</span>
+          </div>
+          <div class="commentsItem__content">
+            {{ comment.message_text }}
+          </div>
+          <a href="#">Ответить</a>
         </div>
-        <div class="commentsItem__content">
-          да что вы говорите, не используются! у каждого первого докер, который построен на этих неймспейсах.
-        </div>
-        <a href="#">Ответить</a>
-      </div>
-      <div class="commentsItem commentsItem__tree">
-        <div class="commentsItem__panel">
-          <span class="commentsItem__ava"><img src="./img/ava-2.png" alt="#"></span>
-          <a href="#">hellamps</a>
-          <span>07.01.2022 в 16:36</span>
-        </div>
-        <div class="commentsItem__content">
-          да что вы говорите, не используются! у каждого первого докер, который построен на этих неймспейсах.
-        </div>
-        <a href="#">Ответить</a>
-      </div>
-      <div class="commentsItem commentsItem__tree">
-        <div class="commentsItem__panel">
-          <span class="commentsItem__ava"><img src="./img/ava-2.png" alt="#"></span>
-          <a href="#">hellamps</a>
-          <span>07.01.2022 в 16:36</span>
-        </div>
-        <div class="commentsItem__content">
-          да что вы говорите, не используются! у каждого первого докер, который построен на этих неймспейсах.
-        </div>
-        <a href="#">Ответить</a>
-      </div>
+
+        <!--{% for reply in comment.replies %}
+
+          <div class="commentsItem commentsItem__tree">
+            <div class="commentsItem__panel">
+              <span class="commentsItem__ava"><img src="./img/ava-2.png" alt="#"></span>
+              {% if comment.user.user_name %}
+                <a href="https://t.me/{{ comment.user.user_name }}">{{ comment.user.first_name }}</a>
+              {% else %}
+                <a href="">{{ comment.user.first_name }}</a>
+              {% endif %}
+              <span>{{ comment.date }} в {{ comment.time }}</span>
+            </div>
+            <div class="commentsItem__content">
+              {{ comment.message_text }}
+            </div>
+            <a href="#">Ответить</a>
+          </div>
+
+        {% endfor %}-->
+
+      {% endfor %}
+
       <div class="comments__title">Оставить комментарий:</div>
+      {% if authorization %}
+      <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="news_id" style="display:none;" value='{{ news.id }}'/>
+        <input type="text" name="reply_to" style="display:none;" value='none'/>
+        <textarea name="message_text" class="textarea" rows="3"></textarea>
+        <button type="submit" class="button">Отправить комментарий</button>
+      </form>
+      {% else %}
       <div class="comments__guest">
         <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
         <a href="#" class="button">Войти с Телеграм</a>
       </div>
-      <form>
-        <textarea class="textarea" rows="3"></textarea>
-        <button type="button" class="button">Отправить комментарий</button>
-      </form>
+      {% endif %}
     </div>
     <!-- /.comments -->
 
