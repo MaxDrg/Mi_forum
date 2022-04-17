@@ -75,7 +75,7 @@ def news_post(request):
                     reply_to = request.POST['reply_to'],
                     time = datetime.now(),
                     new = models.New.objects.get(id=request.POST['news_id']),
-                    user = models.New.objects.get(telegr_id=request.COOKIES.get('user_id'))
+                    user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
                 ).save()
             return render(request, "news-post.html", { "authorization": check_user.response, 
                 "news": (lambda info: News(info.id, info.title, info.info, 
