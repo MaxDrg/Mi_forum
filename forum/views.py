@@ -54,6 +54,14 @@ def index(request):
     return render(request, "index.html", { "authorization": check_user.response })
 
 def news_post(request):
+    class Reply:
+        def __init__(self, reply_id, message_text: str, time: datetime, user) -> None:
+            self.id = reply_id
+            self.message_text = message_text
+            self.date = time.date()
+            self.time = time.strftime('%H:%M')
+            self.user = user
+
     class Comment:
         def __init__(self, message_id, message_text: str, time: datetime, user) -> None:
             self.id = message_id
@@ -61,7 +69,8 @@ def news_post(request):
             self.date = time.date()
             self.time = time.strftime('%H:%M')
             self.user = user
-            self.replies = models.Comment.objects.filter(reply_to=message_id)
+            self.replies = [Reply(reply.id, reply.message_text, reply.time, reply.user_id) 
+            for reply in models.Comment.objects.filter(reply_to=message_id)]
 
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 

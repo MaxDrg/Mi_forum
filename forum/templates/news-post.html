@@ -96,7 +96,7 @@
                 {% csrf_token %}
                 <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
                 <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
-                <input type="text" name="answer_to" style="display:none;" value='{{ comment.user.telegr_id }}' />
+                <input type="text" name="answer_to" style="display:none;" value='{{ comment.user.id }}' />
                 <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
                 <button onclick="checkInput({{ reply.id }})" type="button" class="button">Отправить комментарий</button>
               </form>
