@@ -130,7 +130,7 @@ def news(request):
         password = request.GET.get('passwd')
 
         check_user = auth.Authorization(user_id, password)
-
+        
         response = render(request, "news.html", {
             "authorization": check_user.response,
             "data": [News(info.id, info.title, info.hashtags, 
@@ -138,11 +138,11 @@ def news(request):
             for info in models.New.objects.all()]
         })
 
-        new_password = check_user.update_pass()
-
-        response.set_cookie( "user_id", user_id )
-        response.set_cookie( "passwd", new_password )
-        return response
+        if check_user.response:
+            new_password = check_user.update_pass()
+            response.set_cookie( "user_id", user_id )
+            response.set_cookie( "passwd", new_password )
+            return response
 
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
