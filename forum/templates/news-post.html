@@ -75,46 +75,45 @@
 
       {% for reply in comment.replies %}
 
-          <div class="commentsItem commentsItem__tree">
-            <div class="commentsItem__panel">
-              <span class="commentsItem__ava"><img src="{{ reply.user.image.url }}" alt="#"></span>
-              {% if reply.user.user_name %}
-              <a href="https://t.me/{{ reply.user.user_name }}">{{ reply.user.first_name }}</a>
-              {% else %}
-              <a href="">{{ reply.user.first_name }}</a>
-              {% endif %}
-              <span>{{ reply.date }} в {{ reply.time }}</span>
-            </div>
-            <div class="commentsItem__content">
-              {% if reply.receiver %}
-                <a href="{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>
-              {% endif %}
-              , {{ reply.message_text }}
-            </div>
-    
-            <a href="javascript:void(0)" onclick="showArea({{ reply.id }})">Ответить</a>
-    
-            <div class="comments_textareas" style="display: none;" id="block_{{ reply.id }}">
-              {% if authorization %}
-              <form method="POST" id="form_{{ reply.id }}">
-                {% csrf_token %}
-                <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
-                <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
-                <input type="text" name="receiver" style="display:none;" value='{{ reply.user.id }}' />
-                <input type="text" name="is_answer" style="display:none;" value='{{ reply.user.id }}' />
-                <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
-                <button onclick="checkInput({{ reply.id }})" type="button" class="button">Отправить комментарий</button>
-              </form>
-              {% else %}
-              <div class="comments__guest">
-                <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
-                <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
-              </div>
-              {% endif %}
-            </div>
-          </div>
+      <div class="commentsItem commentsItem__tree">
+        <div class="commentsItem__panel">
+          <span class="commentsItem__ava"><img src="{{ reply.user.image.url }}" alt="#"></span>
+          {% if reply.user.user_name %}
+          <a href="https://t.me/{{ reply.user.user_name }}">{{ reply.user.first_name }}</a>
+          {% else %}
+          <a href="">{{ reply.user.first_name }}</a>
+          {% endif %}
+          <span>{{ reply.date }} в {{ reply.time }}</span>
+        </div>
+        <div class="commentsItem__content">
+          {% if reply.receiver %}
+          <a href="{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>, {% endif %}
+          {{ reply.message_text }}
+        </div>
 
-        {% endfor %}
+        <a href="javascript:void(0)" onclick="showArea({{ reply.id }})">Ответить</a>
+
+        <div class="comments_textareas" style="display: none;" id="block_{{ reply.id }}">
+          {% if authorization %}
+          <form method="POST" id="form_{{ reply.id }}">
+            {% csrf_token %}
+            <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
+            <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
+            <input type="text" name="receiver" style="display:none;" value='{{ reply.user.id }}' />
+            <input type="text" name="is_answer" style="display:none;" value='{{ reply.user.id }}' />
+            <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
+            <button onclick="checkInput({{ reply.id }})" type="button" class="button">Отправить комментарий</button>
+          </form>
+          {% else %}
+          <div class="comments__guest">
+            <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
+            <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% endfor %}
 
       {% endfor %}
 
