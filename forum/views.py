@@ -99,7 +99,7 @@ def news_post(request):
             return render(request, "news-post.html", { "authorization": check_user.response, 
                 "news": (lambda info: News(info.id, info.title, 
                 info.hashtags, info.date, info.image, info = info.info))
-                (models.New.objects.filter(id=request.GET.get('news'))[0]),
+                (models.New.objects.filter(id=request.POST['news_id'])[0]),
                 "comments": [Comment(comment.id, comment.message_text, comment.time, comment.user) 
                 for comment in models.Comment.objects.filter(new=request.POST['news_id'], reply_to=None)]
             })
