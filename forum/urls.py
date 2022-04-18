@@ -13,6 +13,6 @@ urlpatterns = [
     path('news', views.news, name='news'),
     path('sell', views.sell, name='sell'),
     path('slovar', views.slovar, name='slovar'),
-    path('slovar', views.slovar, name='slovar'),
+    path('categories', views.categories, name='categories'),
     #path(hashlib.sha256('buckets'.encode('utf8')).hexdigest(), views.buckets, name='buckets')
 ]
