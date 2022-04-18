@@ -54,43 +54,60 @@ def index(request):
     return render(request, "index.html", { "authorization": check_user.response })
 
 def news_post(request):
-    class Message:
+    class Receiver:
+        def __init__(self, first_name, user_name) -> None:
+            self.first_name = first_name
+            self.user_name = user_name
+
+    class Comment:
         def __init__(self, message_id, message_text: str, time: datetime, user) -> None:
             self.id = message_id
             self.message_text = message_text
             self.date = time.date()
             self.time = time.strftime('%H:%M')
             self.user = user
-
-    class Comment(Message):
-        def __init__(self, message_id, message_text: str, time: datetime, user) -> None:
-            super().__init__(message_id, message_text, time, user)
-            self.replies = [Message(reply.id, reply.message_text, reply.time, reply.user) 
+            self.replies = [Reply(reply.id, reply.message_text, 
+            reply.time, reply.user, reply.is_answer, reply.receiver) 
             for reply in models.Comment.objects.filter(reply_to=self.id)]
+
+    class Reply(Comment):
+        def __init__(self, message_id, message_text: str, time: datetime, 
+        user, is_answer: bool, receiver: int) -> None:
+            super().__init__(message_id, message_text, time, user)
+            self.__is_answer = is_answer
+            self.__receiver = receiver
+            self.receiver = None
+            if self.__is_answer:
+                user = models.User.objects.filter(id=self.__receiver).values('first_name', 'user_name')
+                if user.user_name == None:
+                    self.receiver = Receiver(user.first_name, '#')
+                else:
+                    self.receiver = Receiver(user.first_name, user.user_name)
 
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
 
     if request.method == "POST":
-        if request.POST['news_id'] and request.POST['message_text']:
-            if check_user.response:
-                if request.POST['reply_to'] and request.POST['answer_to']:
-                    models.Comment(
-                        message_text = request.POST['message_text'],
-                        reply_to = request.POST['reply_to'],
-                        answer_to = request.POST['answer_to'],
-                        time = datetime.now(),
-                        new = models.New.objects.get(id=request.POST['news_id']),
-                        user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
-                    ).save()
-                else:
-                    models.Comment(
-                        message_text = request.POST['message_text'],
-                        time = datetime.now(),
-                        new = models.New.objects.get(id=request.POST['news_id']),
-                        user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
-                    ).save()
+        if request.POST['news_id'] and request.POST['message_text'] and check_user.response:
+            if request.POST['reply_to'] and request.POST['receiver']:
+                models.Comment(
+                    message_text = request.POST['message_text'],
+                    reply_to = request.POST['reply_to'],
+                    receiver = request.POST['receiver'],
+                    time = datetime.now(),
+                    new = models.New.objects.get(id=request.POST['news_id']),
+                    user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
+                    is_answer = (lambda response: True if response else False)(request.POST['is_answer'])
+                ).save()
+            else:
+                models.Comment(
+                    message_text = request.POST['message_text'],
+                    time = datetime.now(),
+                    new = models.New.objects.get(id=request.POST['news_id']),
+                    user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
+                    is_answer = False
+                ).save()
 
             return render(request, "news-post.html", { "authorization": check_user.response, 
                 "news": (lambda info: News(info.id, info.title, 

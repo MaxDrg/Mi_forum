@@ -33,7 +33,7 @@
 
     <!-- .comments -->
     <div class="comments">
-      <div class="comments__title">Комментарии 4</div>
+      <div class="comments__title">Комментарии {{ comments.count }}</div>
 
       {% for comment in comments %}
 
@@ -57,9 +57,10 @@
           {% if authorization %}
           <form method="POST" id="form_{{ comment.id }}">
             {% csrf_token %}
+            <input type="text" name="is_answer" style="display:none;" value='' />
             <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
             <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
-            <input type="text" name="answer_to" style="display:none;" value='{{ comment.user.telegr_id }}' />
+            <input type="text" name="receiver" style="display:none;" value='{{ comment.user.id }}' />
             <textarea id="textarea_{{ comment.id }}" name="message_text" class="textarea" rows="3"></textarea>
             <button onclick="checkInput({{ comment.id }})" type="button" class="button">Отправить комментарий</button>
           </form>
@@ -85,7 +86,10 @@
               <span>{{ reply.date }} в {{ reply.time }}</span>
             </div>
             <div class="commentsItem__content">
-              {{ reply.message_text }}
+              {% if reply.receiver %}
+                <a href="{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>
+              {% endif %}
+              , {{ reply.message_text }}
             </div>
     
             <a href="javascript:void(0)" onclick="showArea({{ reply.id }})">Ответить</a>
@@ -96,7 +100,8 @@
                 {% csrf_token %}
                 <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
                 <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
-                <input type="text" name="answer_to" style="display:none;" value='{{ comment.user.id }}' />
+                <input type="text" name="receiver" style="display:none;" value='{{ reply.user.id }}' />
+                <input type="text" name="is_answer" style="display:none;" value='{{ reply.user.id }}' />
                 <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
                 <button onclick="checkInput({{ reply.id }})" type="button" class="button">Отправить комментарий</button>
               </form>
@@ -117,9 +122,10 @@
       {% if authorization %}
       <form method="POST" id="form_default">
         {% csrf_token %}
-        <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
+        <input type="text" name="is_answer" style="display:none;" value='' />
         <input type="text" name="reply_to" style="display:none;" value='' />
-        <input type="text" name="answer_to" style="display:none;" value='' />
+        <input type="text" name="receiver" style="display:none;" value='' />
+        <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
         <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
         <button onclick="checkInput('default')" type="button" class="button">Отправить комментарий</button>
       </form>
