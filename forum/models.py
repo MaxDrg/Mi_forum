@@ -27,7 +27,7 @@ class New(models.Model):
 class Comment(models.Model):
     message_text = models.TextField("Text of message", null=False)
     reply_to = models.BigIntegerField("ID of message reply", null=True, default=None)
-    answer_to = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
+    answer_to = models.BigIntegerField("Telegram ID of message answer", null=True, default=None)
     time = models.DateTimeField("Time of sending", auto_now_add=True)
     new = models.ForeignKey(New, on_delete = models.CASCADE)
     user = models.ForeignKey(User, on_delete = models.CASCADE, default=None)

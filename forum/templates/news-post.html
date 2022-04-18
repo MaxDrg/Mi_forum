@@ -59,7 +59,7 @@
             {% csrf_token %}
             <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
             <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
-            <input type="text" name="answer_to" style="display:none;" value='{{ comment.id }}' />
+            <input type="text" name="answer_to" style="display:none;" value='{{ comment.user.telegr_id }}' />
             <textarea id="textarea_{{ comment.id }}" name="message_text" class="textarea" rows="3"></textarea>
             <button onclick="checkInput({{ comment.id }})" type="button" class="button">Отправить комментарий</button>
           </form>
@@ -95,8 +95,8 @@
               <form method="POST" id="form_{{ reply.id }}">
                 {% csrf_token %}
                 <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
-                <input type="text" name="reply_to" style="display:none;" value='{{ reply.id }}' />
-                <input type="text" name="answer_to" style="display:none;" value='{{ reply.id }}' />
+                <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
+                <input type="text" name="answer_to" style="display:none;" value='{{ comment.user.telegr_id }}' />
                 <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
                 <button onclick="checkInput({{ reply.id }})" type="button" class="button">Отправить комментарий</button>
               </form>

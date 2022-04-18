@@ -70,24 +70,15 @@ def news_post(request):
     if request.method == "POST":
         if request.POST['news_id'] and request.POST['message_text']:
             if check_user.response:
-                if request.POST['reply_to']:
-                    if request.POST['answer_to']:
-                        models.Comment(
-                            message_text = request.POST['message_text'],
-                            reply_to = request.POST['reply_to'],
-                            answer_to = request.POST['answer_to'],
-                            time = datetime.now(),
-                            new = models.New.objects.get(id=request.POST['news_id']),
-                            user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
-                        ).save()
-                    else:
-                        models.Comment(
-                            message_text = request.POST['message_text'],
-                            reply_to = request.POST['reply_to'],
-                            time = datetime.now(),
-                            new = models.New.objects.get(id=request.POST['news_id']),
-                            user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
-                        ).save()
+                if request.POST['reply_to'] and request.POST['answer_to']:
+                    models.Comment(
+                        message_text = request.POST['message_text'],
+                        reply_to = request.POST['reply_to'],
+                        answer_to = request.POST['answer_to'],
+                        time = datetime.now(),
+                        new = models.New.objects.get(id=request.POST['news_id']),
+                        user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id'))
+                    ).save()
                 else:
                     models.Comment(
                         message_text = request.POST['message_text'],
