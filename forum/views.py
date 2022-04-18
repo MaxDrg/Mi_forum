@@ -188,3 +188,9 @@ def slovar(request):
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "slovar.html", { "authorization": check_user.response })
+
+def categories(request):
+    check_user = auth.Authorization(
+        request.COOKIES.get('user_id'), 
+        request.COOKIES.get('passwd'))
+    return render(request, "categories.html", { "authorization": check_user.response })
