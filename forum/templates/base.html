@@ -108,6 +108,18 @@
                         </div><!-- /.ding__box -->
                     </div><!-- /.ding -->
 
+                    <script>
+                        // ding
+                        var ding = document.getElementById('ding');
+                        var body = document.getElementById("body");
+                        ding.addEventListener('show.bs.dropdown', function () {
+                            body.classList.add('dingActive');
+                        });
+                        ding.addEventListener('hidden.bs.dropdown', function () {
+                            body.classList.remove('dingActive');
+                        });
+                    </script>
+
                     {% else %}
                     <a href="https://t.me/mi_forum_bot" class="nav__link hidden__mobile">Login</a>
 
