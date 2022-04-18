@@ -77,12 +77,13 @@ def news_post(request):
             self.__is_answer = is_answer
             self.__receiver = receiver
             self.receiver = None
+            print(self.receiver)
             if self.__is_answer:
                 user = models.User.objects.filter(id=self.__receiver).values('first_name', 'user_name')
-                if user.user_name == None:
-                    self.receiver = Receiver(user.first_name, '#')
+                if user['user_name'] == None:
+                    self.receiver = Receiver(user['first_name'], '#')
                 else:
-                    self.receiver = Receiver(user.first_name, user.user_name)
+                    self.receiver = Receiver(user['first_name'], user['user_name'])
 
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
