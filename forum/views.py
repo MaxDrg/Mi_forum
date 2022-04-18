@@ -63,7 +63,8 @@ def news_post(request):
             self.user = user
 
     class Comment(Message):
-        def __init__(self) -> None:
+        def __init__(self, message_id, message_text: str, time: datetime, user) -> None:
+            super().__init__(message_id, message_text, time, user)
             self.replies = [Message(reply.id, reply.message_text, reply.time, reply.user) 
             for reply in models.Comment.objects.filter(reply_to=self.id)]
 
