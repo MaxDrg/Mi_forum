@@ -1,5 +1,3 @@
-from email import message
-from multiprocessing.connection import answer_challenge
 from django.db import models
 
 class User(models.Model):
@@ -30,6 +28,36 @@ class Comment(models.Model):
     receiver = models.BigIntegerField("Telegram ID of message answer", null=True, default=None)
     time = models.DateTimeField("Time of sending", auto_now_add=True)
     new = models.ForeignKey(New, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
+    is_answer = models.BooleanField("Is answer", null=True, default=None)
+
+    def __str__(self):
+        return self.message_text
+
+class Category(models.Model):
+    category_name = models.CharField("Name of category", max_length=255)
+    description = models.TextField("Categories description", null=True)
+    private = models.BooleanField("Is private")
+
+    def __str__(self):
+        return self.category_name
+
+class Forum(models.Model):
+    forum_name = models.CharField("Name of forum", max_length=255)
+    description = models.TextField("Forums description", null=True)
+    private = models.BooleanField("Is private")
+    forum_text = models.TextField("Forums text", null=True)
+    category = models.ForeignKey(Category, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.forum_name
+
+class Message:
+    message_text = models.TextField("Text of message", null=False)
+    reply_to = models.BigIntegerField("ID of message reply", null=True, default=None)
+    receiver = models.BigIntegerField("Telegram ID of message answer", null=True, default=None)
+    time = models.DateTimeField("Time of sending", auto_now_add=True)
+    new = models.ForeignKey(Forum, on_delete = models.CASCADE)
     user = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
     is_answer = models.BooleanField("Is answer", null=True, default=None)
 
