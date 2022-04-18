@@ -13,15 +13,6 @@ ding.addEventListener('hidden.bs.dropdown', function () {
   body.classList.remove('dingActive');
 });
 
-// modalZakaz
-var exampleModal = document.getElementById('modalZakaz')
-exampleModal.addEventListener('show.bs.modal', function (event) {
-  var button = event.relatedTarget
-  var recipient = button.getAttribute('data-bs-whatever')
-  var modalTitle = exampleModal.querySelector('.modal-title')
-  modalTitle.textContent = 'Оформить ' + '"' + recipient + '"'
-})
-
 function showArea(block_id) {
   let textareas = document.getElementsByClassName('comments_textareas');
   for (var i = 0; i < textareas.length; i++) {
