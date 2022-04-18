@@ -59,7 +59,7 @@ def news_post(request):
             self.id = message_id
             self.message_text = message_text
             self.date = time.date()
-            self.time = time.timestamp()
+            self.time = time.strftime('%H:%M')
             self.user = user
             self.replies = models.Comment.objects.filter(reply_to=message_id)
 
