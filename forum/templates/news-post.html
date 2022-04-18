@@ -76,9 +76,9 @@
 
           <div class="commentsItem commentsItem__tree">
             <div class="commentsItem__panel">
-              <span class="commentsItem__ava"><img src="{{ comment.user.image.url }}" alt="#"></span>
+              <span class="commentsItem__ava"><img src="{{ reply.user.image.url }}" alt="#"></span>
               {% if reply.user.user_name %}
-              <a href="https://t.me/{{ comment.user.user_name }}">{{ reply.user.first_name }}</a>
+              <a href="https://t.me/{{ reply.user.user_name }}">{{ reply.user.first_name }}</a>
               {% else %}
               <a href="">{{ reply.user.first_name }}</a>
               {% endif %}
