@@ -59,7 +59,7 @@ def news_post(request):
             self.id = message_id
             self.message_text = message_text
             self.date = time.date()
-            self.time = time.time()
+            self.time = time.timestamp()
             self.user = user
             self.replies = models.Comment.objects.filter(reply_to=message_id)
 
@@ -88,9 +88,9 @@ def news_post(request):
                     ).save()
 
             return render(request, "news-post.html", { "authorization": check_user.response, 
-                "news": (lambda info: News(info.id, info.title, info.info, 
-                info.pre_info, info.hashtags, info.date, info.image))
-                (models.New.objects.filter(id=request.POST['news_id'])[0]),
+                "news": (lambda info: News(info.id, info.title, 
+                info.hashtags, info.date, info.image, info = info.info))
+                (models.New.objects.filter(id=request.GET.get('news'))[0]),
                 "comments": [Comment(comment.id, comment.message_text, comment.time, comment.user) 
                 for comment in models.Comment.objects.filter(new=request.POST['news_id'], reply_to=None)]
             })
