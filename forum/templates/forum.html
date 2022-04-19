@@ -9,7 +9,7 @@
 
     <!-- .forumBreadcrumb -->
     <div class="forumBreadcrumb">
-      Forums / <a href="#">Main category</a>
+      Forums / <a href="#">{{ category.name }}</a>
     </div><!-- /.forumBreadcrumb -->
 
     {% for forum in forums %}
@@ -34,7 +34,7 @@
           <span class="forumItem__counter__name">Messages</span>
         </div>
       </div>
-      
+
       {% if forum.last_message_user %}
 
         <div class="forumItem__user">

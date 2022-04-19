@@ -64,6 +64,7 @@ def forum(request):
             super().__init__(id, name, description)
             self.messages_count = models.Message.objects.filter(forum=id).count()
             self.private = private
+            print(private)
             self.last_message_user = False
             message = models.Message.objects.filter(forum=id).last()
             if message:
