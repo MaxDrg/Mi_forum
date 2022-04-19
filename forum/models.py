@@ -49,7 +49,7 @@ class Forum(models.Model):
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
 
     def __str__(self):
-        return self.forum_name
+        return self.name
 
 class Message(models.Model):
     message_text = models.TextField("Text of message", null=False)

@@ -52,19 +52,24 @@ def forum_post(request):
 
 def forum(request):
     class Last_message_user():
-        def __init__(self) -> None:
-            name
-            time
-            date
-            image
+        def __init__(self, time: datetime, first_name: str, user_name: str, image: str) -> None:
+            self.date = time.date()
+            self.time = time.strftime('%H:%M')
+            self.first_name = first_name
+            self.user_name = user_name
+            self.image = image
 
     class Forum(Topic):
-        def __init__(self, name: str, description: str, 
-        messages_count: str, private: bool, last_message) -> None:
-            super().__init__(name, description)
-            self.messages_count = messages_count
+        def __init__(self, id: int, name: str, description: str, private: bool) -> None:
+            super().__init__(id, name, description)
+            self.messages_count = models.Message.objects.filter(forum=id).count()
             self.private = private
-            self.last_message = last_message
+            self.last_message_user = False
+            message = models.Message.objects.filter(forum=id).last()
+            if message:
+                user = models.User.objects.filter(id=message.user)[0]
+                self.last_message_user = Last_message_user(message.time, user.first_name,
+                user.user_name, user.image)
 
     if request.GET.get('category'):
         check_user = auth.Authorization(
@@ -75,7 +80,8 @@ def forum(request):
             sub = models.User.objects.filter(telegr_id=request.COOKIES.get('user_id'))
         return render(request, "forum.html", { "authorization": check_user.response,
         'subscription': (lambda user: True if user else False)(sub),
-        "forums": models.Forum.objects.filter(category=request.GET.get('category')) })
+        "forums": [Forum(forum.id, forum.name, forum.private) 
+        for forum in models.Forum.objects.filter(category=request.GET.get('category'))] })
 
 def index(request):
     check_user = auth.Authorization(
