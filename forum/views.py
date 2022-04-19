@@ -80,7 +80,7 @@ def forum(request):
             sub = models.User.objects.filter(telegr_id=request.COOKIES.get('user_id'))
         return render(request, "forum.html", { "authorization": check_user.response,
         'subscription': (lambda user: True if user else False)(sub),
-        "forums": [Forum(forum.id, forum.name, forum.private) 
+        "forums": [Forum(forum.id, forum.name, forum.description, forum.private) 
         for forum in models.Forum.objects.filter(category=request.GET.get('category'))] })
 
 def index(request):

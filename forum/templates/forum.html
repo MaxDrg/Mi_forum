@@ -20,7 +20,13 @@
         <img src="{% static '/forum/images/message.svg' %}" alt="#">
       </span>
       <div class="forumItem__desc">
-        <div class="forumItem__desc__name"><a href="{ url 'forum-post' }?forum={{ forum.id }}">{{ forum.name }}</a></div>
+        {% if forum.private %}
+          <div class="forumItem__desc__name"><a href="#!" data-bs-toggle="modal" data-bs-target="#modalError">
+            Another forum</a></div>
+        {% else %}
+          <div class="forumItem__desc__name"><a href="{ url 'forum-post' }?forum={{ forum.id }}">{{ forum.name }}</a></div>
+        {% endif %}
+        <div class="forumItem__desc__text">{{ forum.description }}</div>
       </div>
       <div class="forumItem__counters">
         <div class="forumItem__counter">
