@@ -12,6 +12,7 @@
       Forums / <a href="#">Main category</a>
     </div><!-- /.forumBreadcrumb -->
 
+    {% for forum in forums %}
 
     <!-- .forumItem -->
     <div class="forumItem">
@@ -22,10 +23,6 @@
         <div class="forumItem__desc__name"><a href="forum-post.html">Main forum</a></div>
       </div>
       <div class="forumItem__counters">
-        <div class="forumItem__counter">
-          <span class="forumItem__counter__number">6</span>
-          <span class="forumItem__counter__name">Threads</span>
-        </div>
         <div class="forumItem__counter">
           <span class="forumItem__counter__number">45</span>
           <span class="forumItem__counter__name">Messages</span>
@@ -41,6 +38,9 @@
         </div>
       </div>
     </div><!-- /.forumItem -->
+
+    {% endfor %}
+
     <!-- .forumItem -->
     <div class="forumItem">
       <span class="forumItem__icon">

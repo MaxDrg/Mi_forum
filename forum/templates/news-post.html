@@ -79,9 +79,9 @@
         <div class="commentsItem__panel">
           <span class="commentsItem__ava"><img src="{{ reply.user.image.url }}" alt="#"></span>
           {% if reply.user.user_name %}
-          <a href="https://t.me/{{ reply.user.user_name }}">{{ reply.user.first_name }}</a>
+            <a href="https://t.me/{{ reply.user.user_name }}">{{ reply.user.first_name }}</a>
           {% else %}
-          <a href="">{{ reply.user.first_name }}</a>
+            <a href="#">{{ reply.user.first_name }}</a>
           {% endif %}
           <span>{{ reply.date }} в {{ reply.time }}</span>
         </div>

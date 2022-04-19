@@ -1,11 +1,20 @@
 import io
+from statistics import mode
+from time import time
+from unicodedata import name
 from . import auth
 from . import models
-from datetime import datetime
+from datetime import date, datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
+
+class Topic:
+    def __init__(self, id: int, name: str, description: str) -> None:
+        self.id = id
+        self.name = name
+        self.description = description
 
 class News():
     def __init__(self, id, title, hashtags: str, date, image, info = None, pre_info = None) -> None:
@@ -42,10 +51,31 @@ def forum_post(request):
     return render(request, "forum-post.html", { "authorization": check_user.response })
 
 def forum(request):
-    check_user = auth.Authorization(
-        request.COOKIES.get('user_id'), 
-        request.COOKIES.get('passwd'))
-    return render(request, "forum.html", { "authorization": check_user.response })
+    class Last_message_user():
+        def __init__(self) -> None:
+            name
+            time
+            date
+            image
+
+    class Forum(Topic):
+        def __init__(self, name: str, description: str, 
+        messages_count: str, private: bool, last_message) -> None:
+            super().__init__(name, description)
+            self.messages_count = messages_count
+            self.private = private
+            self.last_message = last_message
+
+    if request.GET.get('category'):
+        check_user = auth.Authorization(
+            request.COOKIES.get('user_id'), 
+            request.COOKIES.get('passwd'))
+        sub = False
+        if check_user.response:
+            sub = models.User.objects.filter(telegr_id=request.COOKIES.get('user_id'))
+        return render(request, "forum.html", { "authorization": check_user.response,
+        'subscription': (lambda user: True if user else False)(sub),
+        "forums": models.Forum.objects.filter(category=request.GET.get('category')) })
 
 def index(request):
     check_user = auth.Authorization(
@@ -80,7 +110,7 @@ def news_post(request):
             if self.__is_answer:
                 user = models.User.objects.filter(id=self.__receiver).values('first_name', 'user_name')[0]
                 if user['user_name'] == None:
-                    self.receiver = Receiver(user['first_name'], '#')
+                    self.receiver = Receiver(user['first_name'], '')
                 else:
                     self.receiver = Receiver(user['first_name'], user['user_name'])
 
@@ -190,7 +220,31 @@ def slovar(request):
     return render(request, "slovar.html", { "authorization": check_user.response })
 
 def categories(request):
+    class Last_message_forum:
+        def __init__(self, id: int, name: str, time: datetime) -> None:
+            self.id = id
+            self.name = name
+            self.time = time.strftime('%H:%M')
+            self.date = time.date()
+
+    class Category(Topic):
+        def __init__(self, id: int, name: str, description: str) -> None:
+            super().__init__(id, name, description)
+            self.forums_count = models.Forum.objects.filter(category=id).count()
+            self.last_message_forum = False
+            messages = []
+            for forum in models.Forum.objects.filter(category=id):
+                messages.append(models.Message.objects.filter(forum=forum.id).last())
+            if messages:
+                time = datetime.now()
+                for message in messages:
+                    if time > message.time:
+                        time = message.time
+                        self.last_message_forum = Last_message_forum(message.id, message.name, message.time)
+
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
-    return render(request, "categories.html", { "authorization": check_user.response })
+    return render(request, "categories.html", { "authorization": check_user.response, 
+    "categories": [Category(category.id, category.name, category.description) 
+    for category in models.Category.objects.all()] })
