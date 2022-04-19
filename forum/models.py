@@ -39,7 +39,7 @@ class Category(models.Model):
     description = models.TextField("Categories description", null=True)
 
     def __str__(self):
-        return self.category_name
+        return self.name
 
 class Forum(models.Model):
     name = models.CharField("Name of forum", max_length=255)
