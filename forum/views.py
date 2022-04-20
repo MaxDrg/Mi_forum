@@ -1,3 +1,4 @@
+from enum import unique
 import io
 import pytz
 from . import auth
@@ -158,9 +159,9 @@ def index(request):
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
-    if check_user.response:
-        get_notification(request.COOKIES.get('user_id'))
-    return render(request, "index.html", { "authorization": check_user.response })
+    return render(request, "index.html", { "authorization": check_user.response,
+    "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response) })
 
 def news_post(request):
 
@@ -310,12 +311,15 @@ def categories(request):
     "categories": [Category(category.id, category.name, category.description) 
     for category in models.Category.objects.all()] })
 
+
 def get_notification(telegr_id: int):
     utc=pytz.UTC
     
     class Notice(Topic):
-        def __init__(self, id: int, name: str) -> None:
+        def __init__(self, id: int, name: str, time: datetime, type: str) -> None:
             super().__init__(id, name)
+            self.time = time.strftime('%H:%M')
+            self.type = type
     
     class Notifications:
         def __init__(self, today_notice: Notice, yesterday_notice: Notice) -> None:
@@ -323,10 +327,36 @@ def get_notification(telegr_id: int):
             self.yesterday = yesterday_notice
 
     user_id = models.User.objects.filter(telegr_id=telegr_id)[0].id
+    topics_today = []
+    topics_yesterday = []
 
-    messages = models.Message.objects.filter(user = user_id, time=utc.localize(datetime.now()).date())
-    comments = models.Comment.objects.filter(user = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
-
-    print(messages, comments)
-
+    messages_today = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
+    comments_today = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
+    messages_yesterday = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
+    comments_yesterday = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
     
+    if messages_today and comments_today:
+        for message in messages_today:
+            topics_today.append(Notice(message.forum.id, message.message.forum.name, message.time, 'message'))
+        for comment in comments_today:
+            topics_today.append(Notice(comment.forum.id, comment.message.forum.name, comment.time, 'comment'))
+    else:
+        topics_today.append('Нет уведомлений')
+
+    if messages_yesterday and comments_yesterday:
+        for message in messages_yesterday:
+            topics_yesterday.append(Notice(message.forum.id, message.message.forum.name, message.time, 'message'))
+        for comment in comments_yesterday:
+            topics_yesterday.append(Notice(comment.forum.id, comment.message.forum.name, comment.time, 'comment'))
+    else:
+        topics_yesterday.append('Нет уведомлений')
+    
+    if not topics_today[0] == 'Нет уведомлений':
+        topics_today: list = unique(topics_today)
+        topics_today.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
+    
+    if not topics_yesterday[0] == 'Нет уведомлений':
+        topics_yesterday: list = unique(topics_yesterday)
+        topics_yesterday.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
+        
+    return Notifications(topics_today, topics_yesterday)
