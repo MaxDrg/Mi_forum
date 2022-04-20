@@ -94,7 +94,7 @@ def forum_post(request):
                     reply_to = request.POST['reply_to'],
                     receiver = request.POST['receiver'],
                     time = datetime.now(),
-                    new = models.New.objects.get(id=request.POST['forum_id']),
+                    forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
                     is_answer = (lambda response: True if response else False)(request.POST['is_answer'])
                 ).save()
@@ -102,7 +102,7 @@ def forum_post(request):
                 models.Message(
                     message_text = request.POST['message_text'],
                     time = datetime.now(),
-                    new = models.New.objects.get(id=request.POST['forum_id']),
+                    forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
                     is_answer = False
                 ).save()
