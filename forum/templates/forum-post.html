@@ -14,8 +14,8 @@
 
     <!-- .forumBreadcrumb -->
     <div class="forumBreadcrumb">
-      <a href="{% url 'categories' %}">Categories</a> / <a href="{% url 'forum' %}?category={{ category.id }}">{{
-        category.name }}</a> / {{ category.forum_name }}
+      <a href="{% url 'categories' %}">Categories</a> / <a href="{% url 'forum' %}?category={{ category.id }}">
+        {{ category.name }}</a> / {{ category.forum_name }}
     </div><!-- /.forumBreadcrumb -->
 
     {% for message in messages %}
@@ -134,9 +134,9 @@
         <input type="text" name="is_answer" style="display:none;" value='' />
         <input type="text" name="reply_to" style="display:none;" value='' />
         <input type="text" name="receiver" style="display:none;" value='' />
-        <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
-        <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
-        <button onclick="checkInput({{ reply.id }})" type="button" class="button">Отправить сообщение</button>
+        <input type="text" name="news_id" style="display:none;" value='{{ category.forum_id }}' />
+        <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
+        <button onclick="checkInput('default')" type="button" class="button">Отправить сообщение</button>
       </form>
       {% else %}
       <div class="forumPost">

@@ -1,4 +1,6 @@
 import io
+from statistics import mode
+from unicodedata import name
 from . import auth
 from . import models
 from datetime import datetime
@@ -13,7 +15,8 @@ class Receiver:
         self.user_name = user_name
 
 class Message:
-    def __init__(self, message_id, message_text: str, time: datetime, user) -> None:
+    def __init__(self, message_id: int, message_text: str, 
+    time: datetime, user: models.User) -> None:
         self.id = message_id
         self.message_text = message_text
         self.date = time.date()
@@ -24,8 +27,8 @@ class Message:
         for reply in models.Message.objects.filter(reply_to=self.id)]
             
 class Reply(Message):
-    def __init__(self, message_id, message_text: str, time: datetime, 
-    user, is_answer: bool, receiver: int) -> None:
+    def __init__(self, message_id: int, message_text: str, time: datetime, 
+    user: models.User, is_answer: bool, receiver: int) -> None:
         super().__init__(message_id, message_text, time, user)
         self.__is_answer = is_answer
         self.__receiver = receiver
@@ -44,7 +47,8 @@ class Topic:
         self.description = description
 
 class News():
-    def __init__(self, id, title, hashtags: str, date, image, info = None, pre_info = None) -> None:
+    def __init__(self, id: int, title: str, hashtags: str, date: datetime, 
+    image: str, info: str = None, pre_info: str = None) -> None:
         self.id = id
         self.title = title
         self.info = info
@@ -72,6 +76,14 @@ def curses(request):
     return render(request, "curses.html", { "authorization": check_user.response })
 
 def forum_post(request):
+
+    class Forum_post:
+        def __init__(self, forum: models.Forum) -> None:
+            category = models.Category.objects.filter(id=forum.category)
+            self.category_id = category.id
+            self.category_name = category.name
+            self.forum_id = forum.id
+            self.forum_name = forum.name
 
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
@@ -104,6 +116,7 @@ def forum_post(request):
             })
     elif request.GET.get('forum'):
         return render(request, "forum-post.html", { "authorization": check_user.response, 
+            "category": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
             "messages": [Message(message.id, message.message_text, message.time, message.user) 
             for message in models.Message.objects.filter(forum=request.GET.get('forum'), reply_to=None)]
         })
