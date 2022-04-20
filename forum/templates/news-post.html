@@ -87,9 +87,12 @@
           <span>{{ reply.date }} в {{ reply.time }}</span>
         </div>
         <div class="commentsItem__content">
+
           {% if reply.receiver %}
-          <a href="https://t.me/{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>, {% else %}
-          <a href="#">{{ reply.receiver.first_name }}</a>, {% endif %}
+            {% if reply.receiver.user_name %}
+            <a href="https://t.me/{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>, {% else %}
+            <a href="#">{{ reply.receiver.first_name }}</a>, {% endif %}
+          {% endif %}
           {{ reply.message_text }}
         </div>
 
