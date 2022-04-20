@@ -241,8 +241,9 @@ def categories(request):
             self.last_message_forum = False
             messages = []
             for forum in models.Forum.objects.filter(category=id):
-                messages.append(models.Message.objects.filter(forum=forum.id).last())
-            print(messages)
+                last_message = models.Message.objects.filter(forum=forum.id).last()
+                if last_message:
+                    messages.append(last_message)
             if messages:
                 time = datetime.now()
                 for message in messages:
