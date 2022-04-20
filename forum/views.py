@@ -108,7 +108,7 @@ def forum_post(request):
                 ).save()
 
             return render(request, "forum-post.html", { "authorization": check_user.response,
-                "forum": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
+                "forum": Forum_post(models.Forum.objects.filter(id=request.POST['forum_id'])[0]),
                 "messages": [Message(message.id, message.message_text, message.time, message.user) 
                 for message in models.Message.objects.filter(forum=request.POST['forum_id'], reply_to=None)]
             })
