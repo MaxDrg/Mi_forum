@@ -295,7 +295,7 @@ def categories(request):
                 time = datetime.now()
                 for message in messages:
                     if time > datetime(message.time):
-                        time = datetime(message.time)
+                        time = message.time
                         self.last_message_forum = Last_message_forum(message.id, message.name, message.time)
 
     check_user = auth.Authorization(
