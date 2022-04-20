@@ -1,6 +1,4 @@
 import io
-from statistics import mode
-from unicodedata import name
 from . import auth
 from . import models
 from datetime import datetime
@@ -79,7 +77,7 @@ def forum_post(request):
 
     class Forum_post:
         def __init__(self, forum: models.Forum) -> None:
-            category = models.Category.objects.filter(id=forum.category)
+            category = models.Category.objects.filter(id=forum.category.id)
             self.category_id = category.id
             self.category_name = category.name
             self.forum_id = forum.id
