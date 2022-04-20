@@ -77,9 +77,8 @@ def forum_post(request):
 
     class Forum_post:
         def __init__(self, forum: models.Forum) -> None:
-            category = models.Category.objects.filter(id=forum.category.id)[0]
-            self.category_id = category.id
-            self.category_name = category.name
+            self.category_id = forum.category.id
+            self.category_name = forum.category.name
             self.forum_id = forum.id
             self.forum_name = forum.name
 
@@ -109,12 +108,13 @@ def forum_post(request):
                 ).save()
 
             return render(request, "forum-post.html", { "authorization": check_user.response,
+                "forum": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
                 "messages": [Message(message.id, message.message_text, message.time, message.user) 
                 for message in models.Message.objects.filter(forum=request.POST['forum_id'], reply_to=None)]
             })
     elif request.GET.get('forum'):
         return render(request, "forum-post.html", { "authorization": check_user.response, 
-            "category": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
+            "forum": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
             "messages": [Message(message.id, message.message_text, message.time, message.user) 
             for message in models.Message.objects.filter(forum=request.GET.get('forum'), reply_to=None)]
         })
