@@ -324,8 +324,8 @@ def get_notification(telegr_id: int):
 
     user_id = models.User.objects.filter(telegr_id=telegr_id)[0].id
 
-    messages = models.Message.objects.filter(user = user_id, time=utc.localize(datetime.now().date()))
-    comments = models.Comment.objects.filter(user = user_id, time=utc.localize(datetime.now().date()) - timedelta(days=1))
+    messages = models.Message.objects.filter(user = user_id, time=utc.localize(datetime.now()).date())
+    comments = models.Comment.objects.filter(user = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
 
     print(messages, comments)
 
