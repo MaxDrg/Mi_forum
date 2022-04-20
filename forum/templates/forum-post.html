@@ -32,7 +32,7 @@
           {% endif %}
         </div>
         <div class="forumPost__panel__inner">
-          <span>{{ comment.date }} в {{ comment.time }}</span>
+          <span>{{ message.date }} в {{ message.time }}</span>
           <!-- <a href="#"><img src="{% static '/forum/images/forum-share.svg' %}" alt="Share"></a> -->
           <a href="javascript:void(0)" onclick="showArea({{ message.id }})">
             <img src="{% static '/forum/images/forum-reply.svg' %}" alt="Reply">
