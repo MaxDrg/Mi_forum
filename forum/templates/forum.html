@@ -53,8 +53,8 @@
         <div>
           {% if forum.last_message_user.user_name %}
           <span class="forumItem__user__title">
-            <a href="https://t.me/{{ forum.last_message_user.user_name }}">{{
-              forum.last_message_user.first_name }}
+            <a href="https://t.me/{{ forum.last_message_user.user_name }}">
+              {{ forum.last_message_user.first_name }}
             </a>
           </span>
           {% else %}
