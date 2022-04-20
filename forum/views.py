@@ -242,6 +242,7 @@ def categories(request):
             messages = []
             for forum in models.Forum.objects.filter(category=id):
                 messages.append(models.Message.objects.filter(forum=forum.id).last())
+            print(messages)
             if messages:
                 time = datetime.now()
                 for message in messages:
