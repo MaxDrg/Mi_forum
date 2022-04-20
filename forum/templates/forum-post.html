@@ -110,7 +110,7 @@
         <input type="text" name="reply_to" style="display:none;" value='{{ message.id }}' />
         <input type="text" name="receiver" style="display:none;" value='{{ reply.user.id }}' />
         <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
-        <button onclick="checkInput({{ reply.id }})" type="button" class="button">Отправить комментарий</button>
+        <button onclick="checkInput({{ reply.id }})" type="button" class="button">Ответить на сообщение</button>
       </form>
     </div><!-- /.forumPost -->
 
@@ -135,8 +135,8 @@
         <input type="text" name="reply_to" style="display:none;" value='' />
         <input type="text" name="receiver" style="display:none;" value='' />
         <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
-        <textarea class="textarea" rows="3"></textarea>
-        <button type="button" class="button">Отправить сообщение</button>
+        <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
+        <button onclick="checkInput({{ reply.id }})" type="button" class="button">Отправить сообщение</button>
       </form>
       {% else %}
       <div class="forumPost">
