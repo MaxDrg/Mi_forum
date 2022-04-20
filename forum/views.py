@@ -1,4 +1,5 @@
 import io
+import pytz
 from . import auth
 from . import models
 from datetime import datetime
@@ -274,6 +275,8 @@ def slovar(request):
     return render(request, "slovar.html", { "authorization": check_user.response })
 
 def categories(request):
+    utc=pytz.UTC
+
     class Last_message_forum:
         def __init__(self, id: int, name: str, time: datetime) -> None:
             self.id = id
@@ -292,10 +295,11 @@ def categories(request):
                 if last_message:
                     messages.append(last_message)
             if messages:
-                time = datetime.now()
+                time = utc.localize(datetime.now())
                 for message in messages:
-                    if time > datetime(message.time):
-                        time = message.time
+                    message_time = utc.localize(message.time)
+                    if time > message_time:
+                        time = message_time
                         self.last_message_forum = Last_message_forum(message.id, message.name, message.time)
 
     check_user = auth.Authorization(
