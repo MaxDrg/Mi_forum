@@ -52,7 +52,7 @@
         <p>Ответ на сообщение:</p>
         <form method="POST" id="form_{{ message.id }}">
           {% csrf_token %}
-          <input type="text" name="is_answer" style="display:none;" value='{{ forum.id }}' />
+          <input type="text" name="is_answer" style="display:none;" value='' />
           <input type="text" name="forum_id" style="display:none;" value='{{ forum.forum_id }}' />
           <input type="text" name="reply_to" style="display:none;" value='{{ message.id }}' />
           <input type="text" name="receiver" style="display:none;" value='{{ message.user.id }}' />
@@ -104,7 +104,7 @@
         <p>Ответ на сообщение:</p>
         <form method="POST" id="form_{{ reply.id }}">
           {% csrf_token %}
-          <input type="text" name="is_answer" style="display:none;" value='' />
+          <input type="text" name="is_answer" style="display:none;" value='{{ reply.id }}' />
           <input type="text" name="forum_id" style="display:none;" value='{{ forum.forum_id }}' />
           <input type="text" name="reply_to" style="display:none;" value='{{ message.id }}' />
           <input type="text" name="receiver" style="display:none;" value='{{ reply.user.id }}' />
