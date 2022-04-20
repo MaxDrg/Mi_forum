@@ -358,5 +358,7 @@ def get_notification(telegr_id: int):
     if not topics_yesterday[0] == 'Нет уведомлений':
         topics_yesterday: list = unique(topics_yesterday)
         topics_yesterday.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
+
+    print(topics_today)
         
     return Notifications(topics_today, topics_yesterday)
