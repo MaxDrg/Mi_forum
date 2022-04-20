@@ -88,7 +88,8 @@
         </div>
         <div class="commentsItem__content">
           {% if reply.receiver %}
-          <a href="{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>, {% endif %}
+          <a href="https://t.me/{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>, {% else %}
+          <a href="#">{{ reply.receiver.first_name }}</a>, {% endif %}
           {{ reply.message_text }}
         </div>
 

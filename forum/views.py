@@ -1,3 +1,4 @@
+from asyncio import FastChildWatcher
 import io
 import pytz
 from . import auth
@@ -35,7 +36,7 @@ class Reply(Message):
         if self.__is_answer:
             user = models.User.objects.filter(id=self.__receiver).values('first_name', 'user_name')[0]
             if user['user_name'] == None:
-                self.receiver = Receiver(user['first_name'], '')
+                self.receiver = Receiver(user['first_name'], False)
             else:
                 self.receiver = Receiver(user['first_name'], user['user_name'])
 
