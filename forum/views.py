@@ -297,9 +297,8 @@ def categories(request):
             if messages:
                 time = utc.localize(datetime.now())
                 for message in messages:
-                    message_time = utc.localize(message.time)
-                    if time > message_time:
-                        time = message_time
+                    if time > message.time:
+                        time = message.time
                         self.last_message_forum = Last_message_forum(message.id, message.name, message.time)
 
     check_user = auth.Authorization(
