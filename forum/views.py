@@ -278,11 +278,11 @@ def categories(request):
     utc=pytz.UTC
 
     class Last_message_forum:
-        def __init__(self, id: int, name: str, time: datetime) -> None:
-            self.id = id
-            self.name = name
-            self.time = time.strftime('%H:%M')
-            self.date = time.date()
+        def __init__(self, message: models.Message) -> None:
+            self.id = message.forum.id
+            self.name = message.forum.name
+            self.time = message.time.strftime('%H:%M')
+            self.date = message.time.date()
 
     class Category(Topic):
         def __init__(self, id: int, name: str, description: str) -> None:
@@ -299,7 +299,7 @@ def categories(request):
                 for message in messages:
                     if time > message.time:
                         time = message.time
-                        self.last_message_forum = Last_message_forum(message.id, message.name, message.time)
+                        self.last_message_forum = Last_message_forum(message)
 
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
