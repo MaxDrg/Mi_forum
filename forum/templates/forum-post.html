@@ -91,7 +91,9 @@
         </div>
       </div>
       <div class="forumPost__content">
-        <p>{{ reply.message_text }}</p>
+        <p>{% if reply.receiver %}
+          <a href="{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>, {% endif %}
+          {{ reply.message_text }}</p>
       </div>
     </div><!-- /.forumPost -->
 
@@ -153,7 +155,6 @@
     if (text.value === "") {
       alert('Пустое сообщение !');
     } else {
-      text.value.val().Replace("\r\n", "<br />\r\n");
       let form = document.getElementById('form_' + form_id);
       form.action = "{% url 'forum-post' %}";
       document.body.append(form);
