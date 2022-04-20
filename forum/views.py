@@ -137,7 +137,7 @@ def forum(request):
             self.last_message_user = False
             message = models.Message.objects.filter(forum=id).last()
             if message:
-                user = models.User.objects.filter(id=message.user)[0]
+                user = message.user
                 self.last_message_user = Last_message_user(message.time, user.first_name,
                 user.user_name, user.image)
 

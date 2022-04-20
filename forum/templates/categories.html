@@ -30,9 +30,8 @@
           <span class="forumItem__counter__name">Threads</span>
         </div>
         {% if category.last_message_forum %}
-        <div>
-          <span class="forumItem__user__title"><a href="{ url 'forum-post' }?forum={{ category.last_message_forum.id }}">
-            {{ category.last_message_forum.name }}</a></span>
+        <div class="forumItem__user">
+          <span class="forumItem__user__title"><a href="{ url 'forum-post' }?forum={{ category.last_message_forum.id }}">{{ category.last_message_forum.name }}</a></span>
           <span class="forumItem__user__info">Last message • {{ category.last_message_forum.date }}, {{ category.last_message_forum.time }}</span>
         </div>
         {% endif %}
