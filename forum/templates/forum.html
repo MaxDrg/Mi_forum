@@ -9,7 +9,7 @@
 
     <!-- .forumBreadcrumb -->
     <div class="forumBreadcrumb">
-      <a href="{ url 'categories' }">Forums</a> / {{ category.name }}
+      <a href="{% url 'categories' %}">Forums</a> / {{ category.name }}
     </div><!-- /.forumBreadcrumb -->
 
     {% for forum in forums %}
@@ -32,7 +32,7 @@
       </span>
       <div class="forumItem__desc">
         <div class="forumItem__desc__name">
-          <a href="{ url 'forum-post' }?forum={{ forum.id }}">{{ forum.name }}</a>
+          <a href="{% url 'forum-post' %}?forum={{ forum.id }}">{{ forum.name }}</a>
         </div>
         <div class="forumItem__desc__text">{{ forum.description }}</div>
       </div>
