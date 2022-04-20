@@ -156,7 +156,7 @@
       alert('Пустое сообщение !');
     } else {
       let form = document.getElementById('form_' + form_id);
-      form.action = "{% url 'news-post' %}";
+      form.action = "{% url 'forum-post' %}";
       document.body.append(form);
       form.submit();
     }
