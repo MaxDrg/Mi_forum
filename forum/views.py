@@ -2,7 +2,6 @@ import io
 import pytz
 from . import auth
 from . import models
-from django.utils import timezone
 from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -312,6 +311,8 @@ def categories(request):
     for category in models.Category.objects.all()] })
 
 def get_notification(telegr_id: int):
+    utc=pytz.UTC
+    
     class Notice(Topic):
         def __init__(self, id: int, name: str) -> None:
             super().__init__(id, name)
@@ -323,8 +324,8 @@ def get_notification(telegr_id: int):
 
     user_id = models.User.objects.filter(telegr_id=telegr_id)[0].id
 
-    messages = models.Message.objects.filter(user = user_id, time=timezone.now().date())
-    comments = models.Comment.objects.filter(user = user_id, time=timezone.now().date() - timedelta(days=1))
+    messages = models.Message.objects.filter(user = user_id, time=utc.localize(datetime.now().date()))
+    comments = models.Comment.objects.filter(user = user_id, time=utc.localize(datetime.now().date()) - timedelta(days=1))
 
     print(messages, comments)
 
