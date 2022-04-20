@@ -14,94 +14,153 @@
 
     <!-- .forumBreadcrumb -->
     <div class="forumBreadcrumb">
-      Forums / Main category / <a href="#">Main forum</a>
+      <a href="{% url 'categories' %}">Categories</a> / <a href="{% url 'forum' %}?category={{ category.id }}">{{
+        category.name }}</a> / {{ category.forum_name }}
     </div><!-- /.forumBreadcrumb -->
 
+    {% for message in messages %}
+
     <!-- .forumPost -->
     <div class="forumPost">
       <div class="forumPost__panel">
         <div class="forumPost__panel__inner">
-          <span class="forumPost__ava"><img src="img/ava-1.png" alt="#"></span>
-          <a href="#">@riffdick</a>
+          <span class="forumPost__ava"><img src="{{ message.user.image.url }}" alt="#"></span>
+          {% if message.user.user_name %}
+          <a href="https://t.me/{{ message.user.user_name }}">{{ message.user.first_name }}</a>
+          {% else %}
+          <a href="#">{{ message.user.first_name }}</a>
+          {% endif %}
         </div>
         <div class="forumPost__panel__inner">
-          <span>Dec 19, 2018</span>
-          <a href="#"><img src="{% static '/forum/images/forum-share.svg' %}" alt="Share"></a>
-          <a href="#"><img src="{% static '/forum/images/forum-reply.svg' %}" alt="Reply"></a>
-          <a href="#">#1</a>
+          <span>{{ comment.date }} в {{ comment.time }}</span>
+          <!-- <a href="#"><img src="{% static '/forum/images/forum-share.svg' %}" alt="Share"></a> -->
+          <a href="javascript:void(0)" onclick="showArea({{ message.id }})">
+            <img src="{% static '/forum/images/forum-reply.svg' %}" alt="Reply">
+          </a>
+          <a href="#">#{{ forloop.counter }}</a>
         </div>
       </div>
       <div class="forumPost__content">
-        <p>Success is 1% inspiration, 98% perspiration and 2% attention to detail.</p>
-        <p>Don't make simple mistakes and you'll be fine!</p>
+        <p>{{ message.text }}</p>
       </div>
     </div><!-- /.forumPost -->
-    
-    <!-- .forumPost -->
-    <div class="forumPost commentsItem__tree">
-      <div class="forumPost__panel">
-        <div class="forumPost__panel__inner">
-          <span class="forumPost__ava"><img src="img/ava-1.png" alt="#"></span>
-          <a href="#">@riffdick</a>
-        </div>
-        <div class="forumPost__panel__inner">
-          <span>Dec 19, 2018</span>
-          <a href="#"><img src="{% static '/forum/images/forum-share.svg' %}" alt="Share"></a>
-          <a href="#"><img src="{% static '/forum/images/forum-reply.svg' %}" alt="Reply"></a>
-          <a href="#">#1</a>
-        </div>
+
+    <a href="javascript:void(0)" onclick="showArea({{ message.id }})">Ответить</a>
+
+    <div class="comments_textareas" style="display: none;" id="block_{{ message.id }}">
+      {% if authorization %}
+      <!-- .forumPost -->
+      <div class="forumPost">
+        <p>Ответ на сообщение:</p>
+        <form method="POST" id="form_{{ message.id }}">
+          {% csrf_token %}
+          <input type="text" name="is_answer" style="display:none;" value='' />
+          <input type="text" name="forum_id" style="display:none;" value='{{ forum.id }}' />
+          <input type="text" name="reply_to" style="display:none;" value='{{ message.id }}' />
+          <input type="text" name="receiver" style="display:none;" value='{{ message.user.id }}' />
+          <textarea id="textarea_{{ message.id }}" name="message_text" class="textarea" rows="3"></textarea>
+          <button onclick="checkInput({{ message.id }})" type="button" class="button">Отправить комментарий</button>
+        </form>
+      </div><!-- /.forumPost -->
+
+      {% else %}
+      <div class="forumPost">
+        <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
+        <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
       </div>
-      <div class="forumPost__content">
-        <p>So inspirational, thanks!</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% for reply in message.replies %}
+
+  <!-- .forumPost -->
+  <div class="forumPost commentsItem__tree">
+    <div class="forumPost__panel">
+      <div class="forumPost__panel__inner">
+        <span class="forumPost__ava"><img src="{{ reply.user.image.url }}" alt="#"></span>
+        {% if message.user.user_name %}
+        <a href="https://t.me/{{ reply.user.user_name }}">{{ reply.user.first_name }}</a>
+        {% else %}
+        <a href="#">{{ reply.user.first_name }}</a>
+        {% endif %}
       </div>
-    </div><!-- /.forumPost -->
+      <div class="forumPost__panel__inner">
+        <span>{{ reply.date }} в {{ reply.time }}</span>
+        <!-- <a href="#"><img src="{% static '/forum/images/forum-share.svg' %}" alt="Share"></a> -->
+        <a href="javascript:void(0)" onclick="showArea({{ reply.id }})">
+          <img src="{% static '/forum/images/forum-reply.svg' %}" alt="Reply">
+        </a>
+      </div>
+    </div>
+    <div class="forumPost__content">
+      <p>{{ reply.text }}</p>
+    </div>
+  </div><!-- /.forumPost -->
+
+  <div class="comments_textareas" style="display: none;" id="block_{{ reply.id }}">
+    {% if authorization %}
     <!-- .forumPost -->
     <div class="forumPost">
-      <div class="forumPost__panel">
-        <div class="forumPost__panel__inner">
-          <span class="forumPost__ava"><img src="img/ava-1.png" alt="#"></span>
-          <a href="#">@riffdick</a>
-        </div>
-        <div class="forumPost__panel__inner">
-          <span>Dec 19, 2018</span>
-          <a href="#"><img src="{% static '/forum/images/forum-share.svg' %}" alt="Share"></a>
-          <a href="#"><img src="{% static '/forum/images/forum-reply.svg' %}" alt="Reply"></a>
-          <a href="#">#1</a>
-        </div>
-      </div>
-      <div class="forumPost__content">
-        <p>That's great advice dad, but I've been trying to cook chicken in the oven and I'm not sure if I should use
-          the normal setting or the fan force setting.</p>
-      </div>
-    </div><!-- /.forumPost -->
-    <!-- .forumPost -->
-    <div class="forumPost" commentsItem__tree>
-      <div class="forumPost__panel">
-        <div class="forumPost__panel__inner">
-          <span class="forumPost__ava"><img src="img/ava-1.png" alt="#"></span>
-          <a href="#">@riffdick</a>
-        </div>
-        <div class="forumPost__panel__inner">
-          <span>Dec 19, 2018</span>
-          <a href="#"><img src="{% static '/forum/images/forum-share.svg' %}" alt="Share"></a>
-          <a href="#"><img src="{% static '/forum/images/forum-reply.svg' %}" alt="Reply"></a>
-          <a href="#">#1</a>
-        </div>
-      </div>
-      <div class="forumPost__content">
-        <p>This is great advice Phil, thank you! :)!</p>
-      </div>
-    </div><!-- /.forumPost -->
-    <!-- .forumPost -->
-    <div class="forumPost">
-      <p>Оставить комментарий:</p>
-      <form>
-        <textarea class="textarea" rows="3"></textarea>
-        <button type="button" class="button">Отправить комментарий</button>
+      <p>Ответ на сообщение:</p>
+      <form method="POST" id="form_{{ reply.id }}">
+        {% csrf_token %}
+        <input type="text" name="is_answer" style="display:none;" value='' />
+        <input type="text" name="forum_id" style="display:none;" value='{{ forum.id }}' />
+        <input type="text" name="reply_to" style="display:none;" value='{{ message.id }}' />
+        <input type="text" name="receiver" style="display:none;" value='{{ reply.user.id }}' />
+        <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
+        <button onclick="checkInput({{ reply.id }})" type="button" class="button">Отправить комментарий</button>
       </form>
     </div><!-- /.forumPost -->
-  </div><!-- /.forum -->
 
+    {% else %}
+    <div class="forumPost">
+      <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
+      <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
+    </div>
+    {% endif %}
+
+    {% endfor %}
+
+    {% endfor %}
+
+    <!-- .forumPost -->
+    <div class="forumPost">
+      <p>Отправить сообщение:</p>
+      {% if authorization %}
+      <form method="POST" id="form_default">
+        {% csrf_token %}
+        <input type="text" name="is_answer" style="display:none;" value='' />
+        <input type="text" name="reply_to" style="display:none;" value='' />
+        <input type="text" name="receiver" style="display:none;" value='' />
+        <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
+        <textarea class="textarea" rows="3"></textarea>
+        <button type="button" class="button">Отправить сообщение</button>
+      </form>
+      {% else %}
+      <div class="forumPost">
+        <p>Чтобы отправить Сообщение, вы должны авторизироваться</p>
+        <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
+      </div>
+      {% endif %}
+    </div><!-- /.forumPost -->
+
+  </div><!-- /.forum -->
 </div>
+
+<script>
+  function checkInput(form_id) {
+    let text = document.getElementById('textarea_' + form_id);
+    if (text.value === "") {
+      alert('Пустое сообщение !');
+    } else {
+      let form = document.getElementById('form_' + form_id);
+      form.action = "{% url 'news-post' %}";
+      document.body.append(form);
+      form.submit();
+    }
+  }
+</script>
 
 {% endblock %}

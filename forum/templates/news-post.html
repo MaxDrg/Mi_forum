@@ -43,7 +43,7 @@
           {% if comment.user.user_name %}
           <a href="https://t.me/{{ comment.user.user_name }}">{{ comment.user.first_name }}</a>
           {% else %}
-          <a href="">{{ comment.user.first_name }}</a>
+          <a href="#">{{ comment.user.first_name }}</a>
           {% endif %}
           <span>{{ comment.date }} в {{ comment.time }}</span>
         </div>
@@ -55,6 +55,7 @@
 
         <div class="comments_textareas" style="display: none;" id="block_{{ comment.id }}">
           {% if authorization %}
+          <p>Ответ на комментарий:</p>
           <form method="POST" id="form_{{ comment.id }}">
             {% csrf_token %}
             <input type="text" name="is_answer" style="display:none;" value='' />
@@ -62,11 +63,11 @@
             <input type="text" name="reply_to" style="display:none;" value='{{ comment.id }}' />
             <input type="text" name="receiver" style="display:none;" value='{{ comment.user.id }}' />
             <textarea id="textarea_{{ comment.id }}" name="message_text" class="textarea" rows="3"></textarea>
-            <button onclick="checkInput({{ comment.id }})" type="button" class="button">Отправить комментарий</button>
+            <button onclick="checkInput({{ comment.id }})" type="button" class="button">Ответить на комментарий</button>
           </form>
           {% else %}
           <div class="comments__guest">
-            <p>Чтобы отправить комментарий, вы должны авторизироваться</p>
+            <p>Чтобы ответить на комментарий, вы должны авторизироваться</p>
             <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
           </div>
           {% endif %}
@@ -79,9 +80,9 @@
         <div class="commentsItem__panel">
           <span class="commentsItem__ava"><img src="{{ reply.user.image.url }}" alt="#"></span>
           {% if reply.user.user_name %}
-            <a href="https://t.me/{{ reply.user.user_name }}">{{ reply.user.first_name }}</a>
+          <a href="https://t.me/{{ reply.user.user_name }}">{{ reply.user.first_name }}</a>
           {% else %}
-            <a href="#">{{ reply.user.first_name }}</a>
+          <a href="#">{{ reply.user.first_name }}</a>
           {% endif %}
           <span>{{ reply.date }} в {{ reply.time }}</span>
         </div>
@@ -95,6 +96,7 @@
 
         <div class="comments_textareas" style="display: none;" id="block_{{ reply.id }}">
           {% if authorization %}
+          <p>Ответ пользователю:</p>
           <form method="POST" id="form_{{ reply.id }}">
             {% csrf_token %}
             <input type="text" name="news_id" style="display:none;" value='{{ news.id }}' />
@@ -102,7 +104,7 @@
             <input type="text" name="receiver" style="display:none;" value='{{ reply.user.id }}' />
             <input type="text" name="is_answer" style="display:none;" value='{{ reply.user.id }}' />
             <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
-            <button onclick="checkInput({{ reply.id }})" type="button" class="button">Отправить комментарий</button>
+            <button onclick="checkInput({{ reply.id }})" type="button" class="button">Ответить пользователю</button>
           </form>
           {% else %}
           <div class="comments__guest">

@@ -1,14 +1,41 @@
 import io
-from statistics import mode
-from time import time
-from unicodedata import name
 from . import auth
 from . import models
-from datetime import date, datetime
+from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
+
+class Receiver:
+    def __init__(self, first_name, user_name) -> None:
+        self.first_name = first_name
+        self.user_name = user_name
+
+class Message:
+    def __init__(self, message_id, message_text: str, time: datetime, user) -> None:
+        self.id = message_id
+        self.message_text = message_text
+        self.date = time.date()
+        self.time = time.strftime('%H:%M')
+        self.user = user
+        self.replies = [Reply(reply.id, reply.message_text, 
+        reply.time, reply.user, reply.is_answer, reply.receiver) 
+        for reply in models.Message.objects.filter(reply_to=self.id)]
+            
+class Reply(Message):
+    def __init__(self, message_id, message_text: str, time: datetime, 
+    user, is_answer: bool, receiver: int) -> None:
+        super().__init__(message_id, message_text, time, user)
+        self.__is_answer = is_answer
+        self.__receiver = receiver
+        self.receiver = None
+        if self.__is_answer:
+            user = models.User.objects.filter(id=self.__receiver).values('first_name', 'user_name')[0]
+            if user['user_name'] == None:
+                self.receiver = Receiver(user['first_name'], '')
+            else:
+                self.receiver = Receiver(user['first_name'], user['user_name'])
 
 class Topic:
     def __init__(self, id: int, name: str, description: str) -> None:
@@ -45,10 +72,41 @@ def curses(request):
     return render(request, "curses.html", { "authorization": check_user.response })
 
 def forum_post(request):
+
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
-    return render(request, "forum-post.html", { "authorization": check_user.response })
+
+    if request.method == "POST":
+        if request.POST['forum_id'] and request.POST['message_text'] and check_user.response:
+            if request.POST['reply_to'] and request.POST['receiver']:
+                models.Message(
+                    message_text = request.POST['message_text'],
+                    reply_to = request.POST['reply_to'],
+                    receiver = request.POST['receiver'],
+                    time = datetime.now(),
+                    new = models.New.objects.get(id=request.POST['forum_id']),
+                    user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
+                    is_answer = (lambda response: True if response else False)(request.POST['is_answer'])
+                ).save()
+            else:
+                models.Message(
+                    message_text = request.POST['message_text'],
+                    time = datetime.now(),
+                    new = models.New.objects.get(id=request.POST['news_id']),
+                    user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
+                    is_answer = False
+                ).save()
+
+            return render(request, "news-post.html", { "authorization": check_user.response,
+                "messages": [Message(message.id, message.message_text, message.time, message.user) 
+                for message in models.Message.objects.filter(new=request.POST['forum_id'], reply_to=None)]
+            })
+    elif request.GET.get('forum'):
+        return render(request, "news-post.html", { "authorization": check_user.response, 
+            "messages": [Message(message.id, message.message_text, message.time, message.user) 
+            for message in models.Message.objects.filter(new=request.GET.get('forum'), reply_to=None)]
+        })
 
 def forum(request):
     class Last_message_user():
@@ -91,35 +149,13 @@ def index(request):
     return render(request, "index.html", { "authorization": check_user.response })
 
 def news_post(request):
-    class Receiver:
-        def __init__(self, first_name, user_name) -> None:
-            self.first_name = first_name
-            self.user_name = user_name
 
-    class Comment:
+    class Comment(Message):
         def __init__(self, message_id, message_text: str, time: datetime, user) -> None:
-            self.id = message_id
-            self.message_text = message_text
-            self.date = time.date()
-            self.time = time.strftime('%H:%M')
-            self.user = user
+            super().__init__(message_id, message_text, time, user)
             self.replies = [Reply(reply.id, reply.message_text, 
             reply.time, reply.user, reply.is_answer, reply.receiver) 
             for reply in models.Comment.objects.filter(reply_to=self.id)]
-
-    class Reply(Comment):
-        def __init__(self, message_id, message_text: str, time: datetime, 
-        user, is_answer: bool, receiver: int) -> None:
-            super().__init__(message_id, message_text, time, user)
-            self.__is_answer = is_answer
-            self.__receiver = receiver
-            self.receiver = None
-            if self.__is_answer:
-                user = models.User.objects.filter(id=self.__receiver).values('first_name', 'user_name')[0]
-                if user['user_name'] == None:
-                    self.receiver = Receiver(user['first_name'], '')
-                else:
-                    self.receiver = Receiver(user['first_name'], user['user_name'])
 
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
