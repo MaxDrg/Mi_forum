@@ -83,7 +83,7 @@
           {% endif %}
         </div>
         <div class="forumPost__panel__inner">
-          <span>{{ reply.date }} в {{ reply.time }}</span>
+          <span>{{ reply.message_text }} в {{ reply.time }}</span>
           <!-- <a href="#"><img src="{% static '/forum/images/forum-share.svg' %}" alt="Share"></a> -->
           <a href="javascript:void(0)" onclick="showArea({{ reply.id }})">
             <img src="{% static '/forum/images/forum-reply.svg' %}" alt="Reply">
@@ -153,6 +153,7 @@
     if (text.value === "") {
       alert('Пустое сообщение !');
     } else {
+      text.value.val().Replace("\r\n", "<br />\r\n");
       let form = document.getElementById('form_' + form_id);
       form.action = "{% url 'forum-post' %}";
       document.body.append(form);
