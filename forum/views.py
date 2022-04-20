@@ -93,17 +93,17 @@ def forum_post(request):
                 models.Message(
                     message_text = request.POST['message_text'],
                     time = datetime.now(),
-                    new = models.New.objects.get(id=request.POST['news_id']),
+                    new = models.New.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
                     is_answer = False
                 ).save()
 
-            return render(request, "news-post.html", { "authorization": check_user.response,
+            return render(request, "forum-post.html", { "authorization": check_user.response,
                 "messages": [Message(message.id, message.message_text, message.time, message.user) 
                 for message in models.Message.objects.filter(forum=request.POST['forum_id'], reply_to=None)]
             })
     elif request.GET.get('forum'):
-        return render(request, "news-post.html", { "authorization": check_user.response, 
+        return render(request, "forum-post.html", { "authorization": check_user.response, 
             "messages": [Message(message.id, message.message_text, message.time, message.user) 
             for message in models.Message.objects.filter(forum=request.GET.get('forum'), reply_to=None)]
         })
