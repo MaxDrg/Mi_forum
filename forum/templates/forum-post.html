@@ -91,9 +91,12 @@
         </div>
       </div>
       <div class="forumPost__content">
-        <p>{% if reply.receiver %}
-          <a href="https://t.me/{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>, {% else %}
-          <a href="#">{{ reply.receiver.first_name }}</a>, {% endif %}
+        <p>
+          {% if reply.receiver %}
+            {% if reply.receiver.user_name %}
+            <a href="https://t.me/{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>, {% else %}
+            <a href="#">{{ reply.receiver.first_name }}</a>, {% endif %}
+          {% endif %}
           {{ reply.message_text }}</p>
       </div>
     </div><!-- /.forumPost -->
