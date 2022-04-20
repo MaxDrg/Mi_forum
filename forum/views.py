@@ -77,7 +77,7 @@ def forum_post(request):
 
     class Forum_post:
         def __init__(self, forum: models.Forum) -> None:
-            category = models.Category.objects.filter(id=forum.category.id)
+            category = models.Category.objects.filter(id=forum.category.id)[0]
             self.category_id = category.id
             self.category_name = category.name
             self.forum_id = forum.id
