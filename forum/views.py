@@ -100,12 +100,12 @@ def forum_post(request):
 
             return render(request, "news-post.html", { "authorization": check_user.response,
                 "messages": [Message(message.id, message.message_text, message.time, message.user) 
-                for message in models.Message.objects.filter(new=request.POST['forum_id'], reply_to=None)]
+                for message in models.Message.objects.filter(forum=request.POST['forum_id'], reply_to=None)]
             })
     elif request.GET.get('forum'):
         return render(request, "news-post.html", { "authorization": check_user.response, 
             "messages": [Message(message.id, message.message_text, message.time, message.user) 
-            for message in models.Message.objects.filter(new=request.GET.get('forum'), reply_to=None)]
+            for message in models.Message.objects.filter(forum=request.GET.get('forum'), reply_to=None)]
         })
 
 def forum(request):
