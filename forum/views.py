@@ -1,9 +1,13 @@
-from asyncio import FastChildWatcher
 import io
+from operator import mod
+from pyexpat import model
+from pyexpat.errors import messages
+from time import time
+from xml.etree.ElementTree import Comment
 import pytz
 from . import auth
 from . import models
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -159,6 +163,8 @@ def index(request):
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
+    if check_user.response:
+        get_notification(request.COOKIES.get('user_id'))
     return render(request, "index.html", { "authorization": check_user.response })
 
 def news_post(request):
@@ -308,3 +314,22 @@ def categories(request):
     return render(request, "categories.html", { "authorization": check_user.response, 
     "categories": [Category(category.id, category.name, category.description) 
     for category in models.Category.objects.all()] })
+
+def get_notification(telegr_id: int):
+    class Notice(Topic):
+        def __init__(self, id: int, name: str) -> None:
+            super().__init__(id, name)
+    
+    class Notifications:
+        def __init__(self, today_notice: Notice, yesterday_notice: Notice) -> None:
+            self.today = today_notice
+            self.yesterday = yesterday_notice
+
+    user_id = models.User.objects.filter(telegr_id=telegr_id)[0].id
+
+    messages = models.Message.objects.filter(user = user_id, time=datetime.now().date())
+    comments = models.Comment.objects.filter(user = user_id, time=datetime.now().date() - timedelta(days=1))
+
+    print(messages, comments)
+
+    

@@ -54,7 +54,7 @@ class Forum(models.Model):
 class Message(models.Model):
     message_text = models.TextField("Text of message", null=False)
     reply_to = models.BigIntegerField("ID of message reply", null=True, default=None)
-    receiver = models.BigIntegerField("Telegram ID of message answer", null=True, default=None)
+    receiver = models.BigIntegerField("User of message answer", null=True, default=None)
     time = models.DateTimeField("Time of sending", auto_now_add=True)
     forum = models.ForeignKey(Forum, on_delete = models.CASCADE)
     user = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
