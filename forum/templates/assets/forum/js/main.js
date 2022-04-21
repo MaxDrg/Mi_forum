@@ -13,11 +13,11 @@ function showArea(block_id) {
   text.style.display = 'block';
 };
 
-function search_info() {
+function search_info(class_name) {
   let input = document.getElementById('searchbar').value
   input=input.toLowerCase(); 
 
-  let x = document.getElementsByClassName('newsItem');
+  let x = document.getElementsByClassName(class_name);
   for (i = 0; i < x.length; i++) {
       if (!x[i].innerHTML.toLowerCase().includes(input)) { 
           x[i].style.display="none";
