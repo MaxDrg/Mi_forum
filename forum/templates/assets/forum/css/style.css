@@ -736,6 +736,7 @@ p {
   flex-wrap: wrap;
   margin-left: -10px;
   margin-right: -10px;
+  list-style-type: none;
 }
 
 .newsItem {
