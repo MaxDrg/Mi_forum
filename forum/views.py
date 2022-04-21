@@ -315,9 +315,10 @@ def categories(request):
 def get_notification(telegr_id: int):
     utc=pytz.UTC
     
-    class Notice(Topic):
+    class Notice:
         def __init__(self, id: int, name: str, time: datetime, type: str) -> None:
-            super().__init__(id, name)
+            self.id = id
+            self.name = name
             self.time = time.strftime('%H:%M')
             self.type = type
     
