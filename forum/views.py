@@ -384,23 +384,25 @@ def get_notification(telegr_id: int):
     time__month=day_yesterday.month,
     time__day=day_yesterday.day)
 
-    if messages_today and comments_today:
+    if messages_today or comments_today:
         for message in messages_today:
             topics_today.append(Notice(message.forum.id, 
             message.forum.name, message.time, 'message'))
         for comment in comments_today:
             topics_today.append(Notice(comment.new.id, 
             comment.new.title, comment.time, 'comment'))
+            print(comment)
     else:
         topics_today = 'Нет уведомлений'
 
-    if messages_yesterday and comments_yesterday:
+    if messages_yesterday or comments_yesterday:
         for message in messages_yesterday:
             topics_yesterday.append(Notice(message.forum.id, 
             message.forum.name, message.time, 'message'))
         for comment in comments_yesterday:
             topics_yesterday.append(Notice(comment.new.id, 
             comment.new.title, comment.time, 'comment'))
+            print(comment)
     else:
         topics_yesterday = 'Нет уведомлений'
     
