@@ -354,6 +354,7 @@ def get_notification(telegr_id: int):
         unique_id = []
         unique_list = []
         for data in input_list:
+            print(data.type)
             if data.id not in unique_id:
                 unique_id.append(data.id)
                 unique_list.append(data)
