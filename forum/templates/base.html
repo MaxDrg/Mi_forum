@@ -66,13 +66,12 @@
                                 <!-- .dingList -->
                                 <div class="dingList">
                                     <div class="dingList__title">Сегодня</div>
-                                    <script>alert('Hello {{ notifications.today }}')</script>
                                     {% if notifications.today == 'Нет уведомлений' %}
                                     <div class="dingList__item">
                                         <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
                                             alt="Сообщение">
                                         <p class="dingList__item__desc">
-                                            <a href="#">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
+                                            {{ notifications.today }}
                                         </p>
                                     </div>
                                     {% else %}
@@ -102,12 +101,12 @@
                                 <!-- .dingList -->
                                 <div class="dingList dingList__viewed">
                                     <div class="dingList__title">Вчера</div>
-                                    {% if notifications.today == 'Нет уведомлений' %}
+                                    {% if notifications.yesterday == 'Нет уведомлений' %}
                                     <div class="dingList__item">
                                         <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
                                             alt="Сообщение">
                                         <p class="dingList__item__desc">
-                                            <a href="#">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
+                                            {{ notifications.yesterday }}
                                         </p>
                                     </div>
                                     {% else %}
