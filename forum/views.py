@@ -320,7 +320,7 @@ def categories(request):
                     messages.append(last_message)
             if messages:
                 time = messages[0].time
-                self.last_message_forum = messages[0]
+                self.last_message_forum = Last_message_forum(messages[0])
                 for message in messages:
                     if time < message.time:
                         time = message.time
