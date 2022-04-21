@@ -335,6 +335,8 @@ def get_notification(telegr_id: int):
     messages_yesterday = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
     comments_yesterday = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
     
+    print(messages_today)
+    
     if messages_today and comments_today:
         for message in messages_today:
             topics_today.append(Notice(message.forum.id, message.message.forum.name, message.time, 'message'))
