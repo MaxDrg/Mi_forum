@@ -2,9 +2,10 @@
 
 <div class="container">
   <div class="search__bar input-group rounded">
-    <form action="search_info()">
+    <form>
       <input id="searchbar" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
         aria-describedby="search-addon" />
+      <button onclick="checkInput()" type="button" style="display: none;"></button>
     </form>
     <span class="input-group-text border-0" id="search-addon">
       <i class="fas fa-search"></i>
