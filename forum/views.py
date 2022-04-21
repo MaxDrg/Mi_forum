@@ -322,7 +322,7 @@ def get_notification(telegr_id: int):
             self.type = type
     
     class Notifications:
-        def __init__(self, today_notice: Notice, yesterday_notice: Notice) -> None:
+        def __init__(self, today_notice, yesterday_notice) -> None:
             self.today = today_notice
             self.yesterday = yesterday_notice
 
