@@ -351,13 +351,18 @@ def get_notification(telegr_id: int):
             self.yesterday = yesterday_notice
 
     def unique(input_list: list):
-        unique_id = []
+        unique_messages = []
+        unique_comments = []
         unique_list = []
         for data in input_list:
-            print(data.type)
-            if data.id not in unique_id:
-                unique_id.append(data.id)
-                unique_list.append(data)
+            if data.type == 'message':
+                if data.id not in unique_messages:
+                    unique_messages.append(data.id)
+                    unique_list.append(data)
+            else:
+                if data.id not in unique_comments:
+                    unique_comments.append(data.id)
+                    unique_list.append(data)
         return unique_list
 
     user_id = models.User.objects.filter(telegr_id=telegr_id)[0].id
@@ -409,9 +414,6 @@ def get_notification(telegr_id: int):
         topics_today: list = unique(topics_today)
         topics_today.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
 
-    for typ in topics_today:
-        print(typ.type)
-    
     if not topics_yesterday == 'Нет уведомлений':
         topics_yesterday: list = unique(topics_yesterday)
         topics_yesterday.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
