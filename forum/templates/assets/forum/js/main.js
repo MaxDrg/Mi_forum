@@ -17,7 +17,7 @@ function search_info() {
   let input = document.getElementById('searchbar').value
   input=input.toLowerCase(); 
 
-  let x = document.getElementsByClassName('newsItem');
+  let x = document.getElementsByClassName('newsItem__info');
   for (i = 0; i < x.length; i++) {
       if (!x[i].innerHTML.toLowerCase().includes(input)) { 
           x[i].style.display="none";

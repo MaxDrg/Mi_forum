@@ -2162,6 +2162,9 @@ p {
 
 .search__bar {
   width: 100%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 @media (min-width: 576px) {
