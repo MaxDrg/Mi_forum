@@ -328,6 +328,15 @@ def get_notification(telegr_id: int):
             self.today = today_notice
             self.yesterday = yesterday_notice
 
+    def unique(input_list: list):
+        unique_id = []
+        unique_list = []
+        for data in input_list:
+            if data.id not in unique_id:
+                unique_list.append(data.id)
+                unique_list.append(data)
+        return unique_list
+
     user_id = models.User.objects.filter(telegr_id=telegr_id)[0].id
     topics_today = []
     topics_yesterday = []
@@ -353,35 +362,23 @@ def get_notification(telegr_id: int):
     time__month=day_yesterday.month,
     time__day=day_yesterday.day)
 
-    # messages_today = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
-    # comments_today = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
-    # messages_yesterday = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
-    # comments_yesterday = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
-    
-    print(messages_today)
-
-    def unique(input_list: list):
-        unique_list = []
-        for data in input_list:
-            if data not in unique_list:
-                unique_list.append(data)
-        return unique_list
-
     if messages_today and comments_today:
         for message in messages_today:
-            topics_today.append(Notice(message.forum.id, message.forum.name, message.time, 'message'))
+            topics_today.append(Notice(message.forum.id, 
+            message.forum.name, message.time, 'message'))
         for comment in comments_today:
-            topics_today.append(Notice(comment.new.id, comment.new.title, comment.time, 'comment'))
+            topics_today.append(Notice(comment.new.id, 
+            comment.new.title, comment.time, 'comment'))
     else:
         topics_today = 'Нет уведомлений'
 
-    print(topics_today)
-
     if messages_yesterday and comments_yesterday:
         for message in messages_yesterday:
-            topics_yesterday.append(Notice(message.forum.id, message.forum.name, message.time, 'message'))
+            topics_yesterday.append(Notice(message.forum.id, 
+            message.forum.name, message.time, 'message'))
         for comment in comments_yesterday:
-            topics_yesterday.append(Notice(comment.new.id, comment.new.title, comment.time, 'comment'))
+            topics_yesterday.append(Notice(comment.new.id, 
+            comment.new.title, comment.time, 'comment'))
     else:
         topics_yesterday = 'Нет уведомлений'
     
