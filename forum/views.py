@@ -1,6 +1,4 @@
-from enum import unique
 import io
-from time import time
 import pytz
 from . import auth
 from . import models
@@ -62,19 +60,25 @@ def about(request):
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
-    return render(request, "about.html", { "authorization": check_user.response })
+    return render(request, "about.html", { "authorization": check_user.response,
+    "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response) })
 
 def aso(request):
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
-    return render(request, "aso.html", { "authorization": check_user.response })
+    return render(request, "aso.html", { "authorization": check_user.response,
+    "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response) })
 
 def curses(request):
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
-    return render(request, "curses.html", { "authorization": check_user.response })
+    return render(request, "curses.html", { "authorization": check_user.response,
+    "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response) })
 
 def forum_post(request):
 
@@ -113,13 +117,17 @@ def forum_post(request):
             return render(request, "forum-post.html", { "authorization": check_user.response,
                 "forum": Forum_post(models.Forum.objects.filter(id=request.POST['forum_id'])[0]),
                 "messages": [Message(message.id, message.message_text, message.time, message.user) 
-                for message in models.Message.objects.filter(forum=request.POST['forum_id'], reply_to=None)]
+                for message in models.Message.objects.filter(forum=request.POST['forum_id'], reply_to=None)],
+                "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+                if response else False)(check_user.response)
             })
     elif request.GET.get('forum'):
         return render(request, "forum-post.html", { "authorization": check_user.response, 
             "forum": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
             "messages": [Message(message.id, message.message_text, message.time, message.user) 
-            for message in models.Message.objects.filter(forum=request.GET.get('forum'), reply_to=None)]
+            for message in models.Message.objects.filter(forum=request.GET.get('forum'), reply_to=None)],
+            "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+            if response else False)(check_user.response)
         })
 
 def forum(request):
@@ -154,7 +162,9 @@ def forum(request):
         'subscription': (lambda user: True if user else False)(sub),
         "category": models.Category.objects.filter(id=request.GET.get('category')).values('name')[0],
         "forums": [Forum(forum.id, forum.name, forum.description, forum.private) 
-        for forum in models.Forum.objects.filter(category=request.GET.get('category'))] })
+        for forum in models.Forum.objects.filter(category=request.GET.get('category'))],
+        "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+        if response else False)(check_user.response) })
 
 def index(request):
     check_user = auth.Authorization(
@@ -203,7 +213,9 @@ def news_post(request):
                 info.hashtags, info.date, info.image, info = info.info))
                 (models.New.objects.filter(id=request.POST['news_id'])[0]),
                 "comments": [Comment(comment.id, comment.message_text, comment.time, comment.user) 
-                for comment in models.Comment.objects.filter(new=request.POST['news_id'], reply_to=None)]
+                for comment in models.Comment.objects.filter(new=request.POST['news_id'], reply_to=None)],
+                "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+                if response else False)(check_user.response)
             })
     elif request.GET.get('news'):
         return render(request, "news-post.html", { "authorization": check_user.response, 
@@ -211,7 +223,9 @@ def news_post(request):
             info.hashtags, info.date, info.image, info = info.info))
             (models.New.objects.filter(id=request.GET.get('news'))[0]),
             "comments": [Comment(comment.id, comment.message_text, comment.time, comment.user) 
-            for comment in models.Comment.objects.filter(new=request.GET.get('news'), reply_to=None)]
+            for comment in models.Comment.objects.filter(new=request.GET.get('news'), reply_to=None)],
+            "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+            if response else False)(check_user.response)
         })
 
 @csrf_exempt
@@ -246,7 +260,9 @@ def news(request):
             "authorization": check_user.response,
             "data": [News(info.id, info.title, info.hashtags, 
             info.date, info.image, pre_info = info.pre_info)
-            for info in models.New.objects.all()]
+            for info in models.New.objects.all()],
+            "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+            if response else False)(check_user.response)
         })
 
         if check_user.response:
@@ -263,20 +279,26 @@ def news(request):
         "authorization": check_user.response,
         "data": [News(info.id, info.title, info.hashtags, 
         info.date, info.image, pre_info = info.pre_info)
-        for info in models.New.objects.all()]
+        for info in models.New.objects.all()],
+        "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+        if response else False)(check_user.response)
     })
 
 def sell(request):
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
-    return render(request, "sell.html", { "authorization": check_user.response })
+    return render(request, "sell.html", { "authorization": check_user.response, 
+    "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response)})
 
 def slovar(request):
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
-    return render(request, "slovar.html", { "authorization": check_user.response })
+    return render(request, "slovar.html", { "authorization": check_user.response,
+    "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response)})
 
 def categories(request):
     utc=pytz.UTC
@@ -310,12 +332,12 @@ def categories(request):
         request.COOKIES.get('passwd'))
     return render(request, "categories.html", { "authorization": check_user.response, 
     "categories": [Category(category.id, category.name, category.description) 
-    for category in models.Category.objects.all()] })
+    for category in models.Category.objects.all()],
+    "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response)})
 
 
 def get_notification(telegr_id: int):
-    utc=pytz.UTC
-    
     class Notice:
         def __init__(self, id: int, name: str, time: datetime, type: str) -> None:
             self.id = id
@@ -384,13 +406,10 @@ def get_notification(telegr_id: int):
     
     if not topics_today == 'Нет уведомлений':
         topics_today: list = unique(topics_today)
-        print(topics_today)
         topics_today.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
     
     if not topics_yesterday == 'Нет уведомлений':
         topics_yesterday: list = unique(topics_yesterday)
         topics_yesterday.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
-
-    print(topics_today)
         
     return Notifications(topics_today, topics_yesterday)
