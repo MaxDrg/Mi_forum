@@ -343,6 +343,8 @@ def get_notification(telegr_id: int):
     else:
         topics_today = 'Нет уведомлений'
 
+    print(topics_today)
+    
     if messages_yesterday and comments_yesterday:
         for message in messages_yesterday:
             topics_yesterday.append(Notice(message.forum.id, message.message.forum.name, message.time, 'message'))
