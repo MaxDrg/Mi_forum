@@ -83,7 +83,7 @@
                                         <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
                                             alt="Сообщение">
                                         <p class="dingList__item__desc">
-                                            <a href="#">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
+                                            <a href="{% url 'forum-post' %}?forum={{ notification.id }}">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
                                         </p>
                                     </div>
                                     {% else %}
@@ -91,7 +91,7 @@
                                         <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
                                             alt="Сообщение">
                                         <p class="dingList__item__desc">
-                                            <a href="#">Вам ответили под новостью {{ notification.name }} <span>в {{ notification.time }}</span></a>
+                                            <a href="{% url 'news-post' %}?news={{ notification.id }}">Вам ответили под новостью {{ notification.name }} <span>в {{ notification.time }}</span></a>
                                         </p>
                                     </div>
                                     {% endif %}
