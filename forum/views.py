@@ -342,12 +342,19 @@ def get_notification(telegr_id: int):
     # comments_yesterday = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
     
     print(messages_today)
-    
+
+    def unique(input_list: list):
+        unique_list = []
+        for data in input_list:
+            if data not in unique_list:
+                unique_list.append(data)
+        return unique_list
+
     if messages_today and comments_today:
         for message in messages_today:
-            topics_today.append([message.forum.id, 'message'])
+            topics_today.append(message.forum.id, message.forum.name, message.time, 'message'))
         for comment in comments_today:
-            topics_today.append([comment.new.id, 'comment'])
+            topics_today.append(Notice(comment.new.id, comment.new.title, comment.time, 'comment'))
     else:
         topics_today = 'Нет уведомлений'
 
@@ -366,10 +373,10 @@ def get_notification(telegr_id: int):
         print(topics_today)
         topics_today.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
     
-    #if not topics_yesterday == 'Нет уведомлений':
-    #    topics_yesterday: list = unique(topics_yesterday)
-    #    topics_yesterday.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
+    if not topics_yesterday == 'Нет уведомлений':
+        topics_yesterday: list = unique(topics_yesterday)
+        topics_yesterday.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
 
     print(topics_today)
         
-    return Notifications(topics_today, topics_yesterday = 'Нет уведомлений')
+    return Notifications(topics_today, topics_yesterday)
