@@ -1,5 +1,4 @@
 import io
-import pytz
 from . import auth
 from . import models
 from datetime import datetime, timedelta
@@ -301,7 +300,6 @@ def slovar(request):
     if response else False)(check_user.response)})
 
 def categories(request):
-    utc=pytz.UTC
 
     class Last_message_forum:
         def __init__(self, message: models.Message) -> None:
@@ -321,9 +319,9 @@ def categories(request):
                 if last_message:
                     messages.append(last_message)
             if messages:
-                time = utc.localize(datetime.now())
+                time = messages[0].time
                 for message in messages:
-                    if time > message.time:
+                    if time < message.time:
                         time = message.time
                         self.last_message_forum = Last_message_forum(message)
 
