@@ -2159,3 +2159,13 @@ p {
     padding-bottom: 128px
   }
 }
+
+.search__bar {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .search__bar {
+    width: 45%;
+  }
+}
