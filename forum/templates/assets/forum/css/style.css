@@ -2172,3 +2172,8 @@ p {
     width: 45%;
   }
 }
+
+#searchbar {
+  margin: 20px; 
+  width: 100%;
+}
