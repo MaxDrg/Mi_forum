@@ -22,8 +22,11 @@ function search_info(class_name) {
       if (!x[i].innerHTML.toLowerCase().includes(input)) { 
           x[i].style.display="none";
       }
-      else {
+      else if (class_name === 'forumItem'){
           x[i].style.display="flex";
+      }
+      else {
+          x[i].style.display="block";
       } 
   } 
 } 
