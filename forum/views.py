@@ -321,8 +321,7 @@ def categories(request):
             if messages:
                 time = messages[0].time
                 for message in messages:
-                    print('step')
-                    if time < message.time:
+                    if time > message.time:
                         time = message.time
                         self.last_message_forum = Last_message_forum(message)
 
