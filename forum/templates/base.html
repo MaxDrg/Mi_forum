@@ -56,7 +56,7 @@
                         <button class="ding__toogle dropdown-toggle" type="button" id="dropdownMenu__ding"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <img class="ding__icon" src="{% static '/forum/images/bell.svg' %}" alt="Уведомление">
-                            {% if not notifications.today == 'Нет уведомлений' and not notifications.yesterday == 'Нет уведомлений' %}
+                            {% if not notifications.today is 'Нет уведомлений' and not notifications.yesterday is 'Нет уведомлений' %}
                                 <span class="ding__info">{{ notifications.yesterday|length|add:notifications.today }}</span>
                             {% elif notifications.today == 'Нет уведомлений' %}
                                 <span class="ding__info">{{ notifications.yesterday|length }}</span>
