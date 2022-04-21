@@ -260,7 +260,7 @@ def news(request):
             "data": [News(info.id, info.title, info.hashtags, 
             info.date, info.image, pre_info = info.pre_info)
             for info in models.New.objects.all()],
-            "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+            "notifications": (lambda response: get_notification(request.GET.get('telegr_id')) 
             if response else False)(check_user.response)
         })
 
