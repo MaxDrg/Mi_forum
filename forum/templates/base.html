@@ -56,7 +56,9 @@
                         <button class="ding__toogle dropdown-toggle" type="button" id="dropdownMenu__ding"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <img class="ding__icon" src="{% static '/forum/images/bell.svg' %}" alt="Уведомление">
-                            <span class="ding__info">{{ notifications.today|length }}</span>
+                            {% if notifications.today == 'Нет уведомлений' %}
+                                <span class="ding__info">{{ notifications.today|length }}</span>
+                            {% endif %}
                         </button>
                         <!-- .ding__box -->
                         <div class="dropdown-menu ding__box" aria-labelledby="dropdownMenu__ding">
@@ -89,8 +91,7 @@
                                         <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
                                             alt="Сообщение">
                                         <p class="dingList__item__desc">
-                                            <a href="#">Вам ответили под новостью {{ notification.name }} <span>в {{
-                                                    notification.time }}</span></a>
+                                            <a href="#">Вам ответили под новостью {{ notification.name }} <span>в {{ notification.time }}</span></a>
                                         </p>
                                     </div>
                                     {% endif %}
