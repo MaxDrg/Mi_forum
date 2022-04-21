@@ -66,7 +66,7 @@
                                 <!-- .dingList -->
                                 <div class="dingList">
                                     <div class="dingList__title">Сегодня</div>
-                                    <script>alert('Hello ' + {{ notifications.today }})</script>
+                                    <script>alert('Hello {{ notifications.today }}')</script>
                                     {% if notifications.today == 'Нет уведомлений' %}
                                     <div class="dingList__item">
                                         <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
