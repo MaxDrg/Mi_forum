@@ -1,5 +1,6 @@
 from enum import unique
 import io
+from time import time
 import pytz
 from . import auth
 from . import models
@@ -330,11 +331,19 @@ def get_notification(telegr_id: int):
     user_id = models.User.objects.filter(telegr_id=telegr_id)[0].id
     topics_today = []
     topics_yesterday = []
+    
+    day_now = datetime.now().strftime("%d %m %y")
+    day_yesterday = (datetime.now() - timedelta(days=1)).strftime("%d %m %y")
 
-    messages_today = models.Message.objects.filter(receiver = user_id)
-    comments_today = models.Comment.objects.filter(receiver = user_id)
-    messages_yesterday = models.Message.objects.filter(receiver = user_id)
-    comments_yesterday = models.Comment.objects.filter(receiver = user_id)
+    messages_today = models.Message.objects.filter(receiver = user_id,
+    time__gte = datetime.strptime(day_now, "%d %m %y"))
+    comments_today = models.Comment.objects.filter(receiver = user_id,
+    time__gte = datetime.strptime(day_now, "%d %m %y"))
+    
+    messages_yesterday = models.Message.objects.filter(receiver = user_id,
+    time__gte = datetime.strptime(day_yesterday, "%d %m %y"))
+    comments_yesterday = models.Comment.objects.filter(receiver = user_id,
+    time__gte = datetime.strptime(day_yesterday, "%d %m %y"))
 
     # messages_today = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
     # comments_today = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
