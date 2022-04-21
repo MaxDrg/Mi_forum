@@ -44,7 +44,9 @@
                             <li><a href="{% url 'slovar' %}" class="nav__link">Словарь</a></li>
                             <li><a href="{% url 'sell' %}" class="nav__link">Продажа аккаунтов</a></li>
                             <li><a href="#" class="button">Наш чат в Telegram</a></li>
-                            <li><a href="#" class="nav__link hidden__desktop">Войти</a></li>
+                            {% if not authorization %}
+                                <li><a href="https://t.me/mi_forum_bot" class="nav__link hidden__desktop">Войти</a></li>
+                            {% endif %}
                         </ul>
                     </nav><!-- /.nav -->
                 </div><!-- /.header__box -->
