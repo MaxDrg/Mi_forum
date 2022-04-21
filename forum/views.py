@@ -345,9 +345,9 @@ def get_notification(telegr_id: int):
     
     if messages_today and comments_today:
         for message in messages_today:
-            topics_today.append(Notice(message.forum.id, message.forum.name, message.time, 'message'))
+            topics_today.append([message.forum.id, 'message'])
         for comment in comments_today:
-            topics_today.append(Notice(comment.new.id, comment.new.title, comment.time, 'comment'))
+            topics_today.append([comment.new.id, 'comment'])
     else:
         topics_today = 'Нет уведомлений'
 
@@ -366,10 +366,10 @@ def get_notification(telegr_id: int):
         print(topics_today)
         topics_today.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
     
-    if not topics_yesterday == 'Нет уведомлений':
-        topics_yesterday: list = unique(topics_yesterday)
-        topics_yesterday.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
+    #if not topics_yesterday == 'Нет уведомлений':
+    #    topics_yesterday: list = unique(topics_yesterday)
+    #    topics_yesterday.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
 
     print(topics_today)
         
-    return Notifications(topics_today, topics_yesterday)
+    return Notifications(topics_today, topics_yesterday = 'Нет уведомлений')
