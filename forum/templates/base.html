@@ -56,8 +56,8 @@
                         <button class="ding__toogle dropdown-toggle" type="button" id="dropdownMenu__ding"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <img class="ding__icon" src="{% static '/forum/images/bell.svg' %}" alt="Уведомление">
-                            {% if not notifications.today == 'Нет уведомлений' %}
-                                <span class="ding__info">{{ notifications.today|length }}</span>
+                            {% if not notifications.today == 'Нет уведомлений' and not notifications.yesterday == 'Нет уведомлений' %}
+                                <span class="ding__info">{{ notifications.today|length|add:notifications.yesterday|length }}</span>
                             {% endif %}
                         </button>
                         <!-- .ding__box -->
@@ -73,7 +73,7 @@
                                         <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
                                             alt="Сообщение">
                                         <p class="dingList__item__desc">
-                                            {{ notifications.today }}
+                                            <a href="#">{{ notifications.today }}</a>
                                         </p>
                                     </div>
                                     {% else %}
@@ -107,7 +107,7 @@
                                         <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
                                             alt="Сообщение">
                                         <p class="dingList__item__desc">
-                                            {{ notifications.yesterday }}
+                                            <a href="#">{{ notifications.yesterday }}</a>
                                         </p>
                                     </div>
                                     {% else %}
