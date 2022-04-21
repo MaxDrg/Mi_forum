@@ -23,7 +23,7 @@ function search_info(class_name) {
           x[i].style.display="none";
       }
       else {
-          x[i].style.display="list-item";
+          x[i].style.display="flex";
       } 
   } 
 } 
