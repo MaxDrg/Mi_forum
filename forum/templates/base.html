@@ -66,49 +66,72 @@
                                 <!-- .dingList -->
                                 <div class="dingList">
                                     <div class="dingList__title">Сегодня</div>
+                                    {% if notifications.today == 'Нет уведомлений' %}
+                                    <div class="dingList__item">
+                                        <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
+                                            alt="Сообщение">
+                                        <p class="dingList__item__desc">
+                                            <a href="#">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
+                                        </p>
+                                    </div>
+                                    {% else %}
                                     {% for notification in notifications.today %}
-                                        {% if notification.type == 'message' %}
-                                        <div class="dingList__item">
-                                            <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
-                                                alt="Сообщение">
-                                            <p class="dingList__item__desc">
-                                                <a href="#">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
-                                            </p>
-                                        </div>
-                                        {% else %}
-                                        <div class="dingList__item">
-                                            <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
-                                                alt="Сообщение">
-                                            <p class="dingList__item__desc">
-                                                <a href="#">Вам ответили под новостью {{ notification.name }} <span>в {{ notification.time }}</span></a>
-                                            </p>
-                                        </div>
-                                        {% endif %}
+                                    {% if notification.type == 'message' %}
+                                    <div class="dingList__item">
+                                        <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
+                                            alt="Сообщение">
+                                        <p class="dingList__item__desc">
+                                            <a href="#">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
+                                        </p>
+                                    </div>
+                                    {% else %}
+                                    <div class="dingList__item">
+                                        <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
+                                            alt="Сообщение">
+                                        <p class="dingList__item__desc">
+                                            <a href="#">Вам ответили под новостью {{ notification.name }} <span>в {{
+                                                    notification.time }}</span></a>
+                                        </p>
+                                    </div>
+                                    {% endif %}
                                     {% endfor %}
+                                    {% endif %}
                                 </div>
                                 <!-- /.dingList -->
                                 <!-- .dingList -->
                                 <div class="dingList dingList__viewed">
                                     <div class="dingList__title">Вчера</div>
+                                    {% if notifications.today == 'Нет уведомлений' %}
+                                    <div class="dingList__item">
+                                        <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
+                                            alt="Сообщение">
+                                        <p class="dingList__item__desc">
+                                            <a href="#">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
+                                        </p>
+                                    </div>
+                                    {% else %}
                                     {% for notification in notifications.yesterday %}
-                                        {% if notification.type == 'message' %}
-                                        <div class="dingList__item">
-                                            <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
-                                                alt="Сообщение">
-                                            <p class="dingList__item__desc">
-                                                <a href="#">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
-                                            </p>
-                                        </div>
-                                        {% else %}
-                                        <div class="dingList__item">
-                                            <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
-                                                alt="Сообщение">
-                                            <p class="dingList__item__desc">
-                                                <a href="#">Вам ответили под новостью {{ notification.name }} <span>в {{ notification.time }}</span></a>
-                                            </p>
-                                        </div>
-                                        {% endif %}
+                                    {% if notification.type == 'message' %}
+                                    <div class="dingList__item">
+                                        <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
+                                            alt="Сообщение">
+                                        <p class="dingList__item__desc">
+                                            <a href="#">Вам ответили на форуме {{ notification.name }} <span>в {{
+                                                    notification.time }}</span></a>
+                                        </p>
+                                    </div>
+                                    {% else %}
+                                    <div class="dingList__item">
+                                        <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
+                                            alt="Сообщение">
+                                        <p class="dingList__item__desc">
+                                            <a href="#">Вам ответили под новостью {{ notification.name }} <span>в {{
+                                                    notification.time }}</span></a>
+                                        </p>
+                                    </div>
+                                    {% endif %}
                                     {% endfor %}
+                                    {% endif %}
                                 </div>
                                 <!-- /.dingList -->
                             </div><!-- /.ding__content -->
