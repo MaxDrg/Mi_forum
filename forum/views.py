@@ -330,10 +330,15 @@ def get_notification(telegr_id: int):
     topics_today = []
     topics_yesterday = []
 
-    messages_today = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
-    comments_today = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
-    messages_yesterday = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
-    comments_yesterday = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
+    messages_today = models.Message.objects.filter(receiver = user_id)
+    comments_today = models.Comment.objects.filter(receiver = user_id)
+    messages_yesterday = models.Message.objects.filter(receiver = user_id)
+    comments_yesterday = models.Comment.objects.filter(receiver = user_id)
+
+    # messages_today = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
+    # comments_today = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
+    # messages_yesterday = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
+    # comments_yesterday = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date() - timedelta(days=1))
     
     print(messages_today)
     
