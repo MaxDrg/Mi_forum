@@ -341,7 +341,7 @@ def get_notification(telegr_id: int):
         for comment in comments_today:
             topics_today.append(Notice(comment.forum.id, comment.message.forum.name, comment.time, 'comment'))
     else:
-        topics_today.append('Нет уведомлений')
+        topics_today = 'Нет уведомлений'
 
     if messages_yesterday and comments_yesterday:
         for message in messages_yesterday:
@@ -349,13 +349,13 @@ def get_notification(telegr_id: int):
         for comment in comments_yesterday:
             topics_yesterday.append(Notice(comment.forum.id, comment.message.forum.name, comment.time, 'comment'))
     else:
-        topics_yesterday.append('Нет уведомлений')
+        topics_yesterday = 'Нет уведомлений'
     
-    if not topics_today[0] == 'Нет уведомлений':
+    if not topics_today == 'Нет уведомлений':
         topics_today: list = unique(topics_today)
         topics_today.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
     
-    if not topics_yesterday[0] == 'Нет уведомлений':
+    if not topics_yesterday == 'Нет уведомлений':
         topics_yesterday: list = unique(topics_yesterday)
         topics_yesterday.sort(key=lambda date: datetime.strptime(date.time, '%H:%M'))
 
