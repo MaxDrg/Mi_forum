@@ -332,18 +332,26 @@ def get_notification(telegr_id: int):
     topics_today = []
     topics_yesterday = []
     
-    day_now = datetime.now().strftime("%d %m %y")
-    day_yesterday = (datetime.now() - timedelta(days=1)).strftime("%d %m %y")
+    day_now = datetime.now()
+    day_yesterday = (datetime.now() - timedelta(days=1))
 
     messages_today = models.Message.objects.filter(receiver = user_id,
-    time__gte = datetime.strptime(day_now, "%d %m %y"))
+    time__year=day_now.year,
+    time__month=day_now.month,
+    time__day=day_now.day)
     comments_today = models.Comment.objects.filter(receiver = user_id,
-    time__gte = datetime.strptime(day_now, "%d %m %y"))
-    
+    time__year=day_now.year,
+    time__month=day_now.month,
+    time__day=day_now.day)
+
     messages_yesterday = models.Message.objects.filter(receiver = user_id,
-    time__gte = datetime.strptime(day_yesterday, "%d %m %y"))
+    time__year=day_yesterday.year,
+    time__month=day_yesterday.month,
+    time__day=day_yesterday.day)
     comments_yesterday = models.Comment.objects.filter(receiver = user_id,
-    time__gte = datetime.strptime(day_yesterday, "%d %m %y"))
+    time__year=day_yesterday.year,
+    time__month=day_yesterday.month,
+    time__day=day_yesterday.day)
 
     # messages_today = models.Message.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
     # comments_today = models.Comment.objects.filter(receiver = user_id, time=utc.localize(datetime.now()).date())
