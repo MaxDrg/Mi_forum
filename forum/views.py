@@ -352,7 +352,7 @@ def get_notification(telegr_id: int):
 
     if messages_today and comments_today:
         for message in messages_today:
-            topics_today.append(message.forum.id, message.forum.name, message.time, 'message'))
+            topics_today.append(Notice(message.forum.id, message.forum.name, message.time, 'message'))
         for comment in comments_today:
             topics_today.append(Notice(comment.new.id, comment.new.title, comment.time, 'comment'))
     else:
