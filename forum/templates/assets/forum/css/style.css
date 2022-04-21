@@ -2159,3 +2159,7 @@ p {
     padding-bottom: 128px
   }
 }
+
+.search {
+  margin: 20px;
+}
