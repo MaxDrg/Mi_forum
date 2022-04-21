@@ -13,7 +13,7 @@ function showArea(block_id) {
   text.style.display = 'block';
 };
 
-function search_info() {
+document.getElementById('execute').onclick = function search_info() {
   let input = document.getElementById('searchbar').value
   input=input.toLowerCase(); 
 
