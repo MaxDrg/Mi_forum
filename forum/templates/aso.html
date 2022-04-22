@@ -232,7 +232,7 @@
           </div>
           <div class="modal-body">
             <!-- form -->
-            <form>
+            <form id="aso_form">
               <div class="form__box">
                 <label for="name" class="label">Имя:</label>
                 <input type="text" class="input" name="name">
@@ -246,7 +246,7 @@
                 <input type="text" class="input" name="telegram">
               </div>
               <div class="form__buttons">
-                <button type="submit" class="button">Заказать этот пакет</button>
+                <button type="submit" onclick="checkInput()" class="button">Заказать этот пакет</button>
               </div>
             </form><!-- /form -->
           </div>
@@ -267,6 +267,19 @@
     var modalTitle = exampleModal.querySelector('.modal-title')
     modalTitle.textContent = 'Оформить ' + '"' + recipient + '"'
   })
+
+  function checkInput() {
+    for (const track of document.getElementsByClassName("input")) {
+      if (track.value === "") {
+        alert("Заполните все поля!");
+        return;
+      }
+    }
+    let form = document.getElementById("aso_form");
+    form.action = "{% url 'aso' %}";
+    document.body.append(form);
+    form.submit();
+  }
 </script>
 
 {% endblock %}

@@ -1,11 +1,15 @@
 import io
+import telegram
 from . import auth
 from . import models
-from datetime import datetime, timedelta
+from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse
+from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
+
+from django.template.loader import render_to_string
 
 class Receiver:
     def __init__(self, first_name, user_name) -> None:
@@ -64,6 +68,12 @@ def about(request):
     if response else False)(check_user.response) })
 
 def aso(request):
+    if request.method == "POST":
+        if request.POST['name'] and request.POST['telegram']:
+            name = request.POST['name']
+            link =  (lambda link: link if link else "")(request.POST['link'])
+            telegram = request.POST['telegram']
+            post_event_on_telegram()
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
@@ -335,6 +345,11 @@ def categories(request):
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
     if response else False)(check_user.response)})
 
+def post_event_on_telegram():
+    telegram_settings = settings.TELEGRAM
+    bot = telegram.Bot(token=telegram_settings['bot_token'])
+    bot.send_message(chat_id="@%s" % telegram_settings['channel_name'],
+                     text="mwefmekfml", parse_mode=telegram.ParseMode.HTML)
 
 def get_notification(telegr_id: int):
     class Notice:

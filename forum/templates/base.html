@@ -45,7 +45,7 @@
                             <li><a href="{% url 'sell' %}" class="nav__link">Продажа аккаунтов</a></li>
                             <li><a href="https://t.me/mobilemoneymakers" class="button">Наш чат в Telegram</a></li>
                             {% if not authorization %}
-                                <li><a href="https://t.me/mi_forum_bot" class="nav__link hidden__desktop">Войти</a></li>
+                                <li><a href="https://t.me/m3_forum_bot" class="nav__link hidden__desktop">Войти</a></li>
                             {% endif %}
                         </ul>
                     </nav><!-- /.nav -->
@@ -119,7 +119,7 @@
                                         <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
                                             alt="Сообщение">
                                         <p class="dingList__item__desc">
-                                            <a href="#">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
+                                            <a href="{% url 'forum-post' %}?forum={{ notification.id }}">Вам ответили на форуме {{ notification.name }} <span>в {{ notification.time }}</span></a>
                                         </p>
                                     </div>
                                     {% else %}
@@ -127,7 +127,7 @@
                                         <img class="dingList__item__icon" src="{% static '/forum/images/message.svg' %}"
                                             alt="Сообщение">
                                         <p class="dingList__item__desc">
-                                            <a href="#">Вам ответили под новостью {{ notification.name }} <span>в {{ notification.time }}</span></a>
+                                            <a href="{% url 'news-post' %}?news={{ notification.id }}">Вам ответили под новостью {{ notification.name }} <span>в {{ notification.time }}</span></a>
                                         </p>
                                     </div>
                                     {% endif %}
@@ -152,7 +152,7 @@
                     </script>
 
                     {% else %}
-                    <a href="https://t.me/mi_forum_bot" class="nav__link hidden__mobile">Login</a>
+                    <a href="https://t.me/m3_forum_bot" class="nav__link hidden__mobile">Login</a>
 
                     {% endif %}
                     <!-- .nav__open -->
