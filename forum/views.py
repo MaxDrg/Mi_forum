@@ -1,3 +1,4 @@
+import imp
 import io
 import telegram
 from . import auth
@@ -352,7 +353,7 @@ def post_on_telegram(name: str, link: str, telegram_account: str):
     
     telegram_settings = settings.TELEGRAM
     bot = telegram.Bot(token=telegram_settings['bot_token'])
-    bot.send_message(chat_id=f"@{telegram_settings['channel_name']}",
+    bot.send_message(chat_id=telegram_settings['channel_name'],
                      text=message_txt, parse_mode=telegram.ParseMode.HTML)
 
 def get_notification(telegr_id: int):
