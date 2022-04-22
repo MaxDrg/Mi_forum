@@ -71,7 +71,6 @@ def about(request):
 def aso(request):
     if request.method == "POST":
         if request.POST['name'] and request.POST['telegram']:
-            print(request.POST['btnradio'])
             post_on_telegram(
                 name = request.POST['name'],
                 link =  (lambda link: link if link else "")(request.POST['link']),
