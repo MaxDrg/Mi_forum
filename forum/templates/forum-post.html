@@ -7,11 +7,6 @@
   <!-- .forum -->
   <div class="forum">
 
-    <!-- .backLink -->
-    <a href="forum.html" class="backLink">
-      <img src="{% static '/forum/images/back.svg' %}" alt="Назад">
-    </a><!-- /.backLink -->
-
     <!-- .forumBreadcrumb -->
     <div class="forumBreadcrumb">
       <a href="{% url 'categories' %}">Categories</a> / <a href="{% url 'forum' %}?category={{ forum.category_id }}">
@@ -143,7 +138,7 @@
         <button onclick="checkInput('default')" type="button" class="button">Отправить сообщение</button>
       </form>
       {% else %}
-      <div class="forumPost">
+      <div class="comments__guest">
         <p>Чтобы отправить Сообщение, вы должны авторизироваться</p>
         <a href="https://t.me/mi_forum_bot" class="button">Войти с Телеграм</a>
       </div>
