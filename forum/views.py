@@ -70,10 +70,11 @@ def about(request):
 def aso(request):
     if request.method == "POST":
         if request.POST['name'] and request.POST['telegram']:
-            name = request.POST['name']
-            link =  (lambda link: link if link else "")(request.POST['link'])
-            telegram = request.POST['telegram']
-            post_on_telegram()
+            post_on_telegram(
+                name = request.POST['name'],
+                link =  (lambda link: link if link else "")(request.POST['link']),
+                telegram = request.POST['telegram']
+            )
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
