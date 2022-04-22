@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="{% static '/forum/images/favicon.png' %}">
-    <title>Главная</title>
+    <title>M3 Forum</title>
 
     <link rel="stylesheet" href="{% static '/forum/css/reboot.min.css' %}">
     <link rel="stylesheet" href="{% static '/forum/css/bootstrap.min.css' %}">
@@ -37,12 +37,11 @@
                     <nav id="nav" class="nav">
                         <ul>
                             <li><a href="{% url 'news' %}" class="nav__link">Новости</a></li>
-                            <li><a href="{% url 'aso' %}" class="nav__link">ASO-оптимизация</a></li>
-                            <li><a href="{% url 'about' %}" class="nav__link">О нас</a></li>
                             <li><a href="{% url 'categories' %}" class="nav__link">Форум</a></li>
+                            <li><a href="{% url 'aso' %}" class="nav__link">ASO-оптимизация</a></li>
                             <li><a href="{% url 'curses' %}" class="nav__link">Обучение</a></li>
-                            <li><a href="{% url 'slovar' %}" class="nav__link">Словарь</a></li>
                             <li><a href="{% url 'sell' %}" class="nav__link">Продажа аккаунтов</a></li>
+                            <li><a href="{% url 'about' %}" class="nav__link">О нас</a></li>
                             <li><a href="https://t.me/mobilemoneymakers" class="button">Наш чат в Telegram</a></li>
                             {% if not authorization %}
                                 <li><a href="https://t.me/m3_forum_bot" class="nav__link hidden__desktop">Войти</a></li>

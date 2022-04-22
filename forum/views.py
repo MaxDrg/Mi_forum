@@ -73,7 +73,7 @@ def aso(request):
             name = request.POST['name']
             link =  (lambda link: link if link else "")(request.POST['link'])
             telegram = request.POST['telegram']
-            post_event_on_telegram()
+            post_on_telegram()
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
@@ -345,11 +345,14 @@ def categories(request):
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
     if response else False)(check_user.response)})
 
-def post_event_on_telegram():
+def post_on_telegram(name: str, link: str, telegram: str):
+    message_txt = f'Заявка "ASO Оптимизация"\nИмя: {name}'
+    f'\nСсылка на проект: {link}\nTelegram для связи: {telegram}'
+    
     telegram_settings = settings.TELEGRAM
     bot = telegram.Bot(token=telegram_settings['bot_token'])
-    bot.send_message(chat_id="@%s" % telegram_settings['channel_name'],
-                     text="mwefmekfml", parse_mode=telegram.ParseMode.HTML)
+    bot.send_message(chat_id=f"@{telegram_settings['channel_name']}",
+                     text=message_txt, parse_mode=telegram.ParseMode.HTML)
 
 def get_notification(telegr_id: int):
     class Notice:
