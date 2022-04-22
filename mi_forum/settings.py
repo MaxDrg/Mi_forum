@@ -139,5 +139,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 TELEGRAM = {
     'bot_token': os.environ.get('TELEGRAM_BOT_TOKEN'),
-    'channel_name': os.environ.get('TELEGRAM_CHANNEL_NAME'),
+    'chat_id': os.environ.get('TELEGRAM_CHAT_ID'),
 }

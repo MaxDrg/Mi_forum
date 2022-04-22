@@ -135,6 +135,8 @@
     <!-- .asoZakaz__radio -->
     <div class="asoZakaz__radio">
       <div class="btn-group" role="group">
+        <form id="aso_form" method="post">
+          {% csrf_token %}
         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
         <label class="btn" for="btnradio1">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -232,8 +234,6 @@
           </div>
           <div class="modal-body">
             <!-- form -->
-            <form id="aso_form" method="post">
-              {% csrf_token %}
               <div class="form__box">
                 <label for="name" class="label">Имя:</label>
                 <input type="text" class="input" name="name">

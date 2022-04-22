@@ -71,6 +71,7 @@ def about(request):
 def aso(request):
     if request.method == "POST":
         if request.POST['name'] and request.POST['telegram']:
+            print(request.POST['btnradio'])
             post_on_telegram(
                 name = request.POST['name'],
                 link =  (lambda link: link if link else "")(request.POST['link']),
@@ -353,7 +354,7 @@ def post_on_telegram(name: str, link: str, telegram_account: str):
     
     telegram_settings = settings.TELEGRAM
     bot = telegram.Bot(token=telegram_settings['bot_token'])
-    bot.send_message(chat_id=telegram_settings['channel_name'],
+    bot.send_message(chat_id=telegram_settings['chat_id'],
                      text=message_txt, parse_mode=telegram.ParseMode.HTML)
 
 def get_notification(telegr_id: int):
