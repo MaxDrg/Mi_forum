@@ -347,7 +347,7 @@ def categories(request):
     if response else False)(check_user.response)})
 
 def post_on_telegram(name: str, link: str, telegram_account: str):
-    message_txt = f'Заявка "ASO Оптимизация"\nИмя: {name}'
+    message_txt = f'Заявка "ASO Оптимизация"\nИмя: {name}' \
     f'\nСсылка на проект: {link}\nTelegram для связи: {telegram_account}'
     
     telegram_settings = settings.TELEGRAM
