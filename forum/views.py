@@ -141,7 +141,7 @@ def forum(request):
     class Forum(Topic):
         def __init__(self, id: int, name: str, description: str, private: bool) -> None:
             super().__init__(id, name, description)
-            self.messages_count = models.Message.objects.filter(forum=id, is_answer=False).count()
+            self.messages_count = models.Message.objects.filter(forum=id, reply_to=None).count()
             self.private = private
             self.last_message_user = False
             message = models.Message.objects.filter(forum=id).last()
