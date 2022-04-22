@@ -73,7 +73,7 @@ def aso(request):
             post_on_telegram(
                 name = request.POST['name'],
                 link =  (lambda link: link if link else "")(request.POST['link']),
-                telegram = request.POST['telegram']
+                telegram_account = request.POST['telegram']
             )
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
@@ -346,9 +346,9 @@ def categories(request):
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
     if response else False)(check_user.response)})
 
-def post_on_telegram(name: str, link: str, telegram: str):
+def post_on_telegram(name: str, link: str, telegram_account: str):
     message_txt = f'Заявка "ASO Оптимизация"\nИмя: {name}'
-    f'\nСсылка на проект: {link}\nTelegram для связи: {telegram}'
+    f'\nСсылка на проект: {link}\nTelegram для связи: {telegram_account}'
     
     telegram_settings = settings.TELEGRAM
     bot = telegram.Bot(token=telegram_settings['bot_token'])
