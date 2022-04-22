@@ -69,6 +69,7 @@ def about(request):
     if response else False)(check_user.response) })
 
 def aso(request):
+    alert = False
     if request.method == "POST":
         if request.POST['name'] and request.POST['telegram']:
             post_on_telegram(
@@ -76,12 +77,13 @@ def aso(request):
                 link =  (lambda link: link if link else "")(request.POST['link']),
                 telegram_account = request.POST['telegram']
             )
+            alert = True
     check_user = auth.Authorization(
         request.COOKIES.get('user_id'), 
         request.COOKIES.get('passwd'))
     return render(request, "aso.html", { "authorization": check_user.response,
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
-    if response else False)(check_user.response) })
+    if response else False)(check_user.response), 'alert': alert})
 
 def curses(request):
     check_user = auth.Authorization(
