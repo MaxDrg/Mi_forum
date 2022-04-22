@@ -233,6 +233,7 @@
           <div class="modal-body">
             <!-- form -->
             <form id="aso_form" method="post">
+              {% csrf_token %}
               <div class="form__box">
                 <label for="name" class="label">Имя:</label>
                 <input type="text" class="input" name="name">
