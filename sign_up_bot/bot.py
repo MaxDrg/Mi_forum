@@ -4,6 +4,7 @@ import string
 import hashlib
 import requests
 from url import Web
+from states import States
 from config import Config
 from buttons import Button
 from database import Database
@@ -22,6 +23,10 @@ async def start(message: types.Message):
     if not await db.check_user(message.from_user.id):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await cfg.bot.send_message(message.from_user.id, "Привет :)\nДля авторизации на форуме нужно перейти по ссылке.\n" + 
+        "Ссылка одноразовая, так что, если ты зайдёшь с нового устройства, нужно будет получить новую ссылку",
+        reply_markup=btn.markup_link)
+    else:
+        await cfg.bot.send_message(message.from_user.id, "Снова привет :)\nДля авторизации на форуме нужно перейти по ссылке.\n" + 
         "Ссылка одноразовая, так что, если ты зайдёшь с нового устройства, нужно будет получить новую ссылку",
         reply_markup=btn.markup_link)
 
@@ -45,10 +50,35 @@ async def get_link(message: types.Message):
         password=hashlib.sha256(password.encode('utf-8')).hexdigest()
     )
 
-    web = Web(message.from_user.id, password)
-    link = InlineKeyboardMarkup().add(InlineKeyboardButton('Перейти', url=web.url))
+    web = Web(message.from_user.id)
+    link = InlineKeyboardMarkup().add(InlineKeyboardButton('Перейти', url=web.forum_url(password)))
 
     await cfg.bot.send_message(message.from_user.id, "Ваша ссылка для авторизации:", reply_markup=link)
+
+@cfg.dp.message_handler(lambda message: message.text == 'Получить ссылку') 
+async def set_subscription(message: types.Message):
+    await cfg.bot.send_message(message.from_user.id, "Выберите срок подписки:" +
+    "\n\n1 месяц = 10$\n3 месяца = 30$\n12 месяцев = 100$",
+    reply_markup=btn.markup_subscribe)
+    await States.set_subscription.set()
+
+@cfg.dp.message_handler(state=States.set_subscription) 
+async def set_subscription(message: types.Message, state: FSMContext):
+    if message.text == 'Вернуться назад':
+        await cfg.bot.send_message(message.from_user.id, "Вы в главном меню", reply_markup=btn.markup_back)
+        await state.finish()
+    elif message.text == '1 месяц':
+        web = Web(message.from_user.id, password)
+        link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=web.url))
+        await cfg.bot.send_message(message.from_user.id, "Ваша ссылка для оплаты:", reply_markup=link)
+    elif message.text == '3 месяца':
+        web = Web(message.from_user.id, password)
+        link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=web.url))
+        await cfg.bot.send_message(message.from_user.id, "Ваша ссылка для оплаты:", reply_markup=link)
+    elif message.text == '12 месяцев':
+        web = Web(message.from_user.id, password)
+        link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=web.url))
+        await cfg.bot.send_message(message.from_user.id, "Ваша ссылка для оплаты:", reply_markup=link)
 
 # @cfg.dp.message_handler(commands="start")
 # async def Start(message: types.Message):

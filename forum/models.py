@@ -1,3 +1,4 @@
+from inspect import signature
 from django.db import models
 
 class User(models.Model):
@@ -62,3 +63,9 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message_text
+
+class Transaction(models.Model):
+    user_id = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
+    status = models.BooleanField("Orders status")
+    days = models.IntegerField('Days adding')
+    signature = models.CharField("Orders signature", max_length=50)

@@ -36,3 +36,8 @@ class Database:
 		with self.conn.cursor() as cursor:
 			cursor.execute("""SELECT EXISTS(SELECT id FROM forum_user WHERE telegr_id = %s);""", (user_id, ))
 			return cursor.fetchone()[0]
+
+	async def get_subscription(self, user_id: int):
+		with self.conn.cursor() as cursor:
+			cursor.execute("""SELECT id FROM forum_user WHERE telegr_id = %s);""", (user_id, ))
+			return cursor.fetchone()[0]

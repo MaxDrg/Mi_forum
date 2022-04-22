@@ -19,3 +19,6 @@ class Config:
         self.port_data = os.environ.get('DATA_PORT')
 
         self.url = os.environ.get('URL')
+
+        self.merchant_id = os.environ.get('MERCHANT_ID')
+        self.payment_key = os.environ.get('PAYMENT_KEY')
