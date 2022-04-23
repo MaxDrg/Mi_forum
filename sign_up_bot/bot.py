@@ -51,34 +51,100 @@ async def get_link(message: types.Message):
     )
 
     web = Web(message.from_user.id)
-    link = InlineKeyboardMarkup().add(InlineKeyboardButton('Перейти', url=web.forum_url(password)))
+    link = InlineKeyboardMarkup().add(InlineKeyboardButton('Перейти', url=await web.forum_url(password)))
 
     await cfg.bot.send_message(message.from_user.id, "Ваша ссылка для авторизации:", reply_markup=link)
 
-@cfg.dp.message_handler(lambda message: message.text == 'Получить ссылку') 
+@cfg.dp.message_handler(lambda message: message.text == 'Подписка') 
 async def set_subscription(message: types.Message):
+    subscription = db.get_subscription(message.from_user.id)
+    if subscription:
+        subscription = f"\n\nВаша подписка действует до {subscription.strftime('%d/%m/%y')}"
+    else:
+        subscription = ''
     await cfg.bot.send_message(message.from_user.id, "Выберите срок подписки:" +
-    "\n\n1 месяц = 10$\n3 месяца = 30$\n12 месяцев = 100$",
+    "\n\n1 месяц = 10$\n3 месяца = 30$\n12 месяцев = 100$" + subscription,
     reply_markup=btn.markup_subscribe)
     await States.set_subscription.set()
 
 @cfg.dp.message_handler(state=States.set_subscription) 
 async def set_subscription(message: types.Message, state: FSMContext):
     if message.text == 'Вернуться назад':
-        await cfg.bot.send_message(message.from_user.id, "Вы в главном меню", reply_markup=btn.markup_back)
+        await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
+        reply_markup=btn.markup_back)
         await state.finish()
     elif message.text == '1 месяц':
-        web = Web(message.from_user.id, password)
-        link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=web.url))
-        await cfg.bot.send_message(message.from_user.id, "Ваша ссылка для оплаты:", reply_markup=link)
+        days = 30
+        web = Web(message.from_user.id)
+
+        message_id = await db.get_message(message.from_user.id)
+        if message_id:
+            try:
+                cfg.bot.delete_message(message.from_user.id, message_id[1])
+            except:
+                pass
+            await db.delete_transaction(message_id[0])
+
+        transaction_id = await db.create_transaction(message.from_user.id, days)
+        url, signature = web.pay_url(transaction_id, days)
+
+        link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=url))
+        send_message = await cfg.bot.send_message(message.from_user.id, 
+        "Ваша ссылка для оплаты:", reply_markup=link)
+
+        await db.update_transaction(transaction_id, send_message, signature)
+
+        await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
+        reply_markup=btn.markup_back)
+        await state.finish()
     elif message.text == '3 месяца':
-        web = Web(message.from_user.id, password)
-        link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=web.url))
-        await cfg.bot.send_message(message.from_user.id, "Ваша ссылка для оплаты:", reply_markup=link)
+        days = 92
+        web = Web(message.from_user.id)
+
+        message_id = await db.get_message(message.from_user.id)
+        if message_id:
+            try:
+                cfg.bot.delete_message(message.from_user.id, message_id[1])
+            except:
+                pass
+            await db.delete_transaction(message_id[0])
+
+        transaction_id = await db.create_transaction(message.from_user.id, days)
+        url, signature = web.pay_url(transaction_id, days)
+
+        link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=url))
+        send_message = await cfg.bot.send_message(message.from_user.id, 
+        "Ваша ссылка для оплаты:", reply_markup=link)
+
+        await db.update_transaction(transaction_id, send_message, signature)
+        
+        await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
+        reply_markup=btn.markup_back)
+        await state.finish()
     elif message.text == '12 месяцев':
-        web = Web(message.from_user.id, password)
-        link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=web.url))
-        await cfg.bot.send_message(message.from_user.id, "Ваша ссылка для оплаты:", reply_markup=link)
+        days = 365
+        web = Web(message.from_user.id)
+
+        message_id = await db.get_message(message.from_user.id)
+        if message_id:
+            try:
+                cfg.bot.delete_message(message.from_user.id, message_id[1])
+            except:
+                pass
+            await db.delete_transaction(message_id[0])
+            
+        transaction_id = await db.create_transaction(message.from_user.id, days)
+        url, signature = web.pay_url(transaction_id, days)
+
+        link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=url))
+        send_message = await cfg.bot.send_message(message.from_user.id, 
+        "Ваша ссылка для оплаты:", reply_markup=link)
+
+        await db.update_transaction(transaction_id, send_message, signature)
+        
+        await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
+        reply_markup=btn.markup_back)
+        await state.finish()
 
 # @cfg.dp.message_handler(commands="start")
 # async def Start(message: types.Message):

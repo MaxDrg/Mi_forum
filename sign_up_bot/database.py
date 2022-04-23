@@ -39,5 +39,27 @@ class Database:
 
 	async def get_subscription(self, user_id: int):
 		with self.conn.cursor() as cursor:
-			cursor.execute("""SELECT id FROM forum_user WHERE telegr_id = %s);""", (user_id, ))
+			cursor.execute("""SELECT subscription FROM forum_user WHERE telegr_id = %s);""", (user_id, ))
 			return cursor.fetchone()[0]
+
+	async def create_transaction(self, user_id: int, days: int):
+		with self.conn.cursor() as cursor:
+			cursor.execute("""INSERT INTO forum_transaction (user_id, days) VALUES ((SELECT id FROM forum_user WHERE telegr_id = %s), %s) RETURNING id;""", (user_id, days, ))
+			id = cursor.fetchone()[0]
+		self.conn.commit()
+		return id
+
+	async def update_transaction(self, transaction_id: int, message_id: int, signature: str):
+		with self.conn.cursor() as cursor:
+			cursor.execute("""UPDATE forum_transaction SET message_id = %s, signature = %s WHERE id = %s;""", (message_id, signature, transaction_id, ))
+		self.conn.commit()
+
+	async def get_message(self, user_id: int,):
+		with self.conn.cursor() as cursor:
+			cursor.execute("""SELECT id, message_id FROM forum_transaction WHERE telegr_id = (SELECT id FROM forum_user WHERE telegr_id = %s));""", (user_id, ))
+			return cursor.fetchone()
+		
+	async def delete_transaction(self, transaction_id: int):
+		with self.conn.cursor() as cursor:
+			cursor.execute("""DELETE FROM forum_transaction WHERE id = %s;""", (transaction_id, ))
+		self.conn.commit()

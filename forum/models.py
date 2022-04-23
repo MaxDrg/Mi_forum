@@ -60,12 +60,14 @@ class Message(models.Model):
     forum = models.ForeignKey(Forum, on_delete = models.CASCADE)
     user = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
     is_answer = models.BooleanField("Is answer", null=True, default=None)
+    image = models.ImageField("Message's photo", default=None, null=True)
 
     def __str__(self):
         return self.message_text
 
 class Transaction(models.Model):
     user_id = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
-    status = models.BooleanField("Orders status")
+    status = models.BooleanField("Orders status", default=False)
     days = models.IntegerField('Days adding')
     signature = models.CharField("Orders signature", max_length=50)
+    message_id = models.BigIntegerField("Message's ID", null=True, default=None)

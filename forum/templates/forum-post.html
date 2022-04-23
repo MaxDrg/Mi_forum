@@ -9,7 +9,7 @@
 
     <!-- .forumBreadcrumb -->
     <div class="forumBreadcrumb">
-      <a href="{% url 'categories' %}">Categories</a> / <a href="{% url 'forum' %}?category={{ forum.category_id }}">
+      / <a href="{% url 'forum' %}?category={{ forum.category_id }}">
         {{ forum.category_name }}</a> / {{ forum.forum_name }}
     </div><!-- /.forumBreadcrumb -->
 
@@ -135,6 +135,7 @@
         <input type="text" name="receiver" style="display:none;" value='' />
         <input type="text" name="forum_id" style="display:none;" value='{{ forum.forum_id }}' />
         <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
+        <input type="file" id="image" name="myfile">
         <button onclick="checkInput('default')" type="button" class="button">Отправить сообщение</button>
       </form>
       {% else %}
