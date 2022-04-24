@@ -39,7 +39,7 @@ class Database:
 
 	async def get_subscription(self, user_id: int):
 		with self.conn.cursor() as cursor:
-			cursor.execute("""SELECT subscription FROM forum_user WHERE telegr_id = %s);""", (user_id, ))
+			cursor.execute("""SELECT subscription FROM forum_user WHERE telegr_id = %s;""", (user_id, ))
 			return cursor.fetchone()[0]
 
 	async def create_transaction(self, user_id: int, days: int):
