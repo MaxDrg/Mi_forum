@@ -1,4 +1,5 @@
 from inspect import signature
+from tkinter import N
 from django.db import models
 
 class User(models.Model):
@@ -69,5 +70,5 @@ class Transaction(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
     status = models.BooleanField("Orders status", default=False)
     days = models.IntegerField('Days adding')
-    signature = models.CharField("Orders signature", max_length=50)
+    signature = models.CharField("Orders signature", max_length=50, null=True, default=None)
     message_id = models.BigIntegerField("Message's ID", null=True, default=None)
