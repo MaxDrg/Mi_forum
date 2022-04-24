@@ -2188,6 +2188,5 @@ p {
 @media (min-width: 576px) {
   .input_form {
     display: flex;
-    margin-top: 10px;
   }
 }
