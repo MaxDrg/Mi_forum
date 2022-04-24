@@ -135,7 +135,7 @@
         <input type="text" name="receiver" style="display:none;" value='' />
         <input type="text" name="forum_id" style="display:none;" value='{{ forum.forum_id }}' />
         <textarea id="textarea_default" name="message_text" class="textarea" rows="3"></textarea>
-        <input type="file" id="image" name="myfile">
+        <input type="file" name="image" accept="image/png, image/jpg, image/jpeg" />
         <button onclick="checkInput('default')" type="button" class="button">Отправить сообщение</button>
       </form>
       {% else %}

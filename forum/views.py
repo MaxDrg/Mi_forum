@@ -1,3 +1,4 @@
+from email.mime import image
 import io
 import telegram
 from . import auth
@@ -124,6 +125,7 @@ def forum_post(request):
                     forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
                     is_answer = False
+                    image=request.POST['image']
                 ).save()
 
             return render(request, "forum-post.html", { "authorization": check_user.response,
