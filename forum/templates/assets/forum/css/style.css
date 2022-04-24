@@ -2181,13 +2181,13 @@ p {
 }
 
 .input_form {
-  display: flex; 
+  display: block; 
   justify-content: space-between;
 }
 
 @media (min-width: 576px) {
   .input_form {
-    display: block;
+    display: flex;
     margin-top: 10px;
   }
 }
