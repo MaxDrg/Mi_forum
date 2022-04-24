@@ -73,7 +73,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
         await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
         reply_markup=btn.markup_link)
         await state.finish()
-    elif message.text == '1 месяц':
+    elif message.text == '1 Месяц':
         days = 30
         web = Web(message.from_user.id)
         await cfg.bot.send_message(message.from_user.id, "Here 1")
@@ -102,7 +102,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
         await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
         reply_markup=btn.markup_link)
         await state.finish()
-    elif message.text == '3 месяца':
+    elif message.text == '3 Месяца':
         days = 92
         web = Web(message.from_user.id)
 
@@ -126,7 +126,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
         await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
         reply_markup=btn.markup_link)
         await state.finish()
-    elif message.text == '12 месяцев':
+    elif message.text == '12 Месяцев':
         days = 365
         web = Web(message.from_user.id)
 

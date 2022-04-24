@@ -66,7 +66,7 @@ class Message(models.Model):
         return self.message_text
 
 class Transaction(models.Model):
-    user_id = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
+    user = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
     status = models.BooleanField("Orders status", default=False)
     days = models.IntegerField('Days adding')
     signature = models.CharField("Orders signature", max_length=50)
