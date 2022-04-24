@@ -124,7 +124,7 @@ def forum_post(request):
                     time = datetime.now(),
                     forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
-                    is_answer = False
+                    is_answer = False,
                     image=request.POST['image']
                 ).save()
 
