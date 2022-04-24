@@ -139,7 +139,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
             await db.delete_transaction(message_id[0])
             
         transaction_id = await db.create_transaction(message.from_user.id, days)
-        url, signature = web.pay_url(transaction_id, days)
+        url, signature = await web.pay_url(transaction_id, days)
 
         link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=url))
         send_message = await cfg.bot.send_message(message.from_user.id, 
