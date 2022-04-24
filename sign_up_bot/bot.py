@@ -97,7 +97,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
         send_message = await cfg.bot.send_message(message.from_user.id, 
         "Ваша ссылка для оплаты:", reply_markup=link)
 
-        await db.update_transaction(transaction_id, send_message, signature)
+        await db.update_transaction(transaction_id, send_message.message_id, signature)
 
         await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
         reply_markup=btn.markup_link)
@@ -126,7 +126,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
         send_message = await cfg.bot.send_message(message.from_user.id, 
         "Ваша ссылка для оплаты:", reply_markup=link)
 
-        await db.update_transaction(transaction_id, send_message, signature)
+        await db.update_transaction(transaction_id, send_message.message_id, signature)
 
         await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
         reply_markup=btn.markup_link)
@@ -155,7 +155,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
         send_message = await cfg.bot.send_message(message.from_user.id, 
         "Ваша ссылка для оплаты:", reply_markup=link)
 
-        await db.update_transaction(transaction_id, send_message, signature)
+        await db.update_transaction(transaction_id, send_message.message_id, signature)
 
         await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
         reply_markup=btn.markup_link)
