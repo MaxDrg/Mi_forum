@@ -1,5 +1,4 @@
 requests==2.27.1
-cloudipsp==1.0.3
 aiogram==2.19
 aiohttp==3.8.1
 aiosignal==1.2.0
@@ -21,3 +20,4 @@ PyNaCl==1.5.0
 pytz==2022.1
 six==1.16.0
 yarl==1.7.2
+cloudipsp==1.0.3
