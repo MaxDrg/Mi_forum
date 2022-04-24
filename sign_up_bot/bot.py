@@ -76,6 +76,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
     elif message.text == '1 месяц':
         days = 30
         web = Web(message.from_user.id)
+        await cfg.bot.send_message(message.from_user.id, "Here 1")
 
         message_id = await db.get_message(message.from_user.id)
         if message_id:
@@ -85,8 +86,12 @@ async def set_subscription(message: types.Message, state: FSMContext):
                 pass
             await db.delete_transaction(message_id[0])
 
+        await cfg.bot.send_message(message.from_user.id, "Here 2")
+
         transaction_id = await db.create_transaction(message.from_user.id, days)
         url, signature = web.pay_url(transaction_id, days)
+
+        await cfg.bot.send_message(message.from_user.id, "Here 3")
 
         link = InlineKeyboardMarkup().add(InlineKeyboardButton('Оплатить', url=url))
         send_message = await cfg.bot.send_message(message.from_user.id, 
