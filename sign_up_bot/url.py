@@ -1,6 +1,4 @@
-import json
 import hashlib
-import requests
 import urllib.parse as urlparse
 from urllib.parse import urlencode
 from cloudipsp import Api, Checkout
