@@ -1,5 +1,3 @@
-from inspect import signature
-from tkinter import N
 from django.db import models
 
 class User(models.Model):

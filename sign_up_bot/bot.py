@@ -133,7 +133,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
         message_id = await db.get_message(message.from_user.id)
         if message_id:
             try:
-                cfg.bot.delete_message(message.from_user.id, message_id[1])
+                await cfg.bot.delete_message(message.from_user.id, message_id[1])
             except:
                 pass
             await db.delete_transaction(message_id[0])
