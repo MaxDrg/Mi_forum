@@ -71,7 +71,7 @@ async def set_subscription(message: types.Message):
 async def set_subscription(message: types.Message, state: FSMContext):
     if message.text == 'Вернуться назад':
         await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
-        reply_markup=btn.markup_back)
+        reply_markup=btn.markup_link)
         await state.finish()
     elif message.text == '1 месяц':
         days = 30
@@ -95,7 +95,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
         await db.update_transaction(transaction_id, send_message, signature)
 
         await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
-        reply_markup=btn.markup_back)
+        reply_markup=btn.markup_link)
         await state.finish()
     elif message.text == '3 месяца':
         days = 92
@@ -119,7 +119,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
         await db.update_transaction(transaction_id, send_message, signature)
         
         await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
-        reply_markup=btn.markup_back)
+        reply_markup=btn.markup_link)
         await state.finish()
     elif message.text == '12 месяцев':
         days = 365
@@ -143,7 +143,7 @@ async def set_subscription(message: types.Message, state: FSMContext):
         await db.update_transaction(transaction_id, send_message, signature)
         
         await cfg.bot.send_message(message.from_user.id, "Вы в главном меню",
-        reply_markup=btn.markup_back)
+        reply_markup=btn.markup_link)
         await state.finish()
 
 # @cfg.dp.message_handler(commands="start")
