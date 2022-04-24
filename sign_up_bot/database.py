@@ -56,7 +56,7 @@ class Database:
 
 	async def get_message(self, user_id: int,):
 		with self.conn.cursor() as cursor:
-			cursor.execute("""SELECT id, message_id FROM forum_transaction WHERE user = (SELECT id FROM forum_user WHERE telegr_id = %s);""", (user_id, ))
+			cursor.execute("""SELECT id, message_id FROM forum_transaction WHERE user_id = (SELECT id FROM forum_user WHERE telegr_id = %s);""", (user_id, ))
 			return cursor.fetchone()
 		
 	async def delete_transaction(self, transaction_id: int):
