@@ -1,4 +1,3 @@
-from email.mime import image
 import io
 import telegram
 from . import auth
