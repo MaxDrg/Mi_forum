@@ -57,7 +57,7 @@ async def get_link(message: types.Message):
 
 @cfg.dp.message_handler(lambda message: message.text == 'Подписка') 
 async def set_subscription(message: types.Message):
-    subscription = db.get_subscription(message.from_user.id)
+    subscription = await db.get_subscription(message.from_user.id)
     if subscription:
         subscription = f"\n\nВаша подписка действует до {subscription.strftime('%d/%m/%y')}"
     else:
