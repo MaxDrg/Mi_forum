@@ -138,22 +138,19 @@ def forum_post(request):
                 message.time, message.user, message.image)
                 for message in models.Message.objects.filter(
                     forum=request.POST['forum_id'], 
-                    reply_to=None)],
+                    reply_to=None).order_by('-id')],
                 "notifications": (lambda response: get_notification(
                     request.COOKIES.get('user_id')) 
                 if response else False)(check_user.response)
             })
     elif request.GET.get('forum'):
-        for i in models.Message.objects.filter(forum=request.GET.get('forum')).reverse():
-            print(i.message_text)
-        
         return render(request, "forum-post.html", { "authorization": check_user.response, 
             "forum": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
             "messages": [Message(message.id, message.message_text, 
             message.time, message.user, message.image)
             for message in models.Message.objects.filter(
                 forum=request.GET.get('forum'), 
-                reply_to=None)],
+                reply_to=None).order_by('-id')],
             "notifications": (lambda response: get_notification(
                 request.COOKIES.get('user_id')) 
             if response else False)(check_user.response)
