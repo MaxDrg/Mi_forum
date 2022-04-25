@@ -2195,7 +2195,13 @@ p {
   }
 }
 
+@media (max-width: 750px) {
+  .message__img {
+    max-width: 80%;
+  }
+}
+
 .message__img {
   margin: 40px;
-    max-width: 80%;
+  max-width: 30%;
 }
