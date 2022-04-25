@@ -107,7 +107,7 @@ def forum_post(request):
     if request.method == "POST":
         if request.POST['forum_id'] and request.POST['message_text'] and check_user.response:
             if request.POST['reply_to'] and request.POST['receiver']:
-                models.Message(
+                new_message = models.Message(
                     message_text = request.POST['message_text'],
                     reply_to = request.POST['reply_to'],
                     receiver = request.POST['receiver'],
