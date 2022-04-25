@@ -37,7 +37,7 @@
       </div>
       <div class="forumPost__content">
         {% if message.image %}
-          <img src="{{ message.image.url }}">
+          <img class="message__img" src="{{ message.image.url }}">
         {% endif %}
         <p>{{ message.message_text }}</p>
       </div>
@@ -102,7 +102,7 @@
             <a href="#">{{ reply.receiver.first_name }}</a>, {% endif %}
           {% endif %}
           {% if reply.image %}
-            <img src="{{ reply.image.url }}">
+            <img class="message__img" src="{{ reply.image.url }}">
           {% endif %}
           {{ reply.message_text }}</p>
       </div>

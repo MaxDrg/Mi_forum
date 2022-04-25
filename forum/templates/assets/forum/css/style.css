@@ -2195,3 +2195,7 @@ p {
   }
 }
 
+.message__img {
+  margin: 40px;
+    max-width: 80%;
+}
