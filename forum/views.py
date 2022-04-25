@@ -108,7 +108,15 @@ def forum_post(request):
 
     if request.method == "POST":
         if request.POST['forum_id'] and request.POST['message_text'] and check_user.response:
+            image = None
+            if request.FILES['image']:
+                image_file = request.FILES['image']
+                fs = FileSystemStorage()
+                file = fs.save(image_file.name, request.FILES['image'])
+                image = fs.get_valid_name(file)
             if request.POST['reply_to'] and request.POST['receiver']:
+                
+
                 models.Message(
                     message_text = request.POST['message_text'],
                     reply_to = request.POST['reply_to'],
@@ -117,7 +125,7 @@ def forum_post(request):
                     forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
                     is_answer = (lambda response: True if response else False)(request.POST['is_answer']),
-                    image=request.FILES['image']
+                    image=image
                 ).save()
             else:
                 models.Message(
@@ -126,7 +134,7 @@ def forum_post(request):
                     forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
                     is_answer = False,
-                    image=request.FILES['image']
+                    image=image
                 ).save()
 
             return render(request, "forum-post.html", { "authorization": check_user.response,
