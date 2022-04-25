@@ -2192,7 +2192,7 @@ p {
 }
 
 .input_form__block {
-  display: grid;
+  display: table-caption;
 }
 
 .input_form__button {
