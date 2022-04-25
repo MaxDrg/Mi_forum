@@ -2190,3 +2190,11 @@ p {
     display: flex;
   }
 }
+
+.input_form__block {
+  display: grid;
+}
+
+.input_form__button {
+  margin-top: 25px;
+}
