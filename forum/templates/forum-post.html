@@ -161,7 +161,7 @@
       alert('Пустое сообщение !');
     } else {
       let form = document.getElementById('form_' + form_id);
-      form.action = "{% url 'forum-post' %}";
+      form.action = "{% url 'forum-post' %}?forum={{ forum.forum_id }}";
       document.body.append(form);
       form.submit();
     }
