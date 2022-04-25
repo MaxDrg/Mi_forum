@@ -144,9 +144,8 @@ def forum_post(request):
                 if response else False)(check_user.response)
             })
     elif request.GET.get('forum'):
-        for i in[print(message.message_text) for message in models.Message.objects.filter(
-                forum=request.GET.get('forum'))].reverse():
-            print(i)
+        for i in models.Message.objects.filter(forum=request.GET.get('forum')).reverse():
+            print(i.message_text)
         
         return render(request, "forum-post.html", { "authorization": check_user.response, 
             "forum": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
