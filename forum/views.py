@@ -146,7 +146,11 @@ def forum_post(request):
     elif request.GET.get('forum'):
         return render(request, "forum-post.html", { "authorization": check_user.response, 
             "forum": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
-            "messages": [Message(message.id, message.message_text, message.time, message.user, message.image) for message in models.Message.objects.filter(forum=request.GET.get('forum'), reply_to=None)],
+            "messages": [Message(message.id, message.message_text, 
+            message.time, message.user, message.image) 
+            for message in models.Message.objects.filter(
+                forum=request.GET.get('forum'), 
+                reply_to=None)],
             "notifications": (lambda response: get_notification(
                 request.COOKIES.get('user_id')) 
             if response else False)(check_user.response)
@@ -199,10 +203,10 @@ def index(request):
 def news_post(request):
 
     class Comment(Message):
-        def __init__(self, message_id, message_text: str, time: datetime, user) -> None:
-            super().__init__(message_id, message_text, time, user)
+        def __init__(self, message_id, message_text: str, time: datetime, user, image = None) -> None:
+            super().__init__(message_id, message_text, time, user, image)
             self.replies = [Reply(reply.id, reply.message_text, 
-            reply.time, reply.user, reply.is_answer, reply.receiver) 
+            reply.time, reply.user, None, reply.is_answer, reply.receiver) 
             for reply in models.Comment.objects.filter(reply_to=self.id)]
 
     check_user = auth.Authorization(
