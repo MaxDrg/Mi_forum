@@ -141,7 +141,3 @@ TELEGRAM = {
     'bot_token': os.environ.get('TELEGRAM_BOT_TOKEN'),
     'chat_id': os.environ.get('TELEGRAM_CHAT_ID'),
 }
-
-one = Site.objects.all()[0]
-one.domain = 'm3.fan'
-one.save()
