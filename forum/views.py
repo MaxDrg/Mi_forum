@@ -116,7 +116,8 @@ def forum_post(request):
                     time = datetime.now(),
                     forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
-                    is_answer = (lambda response: True if response else False)(request.POST['is_answer'])
+                    is_answer = (lambda response: True if response else False)(request.POST['is_answer']),
+                    image=request.FILES['image']
                 ).save()
             else:
                 models.Message(
@@ -125,7 +126,7 @@ def forum_post(request):
                     forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
                     is_answer = False,
-                    image=request.POST['image']
+                    image=request.FILES['image']
                 ).save()
 
             return render(request, "forum-post.html", { "authorization": check_user.response,
