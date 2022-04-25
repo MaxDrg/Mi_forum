@@ -2181,20 +2181,17 @@ p {
 }
 
 .input_form {
-  display: block; 
+  display: flex;
   justify-content: space-between;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 1000px) {
   .input_form {
-    display: flex;
+    display: table-caption;
+  }
+
+  .input_form__button {
+    margin-top: 25px;
   }
 }
 
-.input_form__block {
-  display: table-caption;
-}
-
-.input_form__button {
-  margin-top: 25px;
-}
