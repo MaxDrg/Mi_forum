@@ -95,14 +95,14 @@
         </div>
       </div>
       <div class="forumPost__content">
+        {% if reply.image %}
+          <img class="message__img" src="{{ reply.image.url }}">
+        {% endif %}
         <p>
           {% if reply.receiver %}
             {% if reply.receiver.user_name %}
             <a href="https://t.me/{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>, {% else %}
             <a href="#">{{ reply.receiver.first_name }}</a>, {% endif %}
-          {% endif %}
-          {% if reply.image %}
-            <img class="message__img" src="{{ reply.image.url }}">
           {% endif %}
           {{ reply.message_text }}</p>
       </div>
