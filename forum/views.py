@@ -138,7 +138,7 @@ def forum_post(request):
                 message.time, message.user, message.image)
                 for message in models.Message.objects.filter(
                     forum=request.POST['forum_id'], 
-                    reply_to=None).order_by('-id')],
+                    reply_to=None).order_by('id')],
                 "notifications": (lambda response: get_notification(
                     request.COOKIES.get('user_id')) 
                 if response else False)(check_user.response)
@@ -150,7 +150,7 @@ def forum_post(request):
             message.time, message.user, message.image)
             for message in models.Message.objects.filter(
                 forum=request.GET.get('forum'), 
-                reply_to=None).order_by('-id')],
+                reply_to=None).order_by('id')],
             "notifications": (lambda response: get_notification(
                 request.COOKIES.get('user_id')) 
             if response else False)(check_user.response)
