@@ -9,8 +9,6 @@ from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 
-from django.template.loader import render_to_string
-
 class Receiver:
     def __init__(self, first_name, user_name) -> None:
         self.first_name = first_name
@@ -116,8 +114,7 @@ def forum_post(request):
                     time = datetime.now(),
                     forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
-                    is_answer = (lambda response: True if response else False)(request.POST['is_answer']),
-                    image=image
+                    is_answer = (lambda response: True if response else False)(request.POST['is_answer'])
                 )
             else:
                 new_message = models.Message(
