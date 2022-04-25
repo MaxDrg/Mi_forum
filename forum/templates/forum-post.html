@@ -52,7 +52,13 @@
           <input type="text" name="reply_to" style="display:none;" value='{{ message.id }}' />
           <input type="text" name="receiver" style="display:none;" value='{{ message.user.id }}' />
           <textarea id="textarea_{{ message.id }}" name="message_text" class="textarea" rows="3"></textarea>
-          <button onclick="checkInput({{ message.id }})" type="button" class="button">Отправить комментарий</button>
+          <div class="input_form">
+            <div>
+              <label>Добавить изображение:</label>
+              <input type="file" name="image" accept="image/png, image/jpg, image/jpeg" />
+            </div>
+            <button onclick="checkInput({{ message.id }})" type="button input_form__button" class="button">Ответить на сообщение</button>
+          </div>
         </form>
       </div><!-- /.forumPost -->
 
@@ -108,7 +114,13 @@
           <input type="text" name="reply_to" style="display:none;" value='{{ message.id }}' />
           <input type="text" name="receiver" style="display:none;" value='{{ reply.user.id }}' />
           <textarea id="textarea_{{ reply.id }}" name="message_text" class="textarea" rows="3"></textarea>
-          <button onclick="checkInput({{ reply.id }})" type="button" class="button">Ответить на сообщение</button>
+          <div class="input_form">
+            <div>
+              <label>Добавить изображение:</label>
+              <input type="file" name="image" accept="image/png, image/jpg, image/jpeg" />
+            </div>
+            <button onclick="checkInput({{ reply.id }})" type="button input_form__button" class="button">Ответить на сообщение</button>
+          </div>
         </form>
       </div><!-- /.forumPost -->
 

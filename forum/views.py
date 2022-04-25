@@ -18,20 +18,21 @@ class Receiver:
 
 class Message:
     def __init__(self, message_id: int, message_text: str, 
-    time: datetime, user: models.User) -> None:
+    time: datetime, user: models.User, image: str) -> None:
         self.id = message_id
         self.message_text = message_text
         self.date = time.date()
         self.time = time.strftime('%H:%M')
         self.user = user
+        self.image = image
         self.replies = [Reply(reply.id, reply.message_text, 
         reply.time, reply.user, reply.is_answer, reply.receiver) 
         for reply in models.Message.objects.filter(reply_to=self.id)]
             
 class Reply(Message):
     def __init__(self, message_id: int, message_text: str, time: datetime, 
-    user: models.User, is_answer: bool, receiver: int) -> None:
-        super().__init__(message_id, message_text, time, user)
+    user: models.User, image: str, is_answer: bool, receiver: int) -> None:
+        super().__init__(message_id, message_text, time, user, image)
         self.__is_answer = is_answer
         self.__receiver = receiver
         self.receiver = None
@@ -129,17 +130,25 @@ def forum_post(request):
 
             return render(request, "forum-post.html", { "authorization": check_user.response,
                 "forum": Forum_post(models.Forum.objects.filter(id=request.POST['forum_id'])[0]),
-                "messages": [Message(message.id, message.message_text, message.time, message.user) 
-                for message in models.Message.objects.filter(forum=request.POST['forum_id'], reply_to=None)],
-                "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+                "messages": [Message(message.id, message.message_text, 
+                message.time, message.user, message.image)
+                for message in models.Message.objects.filter(
+                    forum=request.POST['forum_id'], 
+                    reply_to=None)],
+                "notifications": (lambda response: get_notification(
+                    request.COOKIES.get('user_id')) 
                 if response else False)(check_user.response)
             })
     elif request.GET.get('forum'):
         return render(request, "forum-post.html", { "authorization": check_user.response, 
             "forum": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
-            "messages": [Message(message.id, message.message_text, message.time, message.user) 
-            for message in models.Message.objects.filter(forum=request.GET.get('forum'), reply_to=None)],
-            "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+            "messages": [Message(message.id, message.message_text, 
+            message.time, message.user, message.image) 
+            for message in models.Message.objects.filter(
+                forum=request.GET.get('forum'), 
+                reply_to=None)],
+            "notifications": (lambda response: get_notification(
+                request.COOKIES.get('user_id')) 
             if response else False)(check_user.response)
         })
 
