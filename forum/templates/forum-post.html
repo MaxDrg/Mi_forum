@@ -146,7 +146,7 @@
     <div class="forumPost">
       <p>Отправить сообщение:</p>
       {% if authorization %}
-      <form method="POST" id="form_default">
+      <form method="POST" id="form_default" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="text" name="is_answer" style="display:none;" value='' />
         <input type="text" name="reply_to" style="display:none;" value='' />
