@@ -36,6 +36,9 @@
         </div>
       </div>
       <div class="forumPost__content">
+        {% if message.image %}
+          <img src="{{ message.image.url }}">
+        {% endif %}
         <p>{{ message.message_text }}</p>
       </div>
     </div><!-- /.forumPost -->
@@ -97,6 +100,9 @@
             {% if reply.receiver.user_name %}
             <a href="https://t.me/{{ reply.receiver.user_name }}">{{ reply.receiver.first_name }}</a>, {% else %}
             <a href="#">{{ reply.receiver.first_name }}</a>, {% endif %}
+          {% endif %}
+          {% if reply.image %}
+            <img src="{{ reply.image.url }}">
           {% endif %}
           {{ reply.message_text }}</p>
       </div>

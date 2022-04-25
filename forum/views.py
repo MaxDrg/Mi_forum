@@ -25,8 +25,8 @@ class Message:
         self.time = time.strftime('%H:%M')
         self.user = user
         self.image = image
-        self.replies = [Reply(reply.id, reply.message_text, 
-        reply.time, reply.user, reply.is_answer, reply.receiver) 
+        self.replies = [Reply(reply.id, reply.message_text, reply.time, 
+        reply.user, reply.image, reply.is_answer, reply.receiver) 
         for reply in models.Message.objects.filter(reply_to=self.id)]
             
 class Reply(Message):
