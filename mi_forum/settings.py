@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
+ALLOWED_HOSTS = ['m3.fan']
 
 CSRF_TRUSTED_ORIGINS = [str(os.environ.get('CSRF_TRUSTED_ORIGINS'))]
 
