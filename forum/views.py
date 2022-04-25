@@ -146,8 +146,7 @@ def forum_post(request):
     elif request.GET.get('forum'):
         for i in[print(message.message_text)
             for message in models.Message.objects.filter(
-                forum=request.GET.get('forum'), 
-                reply_to=None)]:
+                forum=request.GET.get('forum'))]:
             print(i)
         
         return render(request, "forum-post.html", { "authorization": check_user.response, 
