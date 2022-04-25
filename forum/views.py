@@ -144,8 +144,7 @@ def forum_post(request):
                 if response else False)(check_user.response)
             })
     elif request.GET.get('forum'):
-        for i in[print(message.message_text)
-            for message in models.Message.objects.filter(
+        for i in[print(message.message_text) for message in models.Message.objects.filter(
                 forum=request.GET.get('forum'))].reverse():
             print(i)
         
