@@ -144,10 +144,16 @@ def forum_post(request):
                 if response else False)(check_user.response)
             })
     elif request.GET.get('forum'):
+        for i in[print(message.message_text)
+            for message in models.Message.objects.filter(
+                forum=request.GET.get('forum'), 
+                reply_to=None)]:
+            print(i)
+        
         return render(request, "forum-post.html", { "authorization": check_user.response, 
             "forum": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
             "messages": [Message(message.id, message.message_text, 
-            message.time, message.user, message.image) 
+            message.time, message.user, message.image)
             for message in models.Message.objects.filter(
                 forum=request.GET.get('forum'), 
                 reply_to=None)],
