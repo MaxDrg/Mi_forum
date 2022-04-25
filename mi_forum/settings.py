@@ -14,10 +14,6 @@ from pathlib import Path
 import os
 from django.contrib.sites.models import Site
 
-one = Site.objects.all()[0]
-one.domain = 'm3.fan'
-one.save()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -145,3 +141,7 @@ TELEGRAM = {
     'bot_token': os.environ.get('TELEGRAM_BOT_TOKEN'),
     'chat_id': os.environ.get('TELEGRAM_CHAT_ID'),
 }
+
+one = Site.objects.all()[0]
+one.domain = 'm3.fan'
+one.save()
