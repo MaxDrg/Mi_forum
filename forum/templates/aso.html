@@ -169,9 +169,9 @@
       <!-- .asoZakaz__item -->
       <div class="asoZakaz__item">
         <div class="asoZakaz__item__inner yellow">
-          <p class="asoZakaz__item__title font__Roboto">ASO Оптимизация</p>
+          <p class="asoZakaz__item__title font__Roboto">ASO-Оптимизация</p>
           <div class="asoZakaz__item__price font__Pixel">80 $</div>
-          <p class="asoZakaz__item__desc">1 локализация “под ключ”</p>
+          <p class="asoZakaz__item__desc">1 локалей “под ключ”</p>
           <ul class="asoZakaz__item__list">
             <li>Сбор семантического ядра </li>
             <li>Заголовок</li>
@@ -186,12 +186,32 @@
       </div><!-- .asoZakaz__item -->
       <!-- .asoZakaz__item -->
       <div class="asoZakaz__item">
+        <div class="asoZakaz__item__inner green">
+          <p class="asoZakaz__item__title font__Roboto">ASO-Оптимизация MAX</p>
+          <div class="asoZakaz__item__price font__Pixel">460 $</div>
+          <p class="asoZakaz__item__desc">7 локалей “под ключ”</p>
+          <ul class="asoZakaz__item__list">
+            <li>Сбор семантического ядра </li>
+            <li>Заголовок</li>
+            <li>Подзаголовок</li>
+            <li>Поле keywords</li>
+            <li>Анализ графики и помощь в А-Б тестов</li>
+          </ul>
+          <div class="asoZakaz__item__buttons">
+            <button type="button" class="button button__lg" data-bs-toggle="modal" data-bs-target="#modalZakaz"
+              data-bs-whatever="ASO Оптимизация+">Заказать этот пакет</button>
+          </div>
+        </div>
+      </div><!-- .asoZakaz__item -->
+      <!-- .asoZakaz__item -->
+      <div class="asoZakaz__item">
         <div class="asoZakaz__item__inner purple">
           <p class="asoZakaz__item__title font__Roboto">Индивидуальный пакет</p>
-          <div class="asoZakaz__item__price font__Pixel">520 $</div>
-          <p class="asoZakaz__item__desc">Все, что и в ASO Оптимизация +, а так же:</p>
+          <p class="asoZakaz__item__desc">Индивидуальная цена</p>
+          <div class="asoZakaz__item__price font__Pixel">от 520 $</div>
+          <p class="asoZakaz__item__desc">Все, что и в ASO-Оптимизация MAX, а так же:</p>
           <ul class="asoZakaz__item__list">
-            <li>Сопровождение проекта 1 месяц</li>
+            <li>Сопровождение проекта</li>
             <li>Закупка мотивированного трафика для поднятия по позициям</li>
             <li>Ежедневный мониторинг позиций</li>
             <li>Отчет о выполненной работе</li>
@@ -202,25 +222,6 @@
           <div class="asoZakaz__item__buttons">
             <button type="button" class="button button__lg" data-bs-toggle="modal" data-bs-target="#modalZakaz"
               data-bs-whatever="Индивидуальный пакет">Заказать этот пакет</button>
-          </div>
-        </div>
-      </div><!-- .asoZakaz__item -->
-      <!-- .asoZakaz__item -->
-      <div class="asoZakaz__item">
-        <div class="asoZakaz__item__inner green">
-          <p class="asoZakaz__item__title font__Roboto">ASO Оптимизация+</p>
-          <div class="asoZakaz__item__price font__Pixel">460 $</div>
-          <p class="asoZakaz__item__desc">7 локализация “под ключ”</p>
-          <ul class="asoZakaz__item__list">
-            <li>Сбор семантического ядра </li>
-            <li>Заголовок</li>
-            <li>Подзаголовок</li>
-            <li>Поле keywords</li>
-            <li>Анализ графики и помощь в А-Б тестировании</li>
-          </ul>
-          <div class="asoZakaz__item__buttons">
-            <button type="button" class="button button__lg" data-bs-toggle="modal" data-bs-target="#modalZakaz"
-              data-bs-whatever="ASO Оптимизация+">Заказать этот пакет</button>
           </div>
         </div>
       </div><!-- .asoZakaz__item -->
@@ -272,22 +273,6 @@
     var modalTitle = exampleModal.querySelector('.modal-title')
     modalTitle.textContent = 'Оформить ' + '"' + recipient + '"'
   })
-
-  function change_price() {
-    radio_android = document.getElementById('btnradio1');
-    prices = document.getElementsByClassName("asoZakaz__item__price");
-
-    ios_prices = ['120 $', '540 $', '620 $'];
-    android_prices = ['80 $', '460 $', '520 $'];
-
-    for (let i = 0; i < prices.length; i++) {
-      if (radio_android.checked) {
-        prices[i].innerHTML = android_prices[i];
-      } else {
-        prices[i].innerHTML = ios_prices[i];
-      }
-    }
-  }
 
   function checkInput() {
     for (const track of document.getElementsByClassName("input")) {

@@ -29,4 +29,20 @@ function search_info(class_name) {
           x[i].style.display="block";
       } 
   } 
-} 
+}
+
+function change_price() {
+  radio_android = document.getElementById('btnradio1');
+  prices = document.getElementsByClassName("asoZakaz__item__price");
+
+  ios_prices = ['120 $', '540 $', 'от 620 $'];
+  android_prices = ['80 $', '460 $', 'от 520 $'];
+
+  for (let i = 0; i < prices.length; i++) {
+    if (radio_android.checked) {
+      prices[i].innerHTML = android_prices[i];
+    } else {
+      prices[i].innerHTML = ios_prices[i];
+    }
+  }
+}
