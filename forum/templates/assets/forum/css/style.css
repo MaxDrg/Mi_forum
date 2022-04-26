@@ -2219,3 +2219,7 @@ p {
   display: flex;
   width: 100%;
 }
+
+.logout__button {
+  margin: 0px 30px;
+}
