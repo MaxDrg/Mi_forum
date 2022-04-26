@@ -108,14 +108,11 @@ def forum_post(request):
         if request.POST['forum_id'] and request.POST['message_text'] and check_user.response:
             image = None
             if request.FILES.get('image'):
-                print("Hello world!")
                 file_image = request.FILES.get('image')
                 fs = FileSystemStorage()
                 file = fs.save(file_image.name, request.FILES['image'])
                 image = fs.get_valid_name(file)
-            else:
-                print('Nope!')
-                print(request.FILES.get('image'))
+                
             if request.POST['reply_to'] and request.POST['receiver']:
                 models.Message(
                     message_text = request.POST['message_text'],
