@@ -314,15 +314,15 @@ def news(request):
         check_user = False
 
         response = render(request, "news.html", { 
-            "authorization": check_user.response,
+            "authorization": check_user,
             "data": [News(info.id, info.title, info.hashtags, 
             info.date, info.image, pre_info = info.pre_info)
             for info in models.New.objects.all()],
             "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
-            if response else False)(check_user.response),
+            if response else False)(check_user),
             'image': (lambda response: models.User.objects.filter(
                 telegr_id=request.COOKIES.get('user_id'))[0].image.url
-            if response else False)(check_user.response)
+            if response else False)(check_user)
         })
 
         response.delete_cookie('user_id')
