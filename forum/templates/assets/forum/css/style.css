@@ -2200,7 +2200,7 @@ p {
   max-width: 30%;
 }
 
-@media (min-width: 750px) {
+@media (max-width: 750px) {
   .message__img {
     max-width: 80%;
   }
