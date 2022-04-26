@@ -108,6 +108,7 @@ def forum_post(request):
         if request.POST['forum_id'] and request.POST['message_text'] and check_user.response:
             image = None
             if request.FILES.get('image'):
+                print("Hello world!")
                 file_image = request.FILES.get('image')
                 fs = FileSystemStorage()
                 file = fs.save(file_image.name, request.FILES['image'])
