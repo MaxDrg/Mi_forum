@@ -64,6 +64,9 @@ def about(request):
         request.COOKIES.get('passwd'))
     return render(request, "about.html", { "authorization": check_user.response,
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response),
+    'image': (lambda response: models.User.objects.filter(
+        telegr_id=request.COOKIES.get('user_id'))[0].image.url
     if response else False)(check_user.response) })
 
 def aso(request):
@@ -81,7 +84,10 @@ def aso(request):
         request.COOKIES.get('passwd'))
     return render(request, "aso.html", { "authorization": check_user.response,
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
-    if response else False)(check_user.response), 'alert': alert})
+    if response else False)(check_user.response), 'alert': alert,
+    'image': (lambda response: models.User.objects.filter(
+        telegr_id=request.COOKIES.get('user_id'))[0].image.url
+    if response else False)(check_user.response)})
 
 def curses(request):
     check_user = auth.Authorization(
@@ -89,6 +95,9 @@ def curses(request):
         request.COOKIES.get('passwd'))
     return render(request, "curses.html", { "authorization": check_user.response,
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response),
+    'image': (lambda response: models.User.objects.filter(
+        telegr_id=request.COOKIES.get('user_id'))[0].image.url
     if response else False)(check_user.response) })
 
 def forum_post(request):
@@ -143,6 +152,9 @@ def forum_post(request):
                     reply_to=None).order_by('id')],
                 "notifications": (lambda response: get_notification(
                     request.COOKIES.get('user_id')) 
+                if response else False)(check_user.response),
+                'image': (lambda response: models.User.objects.filter(
+                    telegr_id=request.COOKIES.get('user_id'))[0].image.url
                 if response else False)(check_user.response)
             })
             
@@ -156,6 +168,9 @@ def forum_post(request):
                 reply_to=None).order_by('id')],
             "notifications": (lambda response: get_notification(
                 request.COOKIES.get('user_id')) 
+            if response else False)(check_user.response),
+            'image': (lambda response: models.User.objects.filter(
+                telegr_id=request.COOKIES.get('user_id'))[0].image.url
             if response else False)(check_user.response)
         })
 
@@ -193,6 +208,9 @@ def forum(request):
         "forums": [Forum(forum.id, forum.name, forum.description, forum.private) 
         for forum in models.Forum.objects.filter(category=request.GET.get('category'))],
         "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+        if response else False)(check_user.response),
+        'image': (lambda response: models.User.objects.filter(
+            telegr_id=request.COOKIES.get('user_id'))[0].image.url
         if response else False)(check_user.response) })
 
 def index(request):
@@ -201,6 +219,9 @@ def index(request):
         request.COOKIES.get('passwd'))
     return render(request, "index.html", { "authorization": check_user.response,
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response),
+    'image': (lambda response: models.User.objects.filter(
+        telegr_id=request.COOKIES.get('user_id'))[0].image.url
     if response else False)(check_user.response),
     'image': (lambda response: models.User.objects.filter(
         telegr_id=request.COOKIES.get('user_id'))[0].image.url
@@ -247,6 +268,9 @@ def news_post(request):
                 "comments": [Comment(comment.id, comment.message_text, comment.time, comment.user) 
                 for comment in models.Comment.objects.filter(new=request.POST['news_id'], reply_to=None)],
                 "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+                if response else False)(check_user.response),
+                'image': (lambda response: models.User.objects.filter(
+                    telegr_id=request.COOKIES.get('user_id'))[0].image.url
                 if response else False)(check_user.response)
             })
     elif request.GET.get('news'):
@@ -257,6 +281,9 @@ def news_post(request):
             "comments": [Comment(comment.id, comment.message_text, comment.time, comment.user) 
             for comment in models.Comment.objects.filter(new=request.GET.get('news'), reply_to=None)],
             "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+            if response else False)(check_user.response),
+            'image': (lambda response: models.User.objects.filter(
+                telegr_id=request.COOKIES.get('user_id'))[0].image.url
             if response else False)(check_user.response)
         })
 
@@ -294,6 +321,9 @@ def news(request):
             info.date, info.image, pre_info = info.pre_info)
             for info in models.New.objects.all()],
             "notifications": (lambda response: get_notification(request.GET.get('telegr_id')) 
+            if response else False)(check_user.response),
+            'image': (lambda response: models.User.objects.filter(
+                telegr_id=request.COOKIES.get('user_id'))[0].image.url
             if response else False)(check_user.response)
         })
 
@@ -313,6 +343,9 @@ def news(request):
         info.date, info.image, pre_info = info.pre_info)
         for info in models.New.objects.all()],
         "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+        if response else False)(check_user.response),
+        'image': (lambda response: models.User.objects.filter(
+            telegr_id=request.COOKIES.get('user_id'))[0].image.url
         if response else False)(check_user.response)
     })
 
@@ -322,7 +355,11 @@ def sell(request):
         request.COOKIES.get('passwd'))
     return render(request, "sell.html", { "authorization": check_user.response, 
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
-    if response else False)(check_user.response)})
+    if response else False)(check_user.response),
+    'image': (lambda response: models.User.objects.filter(
+        telegr_id=request.COOKIES.get('user_id'))[0].image.url
+    if response else False)(check_user.response)
+    })
 
 def slovar(request):
     check_user = auth.Authorization(
@@ -330,7 +367,11 @@ def slovar(request):
         request.COOKIES.get('passwd'))
     return render(request, "slovar.html", { "authorization": check_user.response,
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
-    if response else False)(check_user.response)})
+    if response else False)(check_user.response),
+    'image': (lambda response: models.User.objects.filter(
+        telegr_id=request.COOKIES.get('user_id'))[0].image.url
+    if response else False)(check_user.response)
+    })
 
 def categories(request):
 
@@ -366,7 +407,11 @@ def categories(request):
     "categories": [Category(category.id, category.name, category.description) 
     for category in models.Category.objects.all()],
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
-    if response else False)(check_user.response)})
+    if response else False)(check_user.response),
+    'image': (lambda response: models.User.objects.filter(
+        telegr_id=request.COOKIES.get('user_id'))[0].image.url
+    if response else False)(check_user.response)
+    })
 
 def post_on_telegram(name: str, link: str, telegram_account: str):
     message_txt = f'Заявка "ASO Оптимизация"\nИмя: {name}' \
