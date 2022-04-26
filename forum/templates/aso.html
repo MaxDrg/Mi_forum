@@ -3,7 +3,7 @@
 {% load static %}
 
 {% if alert %}
-  <script>alert('Ваша заявка в обработке')</script>
+<script>alert('Ваша заявка в обработке')</script>
 {% endif %}
 
 <!-- .asoTop -->
@@ -139,7 +139,7 @@
     <!-- .asoZakaz__radio -->
     <div class="asoZakaz__radio">
       <div class="btn-group" role="group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" onclick="change_price()" checked>
         <label class="btn" for="btnradio1">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -150,7 +150,7 @@
             Android
           </span>
         </label>
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="change_price()" autocomplete="off">
         <label class="btn" for="btnradio2">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -272,18 +272,20 @@
     var modalTitle = exampleModal.querySelector('.modal-title')
     modalTitle.textContent = 'Оформить ' + '"' + recipient + '"'
   })
- 
-  radio_android = document.getElementById('btnradio1');
-  prices = document.getElementsByClassName("asoZakaz__item__price");
 
-  ios_prices = ['120 $', '540 $', '620 $'];
-  android_prices = ['80 $', '460 $', '520 $'];
+  function change_price() {
+    radio_android = document.getElementById('btnradio1');
+    prices = document.getElementsByClassName("asoZakaz__item__price");
 
-  for (let i = 0; i < prices.length; i++) {
-    if (radio_android.checked){
-      prices[i].innerHTML = android_prices[i];
-    } else {
-      prices[i].innerHTML = ios_prices[i];
+    ios_prices = ['120 $', '540 $', '620 $'];
+    android_prices = ['80 $', '460 $', '520 $'];
+
+    for (let i = 0; i < prices.length; i++) {
+      if (radio_android.checked) {
+        prices[i].innerHTML = android_prices[i];
+      } else {
+        prices[i].innerHTML = ios_prices[i];
+      }
     }
   }
 
