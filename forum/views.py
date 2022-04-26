@@ -106,31 +106,32 @@ def forum_post(request):
 
     if request.method == "POST":
         if request.POST['forum_id'] and request.POST['message_text'] and check_user.response:
+            image = None
+            if request.FILES.get('image'):
+                file_image = request.FILES.get('image')
+                fs = FileSystemStorage()
+                file = fs.save(file_image.name, request.FILES['image'])
+                image = fs.get_valid_name(file)
             if request.POST['reply_to'] and request.POST['receiver']:
-                new_message = models.Message(
+                models.Message(
                     message_text = request.POST['message_text'],
                     reply_to = request.POST['reply_to'],
                     receiver = request.POST['receiver'],
                     time = datetime.now(),
                     forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
-                    is_answer = (lambda response: True if response else False)(request.POST['is_answer'])
-                )
+                    is_answer = (lambda response: True if response else False)(request.POST['is_answer']),
+                    image = image
+                ).save()
             else:
-                new_message = models.Message(
+                models.Message(
                     message_text = request.POST['message_text'],
                     time = datetime.now(),
                     forum = models.Forum.objects.get(id=request.POST['forum_id']),
                     user = models.User.objects.get(telegr_id=request.COOKIES.get('user_id')),
-                    is_answer = False
-                )
-            image = None
-            if request.FILES.get('image'):
-                fs = FileSystemStorage()
-                file = fs.save(f'{new_message.id}.jpg', request.FILES['image'])
-                image = fs.get_valid_name(file)
-            new_message.image = image
-            new_message.save()
+                    is_answer = False,
+                    image = image
+                ).save()
 
             return render(request, "forum-post.html", { "authorization": check_user.response,
                 "forum": Forum_post(models.Forum.objects.filter(id=request.POST['forum_id'])[0]),
