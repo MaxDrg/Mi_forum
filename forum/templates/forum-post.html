@@ -48,7 +48,7 @@
       <!-- .forumPost -->
       <div class="forumPost">
         <p>Ответ на сообщение:</p>
-        <form method="POST" id="form_{{ message.id }}">
+        <form method="POST" id="form_{{ message.id }}" enctype="multipart/form-data">
           {% csrf_token %}
           <input type="text" name="is_answer" style="display:none;" value='' />
           <input type="text" name="forum_id" style="display:none;" value='{{ forum.forum_id }}' />
@@ -113,7 +113,7 @@
       <!-- .forumPost -->
       <div class="forumPost">
         <p>Ответ на сообщение:</p>
-        <form method="POST" id="form_{{ reply.id }}">
+        <form method="POST" id="form_{{ reply.id }}" enctype="multipart/form-data">
           {% csrf_token %}
           <input type="text" name="is_answer" style="display:none;" value='{{ reply.id }}' />
           <input type="text" name="forum_id" style="display:none;" value='{{ forum.forum_id }}' />
