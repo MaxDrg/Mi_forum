@@ -127,7 +127,7 @@ def forum_post(request):
             image = None
             if request.FILES.get('image'):
                 fs = FileSystemStorage()
-                file = fs.save(new_message.id, request.FILES['image'])
+                file = fs.save(f'{new_message.id}.jpg', request.FILES['image'])
                 image = fs.get_valid_name(file)
             new_message.image = image
             new_message.save()
