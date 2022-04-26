@@ -2205,3 +2205,12 @@ p {
     max-width: 80%;
   }
 }
+
+.ava__header {
+  margin-top: -5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-right: 35px;
+}

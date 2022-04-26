@@ -201,6 +201,9 @@ def index(request):
         request.COOKIES.get('passwd'))
     return render(request, "index.html", { "authorization": check_user.response,
     "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+    if response else False)(check_user.response),
+    'image': (lambda response: models.User.objects.filter(
+        telegr_id=request.COOKIES.get('user_id'))[0].image.url
     if response else False)(check_user.response) })
 
 def news_post(request):
