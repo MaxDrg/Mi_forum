@@ -52,6 +52,7 @@
                 <!-- .header__box -->
                 <div class="header__box">
                     {% if authorization %}
+                    <a href="{% url 'news' %}?exit=1" class="nav__link hidden__mobile">Exit</a>
                     <span class="ava__header"><img src="{{ image }}" alt="#"></span>
                     <!-- .ding -->
                     <div id="ding" class="ding dropdown">
@@ -138,8 +139,6 @@
                             </div><!-- /.ding__content -->
                         </div><!-- /.ding__box -->
                     </div><!-- /.ding -->
-
-                    <a href="https://t.me/m3_forum_bot" class="nav__link hidden__mobile">Exit</a>
 
                     <script>
                         // ding

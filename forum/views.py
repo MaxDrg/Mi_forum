@@ -309,6 +309,26 @@ def news(request):
 
         return HttpResponse("OK")
 
+    elif request.GET.get('exit'):
+
+        check_user = False
+
+        response = render(request, "news.html", { 
+            "authorization": check_user.response,
+            "data": [News(info.id, info.title, info.hashtags, 
+            info.date, info.image, pre_info = info.pre_info)
+            for info in models.New.objects.all()],
+            "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
+            if response else False)(check_user.response),
+            'image': (lambda response: models.User.objects.filter(
+                telegr_id=request.COOKIES.get('user_id'))[0].image.url
+            if response else False)(check_user.response)
+        })
+
+        response.delete_cookie('user_id')
+        response.delete_cookie('passwd')
+        return response
+
     elif request.GET.get('telegr_id') and request.GET.get('passwd'):
         user_id = request.GET.get('telegr_id')
         password = request.GET.get('passwd')
