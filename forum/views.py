@@ -145,6 +145,7 @@ def forum_post(request):
                     request.COOKIES.get('user_id')) 
                 if response else False)(check_user.response)
             })
+            
     elif request.GET.get('forum'):
         return render(request, "forum-post.html", { "authorization": check_user.response, 
             "forum": Forum_post(models.Forum.objects.filter(id=request.GET.get('forum'))[0]),
