@@ -2213,3 +2213,9 @@ p {
   overflow: hidden;
   margin-right: 35px;
 }
+
+.add__blocks {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
