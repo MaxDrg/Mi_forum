@@ -323,7 +323,7 @@ def news(request):
             "notifications": (lambda response: get_notification(request.GET.get('telegr_id')) 
             if response else False)(check_user.response),
             'image': (lambda response: models.User.objects.filter(
-                telegr_id=request.COOKIES.get('user_id'))[0].image.url
+                telegr_id=user_id)[0].image.url
             if response else False)(check_user.response)
         })
 
