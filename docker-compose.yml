@@ -2,19 +2,19 @@ version: "3.0"
  
 services:
   bot:
-    image: sign_up_bot:1.0.1
-    build: ./sign_up_bot
+    image: bot:1.0.1
+    build: ./bot
     command: python bot.py
     volumes:
-      - /sign_up_bot
+      - /bot
     env_file:
       - ./.env.bot.dev
   web:
-    image: mi_forum:1.0.1
+    image: m3_forum:1.0.1
     build: .
-    command: gunicorn mi_forum.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn m3_forum.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - .:/mi_forum
+      - .:/m3_forum
       - static:/staticfiles/
       - media:/mediafiles/
     expose:
