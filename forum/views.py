@@ -113,6 +113,9 @@ def forum_post(request):
                 fs = FileSystemStorage()
                 file = fs.save(file_image.name, request.FILES['image'])
                 image = fs.get_valid_name(file)
+            else:
+                print('Nope!')
+                print(request.FILES.get('image'))
             if request.POST['reply_to'] and request.POST['receiver']:
                 models.Message(
                     message_text = request.POST['message_text'],
