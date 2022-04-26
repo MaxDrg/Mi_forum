@@ -53,7 +53,7 @@
 
         <a href="javascript:void(0)" onclick="showArea({{ comment.id }})">Ответить</a>
 
-        <div class="comments_textareas" style="display: none;" id="block_{{ comment.id }}">
+        <div class="textareas" style="display: none;" id="block_{{ comment.id }}">
           {% if authorization %}
           <p>Ответ на комментарий:</p>
           <form method="POST" id="form_{{ comment.id }}">
@@ -98,7 +98,7 @@
 
         <a href="javascript:void(0)" onclick="showArea({{ reply.id }})">Ответить</a>
 
-        <div class="comments_textareas" style="display: none;" id="block_{{ reply.id }}">
+        <div class="textareas" style="display: none;" id="block_{{ reply.id }}">
           {% if authorization %}
           <p>Ответ пользователю:</p>
           <form method="POST" id="form_{{ reply.id }}">

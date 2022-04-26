@@ -4,7 +4,7 @@ $('.navToggle').click(function () {
 });
 
 function showArea(block_id) {
-  let textareas = document.getElementsByClassName('comments_textareas');
+  let textareas = document.getElementsByClassName('textareas');
   for (var i = 0; i < textareas.length; i++) {
       var current_text = textareas[i];
       current_text.style.display = 'none';
