@@ -6,8 +6,8 @@ $('.navToggle').click(function () {
 function showArea(block_id) {
   let textareas = document.getElementsByClassName('textareas');
   for (var i = 0; i < textareas.length; i++) {
-      var current_text = textareas[i];
-      current_text.style.display = 'none';
+    var current_text = textareas[i];
+    current_text.style.display = 'none';
   }
   let text = document.getElementById('block_' + block_id);
   text.style.display = 'block';
@@ -15,20 +15,20 @@ function showArea(block_id) {
 
 function search_info(class_name) {
   let input = document.getElementById('searchbar').value
-  input=input.toLowerCase(); 
+  input = input.toLowerCase();
 
   let x = document.getElementsByClassName(class_name);
   for (i = 0; i < x.length; i++) {
-      if (!x[i].innerHTML.toLowerCase().includes(input)) { 
-          x[i].style.display="none";
-      }
-      else if (class_name === 'forumItem'){
-          x[i].style.display="flex";
-      }
-      else {
-          x[i].style.display="block";
-      } 
-  } 
+    if (!x[i].innerHTML.toLowerCase().includes(input)) {
+      x[i].style.display = "none";
+    }
+    else if (class_name === 'forumItem') {
+      x[i].style.display = "flex";
+    }
+    else {
+      x[i].style.display = "block";
+    }
+  }
 }
 
 function change_price() {
@@ -45,4 +45,31 @@ function change_price() {
       prices[i].innerHTML = ios_prices[i];
     }
   }
+}
+
+function resizeImage(img) {
+  var MAX_WIDTH = 300;
+  var MAX_HEIGHT = 300;
+
+  var width = img.width;
+  var height = img.height;
+
+  // Change the resizing logic
+  if (width > height) {
+    if (width > MAX_WIDTH) {
+      height = height * (MAX_WIDTH / width);
+      width = MAX_WIDTH;
+    }
+  } else {
+    if (height > MAX_HEIGHT) {
+      width = width * (MAX_HEIGHT / height);
+      height = MAX_HEIGHT;
+    }
+  }
+
+  var canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, width, height);
 }
