@@ -2239,13 +2239,13 @@ p {
 
   /* position: absolute; upd: 24.10.2016 */
   position: fixed;
-  max-width: 600px;
+  max-width: 70%;
   height: auto;
   z-index: 9999;
 }
 
 #magnify img {
-  width: 100%;
+  width: 1200px;
 }
 
 #overlay {
