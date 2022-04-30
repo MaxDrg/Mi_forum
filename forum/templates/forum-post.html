@@ -37,7 +37,7 @@
       </div>
       <div class="forumPost__content">
         {% if message.image %}
-          <img class="message__img" src="{{ message.image.url }}" onclick="resizeImage(this)">
+          <img class="message__img minimized" src="{{ message.image.url }}" onclick="resizeImage(this)">
         {% endif %}
         <p>{{ message.message_text }}</p>
       </div>
@@ -96,7 +96,7 @@
       </div>
       <div class="forumPost__content">
         {% if reply.image %}
-          <img class="message__img" src="{{ reply.image.url }}" onclick="resizeImage(this)">
+          <img class="message__img minimized" src="{{ reply.image.url }}" onclick="resizeImage(this)">
         {% endif %}
         <p>
           {% if reply.receiver %}
