@@ -2265,23 +2265,22 @@ p {
 
 /* кнопка закрытия */
 #close-popup {
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
 
   background: #FFFFFF;
   border: 1px solid #AFAFAF;
-  border-radius: 15px;
   cursor: pointer;
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 0px;
+  right: 0px;
 }
 
 #close-popup i {
   width: 100%;
   height: 100%;
   background: url(https://codernote.ru/files/cross.png) no-repeat center center;
-  background-size: 15px 15px;
+  background-size: 20px 20px;
   display: block;
 }
 
