@@ -17,6 +17,8 @@ class Transaction:
         }
         headers = {'Content-type': 'application/json'}
         response = requests.post(self.__url, data=json.dumps(data), headers=headers).json()
+
+        print(response)
         
         if not response['response_status']:
             if response['order_status'] == 'approved':
