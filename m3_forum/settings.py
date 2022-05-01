@@ -140,3 +140,6 @@ TELEGRAM = {
     'bot_token': os.environ.get('TELEGRAM_BOT_TOKEN'),
     'chat_id': os.environ.get('TELEGRAM_CHAT_ID'),
 }
+
+MERCHANT_ID = os.environ.get('MERCHANT_ID')
+PAY_URL = os.environ.get('PAY_URL')
