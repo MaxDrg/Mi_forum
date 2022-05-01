@@ -2251,13 +2251,12 @@ p {
 #overlay {
   display: none;
 
-  background: #000;
+  background: #0000009e;
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  opacity: 0.5;
   z-index: 9990;
 }
 
