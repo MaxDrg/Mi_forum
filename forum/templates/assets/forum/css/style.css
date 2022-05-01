@@ -2258,6 +2258,8 @@ p {
   height: 100%;
   width: 100%;
   z-index: 9990;
+  justify-content: center;
+  align-items: center;
 }
 
 /* кнопка закрытия */
