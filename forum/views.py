@@ -169,6 +169,7 @@ def forum_post(request):
         elif request.GET.get('forum'):
 
             if models.Forum.objects.filter(id=request.GET.get('forum_id'))[0].private:
+                print(models.Forum.objects.filter(id=request.GET.get('forum_id'))[0].private)
                 sub = models.User.objects.filter(telegr_id=request.COOKIES.get('user_id'))[0].subscription
                 is_date = lambda subs: subs if subs else datetime.now()
                 if not is_date(sub) > datetime.now():
