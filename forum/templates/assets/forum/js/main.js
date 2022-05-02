@@ -34,15 +34,97 @@ function search_info(class_name) {
 function change_price() {
   radio_android = document.getElementById('btnradio1');
   prices = document.getElementsByClassName("asoZakaz__item__price");
+  content_ul = document.getElementsByClassName("asoZakaz__item__list");
+  descs = document.getElementsByClassName("asoZakaz__item__desc");
 
-  ios_prices = ['120 $', '540 $', 'от 620 $'];
+  content_android = [
+    [
+      'Анализ ниши для определения необходимости ASO', 
+      "Сбор семантического ядра", 
+      "Название", 
+      'Краткое описание', 
+      'Описание'
+    ],
+    [
+      'Анализ ниши для определения необходимости ASO', 
+      "Сбор семантического ядра", 
+      "Название", 
+      'Краткое описание', 
+      "Описание", 
+      "Анализ графики", 
+      'помощь с А/В-тестами'
+    ],
+    [
+      "Сопровождение проекта",
+      'Расширение списка локализаций',
+      "Повторные итерации текстового ASO",
+      'Непрерывное отслеживание позиций',
+      'Продвижение по позициям',
+      "Работа с рейтингом и отзывами",
+      "Проведение сплит-тестов графики",
+      "Отчёт о выполненной работе"
+    ]
+  ]
+
+  content_ios = [
+    [
+      'Анализ ниши для определения необходимости ASO', 
+      "Сбор семантического ядра", 
+      "Название", 
+      'Подзаголовок', 
+      'Поле для ключевых слов'
+    ],
+    [
+      'Анализ ниши для определения необходимости ASO', 
+      "Сбор семантического ядра", 
+      "Составление названия, подзаголовка", 
+      'Заполнение поля для ключевых слов',
+      "Анализ графики, помощь с А/В-тестами"
+    ],
+    [
+      "Сопровождение проекта",
+      'Расширение списка локализаций',
+      "Повторные итерации текстового ASO",
+      'Непрерывное отслеживание позиций',
+      'Работа с мотивированным трафиком',
+      "Работа с рейтингом и отзывами",
+      "Проведение сплит-тестов графики",
+      "Отчёт о выполненной работе"
+    ]
+  ]
+
+  android_descs = [
+    'Локаль “под ключ”', 
+    '7 локалей “под ключ”', 
+    'Всё то же, что и в ASO-Оптимизация PLUS , а так же:'
+  ];
+
+  ios_descs = [
+    '1 локаль “под ключ”', 
+    '3 страны с основной локалью + дополнительные', 
+    'Всё то же, что и в ASO-Оптимизация PLUS , а так же:'
+  ];
+
   android_prices = ['80 $', '460 $', 'от 520 $'];
+  ios_prices = ['120 $', '540 $', 'от 620 $'];
 
   for (let i = 0; i < prices.length; i++) {
     if (radio_android.checked) {
       prices[i].innerHTML = android_prices[i];
+      descs[i].innerHTML = android_descs[i];
+      for (let j = 0; j < content_android[i].length; j++) {
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(content_android[i][j]));
+        content_ul[i].appendChild(li);
+      }
     } else {
       prices[i].innerHTML = ios_prices[i];
+      descs[i].innerHTML = ios_descs[i];
+      for (let j = 0; j < content_ios[i].length; j++) {
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(content_ios[i][j]));
+        content_ul[i].appendChild(li);
+      }
     }
   }
 }
