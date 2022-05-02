@@ -2160,6 +2160,12 @@ p {
     padding-top: 128px;
     padding-bottom: 128px
   }
+  
+  .courseWho__item__desc {
+    position: absolute;
+    top: 70%;
+    width: 31%;
+  }
 }
 
 .search__bar {
@@ -2292,8 +2298,4 @@ p {
   animation: rota 4s infinite normal;
   -webkit-animation-iteration-count: 1;
   animation-iteration-count: 1;
-}
-
-.courseWho__item__desc {
-  display: inline-block;
 }
