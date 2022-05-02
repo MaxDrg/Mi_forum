@@ -2293,3 +2293,7 @@ p {
   -webkit-animation-iteration-count: 1;
   animation-iteration-count: 1;
 }
+
+.courseWho__item__desc {
+  display: inline-block;
+}

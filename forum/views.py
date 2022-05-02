@@ -117,6 +117,12 @@ def forum_post(request):
     if request.method == "POST":
         if request.POST['forum_id'] and request.POST['message_text'] and check_user.response:
 
+            if check_user.response and models.Forum.objects.filter(id=request.POST['forum_id'])[0].private:
+                sub = models.User.objects.filter(telegr_id=request.COOKIES.get('user_id'))[0].subscription
+                is_date = lambda subs: subs if subs else datetime.now()
+                if not is_date(sub) > datetime.now():
+                    return
+            
             image = None
             if request.FILES.get('image'):
                 file_image = request.FILES.get('image')
@@ -145,12 +151,6 @@ def forum_post(request):
                     image = image
                 ).save()
 
-            if models.Forum.objects.filter(id=request.POST['forum_id'])[0].private:
-                sub = models.User.objects.filter(telegr_id=request.COOKIES.get('user_id'))[0].subscription
-                is_date = lambda subs: subs if subs else datetime.now()
-                if not is_date(sub) > datetime.now():
-                    return
-
             return render(request, "forum-post.html", { "authorization": check_user.response,
                 "forum": Forum_post(models.Forum.objects.filter(id=request.POST['forum_id'])[0]),
                 "messages": [Message(message.id, message.message_text, 
@@ -167,7 +167,7 @@ def forum_post(request):
             })
     elif request.GET.get('forum'):
 
-        if models.Forum.objects.filter(id=request.GET.get('forum'))[0].private:
+        if check_user.response and models.Forum.objects.filter(id=request.GET.get('forum'))[0].private:
             sub = models.User.objects.filter(telegr_id=request.COOKIES.get('user_id'))[0].subscription
             is_date = lambda subs: subs if subs else datetime.now()
             if not is_date(sub) > datetime.now():
