@@ -112,6 +112,7 @@ function change_price() {
     if (radio_android.checked) {
       prices[i].innerHTML = android_prices[i];
       descs[i].innerHTML = android_descs[i];
+      content_android[i].innerHTML = "";
       for (let j = 0; j < content_android[i].length; j++) {
         var li = document.createElement("li");
         li.appendChild(document.createTextNode(content_android[i][j]));
@@ -120,6 +121,7 @@ function change_price() {
     } else {
       prices[i].innerHTML = ios_prices[i];
       descs[i].innerHTML = ios_descs[i];
+      content_ios[i].innerHTML = "";
       for (let j = 0; j < content_ios[i].length; j++) {
         var li = document.createElement("li");
         li.appendChild(document.createTextNode(content_ios[i][j]));
