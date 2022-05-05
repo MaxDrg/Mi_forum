@@ -77,7 +77,7 @@ def aso(request):
     alert = False
     if request.method == "POST":
         if (request.POST.get('name') and request.POST.get('telegram')
-            and request.POST.get('platform') and request.POST.get('package')):
+            and request.POST.get('platform') and request.POST.get('rate')):
             post_on_telegram(
                 name = request.POST['name'],
                 link =  (lambda link: link if link else "")(request.POST.get('link')),
