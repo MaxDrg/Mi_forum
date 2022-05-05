@@ -76,6 +76,10 @@ def about(request):
 def aso(request):
     alert = False
     if request.method == "POST":
+        print(request.POST.get('name'))
+        print(request.POST.get('telegram'))
+        print(request.POST.get('rate'))
+        print(request.POST.get('platform'))
         if (request.POST.get('name') and request.POST.get('telegram')
             and request.POST.get('platform') and request.POST.get('rate')):
             post_on_telegram(
