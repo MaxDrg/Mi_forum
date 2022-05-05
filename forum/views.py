@@ -76,10 +76,6 @@ def about(request):
 def aso(request):
     alert = False
     if request.method == "POST":
-        print(request.POST.get('name'))
-        print(request.POST.get('telegram'))
-        print(request.POST.get('rate'))
-        print(request.POST.get('platform'))
         if (request.POST.get('name') and request.POST.get('telegram')
             and request.POST.get('platform') and request.POST.get('rate')):
             post_on_telegram(
@@ -505,8 +501,8 @@ def categories(request):
     })
 
 def post_on_telegram(name: str, link: str, telegram_account: str, platform: str, rate: str):
-    message_txt = f'Заявка "ASO Оптимизация"\n\nПакет: {rate}\nПлатформа: {platform}\n\n' \
-    f'\nИмя: {name}\nСсылка на проект: {link}\nTelegram для связи: {telegram_account}'
+    message_txt = f'Заявка "ASO Оптимизация"\n\nПакет: {rate}\nПлатформа: {platform}' \
+    f'\n\nИмя: {name}\nСсылка на проект: {link}\nTelegram для связи: {telegram_account}'
     
     telegram_settings = settings.TELEGRAM
     bot = telegram.Bot(token=telegram_settings['bot_token'])
