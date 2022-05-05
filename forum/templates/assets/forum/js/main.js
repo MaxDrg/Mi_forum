@@ -31,11 +31,13 @@ function search_info(class_name) {
   }
 }
 
-function change_price() {
+function change_data() {
   radio_android = document.getElementById('btnradio1');
   prices = document.getElementsByClassName("asoZakaz__item__price");
   content_ul = document.getElementsByClassName("asoZakaz__item__list");
   descs = document.getElementsByClassName("asoZakaz__item__desc");
+
+  platform_input = document.getElementById('platform')
 
   content_android = [
     [
@@ -109,6 +111,7 @@ function change_price() {
 
   for (let i = 0; i < prices.length; i++) {
     if (radio_android.checked) {
+      platform_input.value = 'Android'
       prices[i].innerHTML = android_prices[i];
       descs[i].innerHTML = android_descs[i];
       content_ul[i].innerHTML = "";
@@ -118,6 +121,7 @@ function change_price() {
         content_ul[i].appendChild(li);
       }
     } else {
+      platform_input.value = 'IOS'
       prices[i].innerHTML = ios_prices[i];
       descs[i].innerHTML = ios_descs[i];
       content_ul[i].innerHTML = "";

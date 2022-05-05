@@ -76,11 +76,14 @@ def about(request):
 def aso(request):
     alert = False
     if request.method == "POST":
-        if request.POST['name'] and request.POST['telegram']:
+        if (request.POST.get['name'] and request.POST.get['telegram'] 
+            and request.POST.get['platform'] and request.POST.get['package']):
             post_on_telegram(
                 name = request.POST['name'],
                 link =  (lambda link: link if link else "")(request.POST['link']),
-                telegram_account = request.POST['telegram']
+                telegram_account = request.POST['telegram'],
+                platform = request.POST['platform'],
+                rate = request.POST['rate']
             )
             alert = True
     check_user = auth.Authorization(
@@ -497,9 +500,9 @@ def categories(request):
         'page_name': 'Разделы форума'
     })
 
-def post_on_telegram(name: str, link: str, telegram_account: str):
-    message_txt = f'Заявка "ASO Оптимизация"\nИмя: {name}' \
-    f'\nСсылка на проект: {link}\nTelegram для связи: {telegram_account}'
+def post_on_telegram(name: str, link: str, telegram_account: str, platform: str, rate: str):
+    message_txt = f'Заявка "ASO Оптимизация"\n\nПакет: {rate}\nПлатформа: {platform}\n\n' \
+    f'\nИмя: {name}\nСсылка на проект: {link}\nTelegram для связи: {telegram_account}'
     
     telegram_settings = settings.TELEGRAM
     bot = telegram.Bot(token=telegram_settings['bot_token'])

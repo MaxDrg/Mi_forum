@@ -142,7 +142,7 @@
     <!-- .asoZakaz__radio -->
     <div class="asoZakaz__radio">
       <div class="btn-group" role="group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" onclick="change_price()"
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" onclick="change_data()"
           checked>
         <label class="btn" for="btnradio1">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -154,7 +154,7 @@
             Android
           </span>
         </label>
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="change_price()"
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" onclick="change_data()"
           autocomplete="off">
         <label class="btn" for="btnradio2">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -206,7 +206,7 @@
           </ul>
           <div class="asoZakaz__item__buttons">
             <button type="button" class="button button__lg" data-bs-toggle="modal" data-bs-target="#modalZakaz"
-              data-bs-whatever="ASO Оптимизация+">Заказать этот пакет</button>
+              data-bs-whatever="ASO Оптимизация PLUS">Заказать этот пакет</button>
           </div>
         </div>
       </div><!-- .asoZakaz__item -->
@@ -247,6 +247,8 @@
             <!-- form -->
             <form id="aso_form" method="post">
               {% csrf_token %}
+              <input id="platform" style="display: none;" type="text" name="platform">
+              <input id="rate" style="display: none;" type="text" name="rate">
               <div class="form__box">
                 <label for="name" class="label">Имя:</label>
                 <input type="text" class="input" name="name">
@@ -278,6 +280,8 @@
   exampleModal.addEventListener('show.bs.modal', function (event) {
     var button = event.relatedTarget
     var recipient = button.getAttribute('data-bs-whatever')
+    var rate = document.getElementById('rate')
+    rate.value = recipient
     var modalTitle = exampleModal.querySelector('.modal-title')
     modalTitle.textContent = 'Оформить ' + '"' + recipient + '"'
   })
