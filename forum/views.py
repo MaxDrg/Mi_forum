@@ -450,6 +450,7 @@ def slovar(request):
         request.COOKIES.get('passwd'))
     return render(request, "slovar.html", {
         "authorization": check_user.response,
+        'words': models.Vocabulary_word.objects.all(),
         "notifications": (lambda response: get_notification(request.COOKIES.get('user_id')) 
         if response else False)(check_user.response),
         'image': (lambda response: models.User.objects.filter(

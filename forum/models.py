@@ -1,3 +1,4 @@
+from functools import _Descriptor
 from django.db import models
 
 class User(models.Model):
@@ -70,3 +71,10 @@ class Transaction(models.Model):
     days = models.IntegerField('Days adding')
     signature = models.CharField("Orders signature", max_length=50, null=True, default=None)
     message_id = models.BigIntegerField("Message's ID", null=True, default=None)
+
+class Vocabulary_word(models.Model):
+    name = models.TextField("Name", null=False)
+    description = models.TextField("Description", null=False)
+
+    def __str__(self):
+        return self.name
