@@ -26,7 +26,9 @@
       <div class="newsPost__info">
         {% for hashtag in news.hashtags %}<a href="{{ hashtag }}">#{{ hashtag }}</a> {% endfor %}/ {{ news.date }}
       </div>
-      {{ news.info }}
+      <p>
+        {{ news.info|safe }}
+      </p>
     </div><!-- /.newsPost__inner -->
 
     <!-- .comments -->
