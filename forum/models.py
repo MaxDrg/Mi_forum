@@ -15,7 +15,7 @@ class User(models.Model):
 
 class New(forms.Form):
     title = models.CharField("Title", max_length=255 ,null=False)
-    info = forms.CharField(null=False, widget=MarkItUpWidget())
+    info = forms.CharField(widget=MarkItUpWidget())
     pre_info = models.TextField("Pre-information", null=False)
     hashtags = models.TextField("Hashtags", null=False)
     date = models.DateField("Publication time", auto_now_add=True)
