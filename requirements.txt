@@ -7,3 +7,4 @@ psycopg2-binary==2.9.3
 Pillow==9.1.0
 python-telegram-bot==13.11
 requests==2.22.0
+django-quill-editor==0.1.40
