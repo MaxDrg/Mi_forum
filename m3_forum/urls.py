@@ -22,7 +22,7 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('forum.urls')),
-    path('tinymce/', include('tinymce.urls')),
+    path(r'^markitup/', include('markitup.urls'))
     #path(f'{hashlib.sha256("amazonBuckets".encode("utf8")).hexdigest()}/', include('buckets_manager.urls'))
 ]
 
