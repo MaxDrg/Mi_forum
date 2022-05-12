@@ -1,5 +1,4 @@
 from django.db import models
-from markitup.widgets import MarkItUpWidget
 
 class User(models.Model):
     telegr_id = models.BigIntegerField("Telegram's ID", unique=True)
@@ -14,7 +13,7 @@ class User(models.Model):
 
 class New(models.Model):
     title = models.CharField("Title", max_length=255 ,null=False)
-    info = models.TextField("Information", null=False, widget=MarkItUpWidget())
+    info = models.TextField("Information", null=False)
     pre_info = models.TextField("Pre-information", null=False)
     hashtags = models.TextField("Hashtags", null=False)
     date = models.DateField("Publication time", auto_now_add=True)
